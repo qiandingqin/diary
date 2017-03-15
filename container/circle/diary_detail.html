@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>日记详情</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+</head>
+<body>
+	<!--头部-->
+	<header class="mui-bar gradient mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title colorFFF">日记详情</h1>
+	</header>
+	
+	<div class="mui-content diary_detail" v-cloak>
+		
+		<ul class="mui-table-view noline">
+			<li class="mui-table-view-cell mui-media">
+				<a href="javascript:;" class="infoBox">
+					<p class="avatar_box">
+						<img class="avatar_img mui-media-object mui-pull-left" src="../../images/avatar.png">
+						<img class="icon-v" src="../../images/v.png" />
+					</p>
+					
+					<div class="mui-media-body">
+						<span>{{user_name}}</span>
+						<img src="../../images/male.png" />
+						<!--<img src="../../images/add_firend.png" />-->
+						<p class="mui-ellipsis">
+							<span>红粉:200人</span>
+							<span>评论:200人</span>
+						</p>
+						<div class="detailBtns">
+							<button :data-href="'../index/msg_im.html?user=' + user_name" class="open mui-btn mui-btn-outlined mui-btn-blue">私信</button>
+							<button class="mui-btn mui-btn-outlined mui-btn-blue">关注</button>
+						</div>
+					</div>
+				</a>
+			</li>
+			<li></li>
+		</ul>
+		<!--日记标题-->
+		<h1 class="diary_title">{{title}}</h1>
+		<!--日期-->
+		<p class="diary_date">
+			<span>{{date}}</span>
+			<span>星期{{day}}</span>
+			<span>{{weather}}</span>
+			<span>心情：{{feeling}}</span>
+		</p>
+		
+		<p class="diary_content pad15">{{content}}</p>
+		
+		<nav class="mui-bar footer mui-bar-tab">
+			<div data-href="diary_comm.html" class="open fnBtns pl">
+				<img src="../../images/pl.png" />
+				<span>评论</span>
+			</div>
+			<div class="fnBtns">
+				<img src="../../images/fx.png" />
+				<span>分享</span>
+			</div>
+			<div class="fnBtns ds" @tap="give">
+				<img src="../../images/s.png" />
+				<span>打赏</span>
+			</div>
+		</nav>
+	</div>
+	
+<script src="../../js/sea.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/entrance.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

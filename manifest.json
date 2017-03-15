@@ -1,0 +1,1314 @@
+{
+	"@platforms": ["android", "iPhone", "iPad"],
+	"id": "H507DC6AC",/*应用的标识，创建应用时自动生成，勿手动修改*/
+	"name": "达人日记",/*应用名称，程序桌面图标名称*/
+	"version": {
+		"name": "1.0.0",/*应用版本名称*/
+		"code": "83"
+	},
+	"description": "",/*应用描述信息*/
+	"icons": {
+		"72": "icon.png"
+	},
+	"launch_path": "container/index/guide.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
+	"developer": {
+		"name": "",/*开发者名称*/
+		"email": "",/*开发者邮箱地址*/
+		"url": "http://www.dcloud.io"
+	},
+	"permissions": {
+		
+        
+        "Cache": {
+            "description": "管理应用缓存"
+        },
+        
+        "Console": {
+            "description": "跟踪调试输出日志"
+        },
+        
+        
+        
+        "Events": {
+            "description": "应用扩展事件"
+        },
+        
+        
+        
+         "Invocation": {
+            "description": "使用Native.js能力"
+        },
+        
+        
+        
+        
+        
+        
+        "Runtime": {
+            "description": "访问运行期环境"
+        },
+        
+        
+        
+        
+        
+        "Webview":{
+        	"description": "窗口管理"
+        },
+        "NativeUI":{
+        	"description": "原生UI控件"
+        },
+        "Navigator":{
+        	"description": "浏览器信息"
+        },
+        "NativeObj":{
+        	"description": "原生对象"
+        },"XMLHttpRequest":{}
+	},
+	"plus": {
+		"splashscreen": {
+			"autoclose": true,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
+			"waiting": true
+		},
+		"runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
+		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
+		"distribute": {
+			"apple": {
+				"appid": "",/*iOS应用标识，苹果开发网站申请的appid，如io.dcloud.HelloH5*/
+				"mobileprovision": "",/*iOS应用打包配置文件*/
+				"password": "",/*iOS应用打包个人证书导入密码*/
+				"p12": "",/*iOS应用打包个人证书，打包配置文件关联的个人证书*/
+				"devices": "universal",/*iOS应用支持的设备类型，可取值iphone/ipad/universal*/
+				"frameworks": []
+			},
+			"google": {
+				"packagename": "",/*Android应用包名，如io.dcloud.HelloH5*/
+				"keystore": "",/*Android应用打包使用的密钥库文件*/
+				"password": "",/*Android应用打包使用密钥库中证书的密码*/
+				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
+				"permissions": ["<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>","<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>"]
+			},
+			"orientation": ["portrait-primary", "portrait-secondary"],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
+			"icons": {
+				"ios": {
+					"prerendered": true, /*应用图标是否已经高亮处理，在iOS6及以下设备上有效*/
+					"auto": "", /*应用图标，分辨率：512x512，用于自动生成各种尺寸程序图标*/
+					"iphone": {
+						"normal": "unpackage/res/icons/57x57.png",/*iPhone普通屏幕程序图标，分辨率：57x57*/
+						"retina": "unpackage/res/icons/114x114.png",/*iPhone高分屏程序图标，分辨率：114x114*/
+						"retina7": "unpackage/res/icons/120x120.png",/*iPhone iOS7高分屏程序图标，分辨率：120x120*/
+						"spotlight-normal": "unpackage/res/icons/29x29.png", /*iPhone Spotlight搜索程序图标，分辨率：29x29*/
+						"spotlight-retina": "unpackage/res/icons/58x58.png", /*iPhone高分屏Spotlight搜索程序图标，分辨率：58x58*/
+						"spotlight-retina7": "unpackage/res/icons/80x80.png",/*iPhone iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*/
+						"settings-normal": "unpackage/res/icons/29x29.png", /*iPhone设置页面程序图标，分辨率：29x29*/
+						"settings-retina": "unpackage/res/icons/58x58.png","retina8":"unpackage/res/icons/180x180.png","settings-retina8":"unpackage/res/icons/87x87.png"
+					},
+					"ipad": {
+						"normal": "unpackage/res/icons/72x72.png", /*iPad普通屏幕程序图标，分辨率：72x72*/
+						"retina": "unpackage/res/icons/144x144.png", /*iPad高分屏程序图标，分辨率：144x144*/
+						"normal7": "unpackage/res/icons/76x76.png", /*iPad iOS7程序图标，分辨率：76x76*/
+						"retina7": "unpackage/res/icons/152x152.png", /*iPad iOS7高分屏程序图标，分辨率：152x152*/
+						"spotlight-normal": "unpackage/res/icons/50x50.png", /*iPad Spotlight搜索程序图标，分辨率：50x50*/
+						"spotlight-retina": "unpackage/res/icons/100x100.png", /*iPad高分屏Spotlight搜索程序图标，分辨率：100x100*/
+						"spotlight-normal7": "unpackage/res/icons/40x40.png",/*iPad iOS7 Spotlight搜索程序图标，分辨率：40x40*/
+						"spotlight-retina7": "unpackage/res/icons/80x80.png",/*iPad iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*/
+						"settings-normal": "unpackage/res/icons/29x29.png",/*iPad设置页面程序图标，分辨率：29x29*/
+						"settings-retina": "unpackage/res/icons/58x58.png"
+					}
+				},
+				"android": {
+					"mdpi": "unpackage/res/icons/48x48.png", /*普通屏程序图标，分辨率：48x48*/
+					"ldpi": "unpackage/res/icons/48x48.png", /*大屏程序图标，分辨率：48x48*/
+					"hdpi": "unpackage/res/icons/72x72.png", /*高分屏程序图标，分辨率：72x72*/
+					"xhdpi": "unpackage/res/icons/96x96.png",/*720P高分屏程序图标，分辨率：96x96*/
+					"xxhdpi": "unpackage/res/icons/144x144.png","xxxhdpi":"unpackage/res/icons/192x192.png"
+				}
+			},
+			"splashscreen": {
+				"ios": {
+					"iphone": {
+						"default": "", /*iPhone3启动图片选，分辨率：320x480*/
+						"retina35": "",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+						"retina40": ""
+					},
+					"ipad": {
+						"portrait": "", /*iPad竖屏启动图片，分辨率：768x1004*/
+						"portrait-retina": "",/*iPad高分屏竖屏图片，分辨率：1536x2008*/
+						"landscape": "", /*iPad横屏启动图片，分辨率：1024x748*/
+						"landscape-retina": "", /*iPad高分屏横屏启动图片，分辨率：2048x1496*/
+						"portrait7": "", /*iPad iOS7竖屏启动图片，分辨率：768x1024*/
+						"portrait-retina7": "",/*iPad iOS7高分屏竖屏图片，分辨率：1536x2048*/
+						"landscape7": "", /*iPad iOS7横屏启动图片，分辨率：1024x768*/
+						"landscape-retina7": ""
+					}
+				},
+				"android": {
+					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
+					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
+					"hdpi": "C:/Users/Administrator/Desktop/images/480.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "C:/Users/Administrator/Desktop/images/720.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "C:/Users/Administrator/Desktop/images/1080.png"
+				}
+			}
+		}
+	},
+	"dependencies": {
+		"pages": {
+			"index.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/index.html": {
+				"resources": [
+					"images/friend.png",
+					"images/add.png",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"images/msg.png",
+					"css/style.css",
+					"images/diary.png",
+					"images/nav_bg.png",
+					"images/my_diary.png",
+					"images/member.png",
+					"images/newFirend.png",
+					"images/session.png",
+					"images/gz.png",
+					"images/maxV.png",
+					"images/avatar.png",
+					"images/avatar1.png",
+					"js/all.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/index/index.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"images/nav_bg.png",
+					"images/add.png",
+					"images/avatar.png",
+					"images/diary.png",
+					"images/my_diary.png",
+					"images/member.png",
+					"images/friend.png",
+					"images/avatar1.png",
+					"images/session.png",
+					"images/newFirend.png",
+					"images/gz.png",
+					"images/maxV.png",
+					"images/msg.png",
+					"container/member/member.html",
+					"js/mui.min.js",
+					"js/all.js",
+					"container/index/v.html",
+					"js/webim.config.js",
+					"js/websdk-1.4.10.js",
+					"js/strophe-1.2.8.min.js",
+					"js/im.js",
+					"images/mydiary.png",
+					"images/circle.png",
+					"images/my.png",
+					"images/friend_active.png",
+					"js/entrance.js",
+					"js/sea.js",
+					"js/functions.js",
+					"js/vue.js",
+					"js/common.js",
+					"js/index.js",
+					"js/constant.js",
+					"container/index/add_friend.html",
+					"js/newvue.js",
+					"container/index/msg.html",
+					"container/index/tj_friend_info.html"
+				],
+				"refer": [
+					"container/member/mydiary.html",
+					"container/other/add_diary.html",
+					"container/circle/circle.html",
+					"container/index/friends.html",
+					"container/index/gz_friend_info.html",
+					"container/index/search_friend.html"
+				],
+				"priority": 0
+			},
+			"container/member/member.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"container/index/index.html",
+					"js/all.js",
+					"css/mui.min.css",
+					"css/style.css",
+					"images/friend.png",
+					"images/add.png",
+					"images/diary.png",
+					"images/nav_bg.png",
+					"images/my_diary.png",
+					"images/member.png",
+					"images/msg.png",
+					"images/avatar.png",
+					"images/v.png",
+					"container/member/wallet.html",
+					"container/other/pushset.html",
+					"images/my_active.png",
+					"images/mydiary.png",
+					"images/circle.png",
+					"js/sea.js",
+					"js/constant.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/entrance.js",
+					"js/member.js"
+				],
+				"refer": [
+					"container/circle/circle.html",
+					"container/member/myorder.html",
+					"container/other/verify.html",
+					"container/other/autograph.html",
+					"container/other/security.html",
+					"container/other/about.html",
+					"container/other/memberinfo.html",
+					"container/other/add_diary.html",
+					"container/member/mydiary.html",
+					"container/member/member.html"
+				],
+				"priority": 0
+			},
+			"container/circle/circle.html": {
+				"resources": [
+					"images/nav_bg.png",
+					"images/friend.png",
+					"images/add.png",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"images/msg.png",
+					"css/style.css",
+					"images/diary.png",
+					"js/all.js",
+					"images/my_diary.png",
+					"images/member.png",
+					"images/avatar.png",
+					"images/male.png",
+					"images/circle_active.png",
+					"images/mydiary_active.png",
+					"images/mydiary.png",
+					"images/my.png",
+					"js/sea.js",
+					"js/circle.js",
+					"js/constant.js",
+					"js/newvue.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/entrance.js",
+					"fonts/mui.ttf"
+				],
+				"refer": [
+					"container/member/mydiary.html",
+					"container/member/member.html",
+					"container/member/mydiary_detail.html",
+					"container/circle/diary_detail.html",
+					"container/index/index.html",
+					"container/other/add_diary.html"
+				],
+				"priority": 0
+			},
+			"container/member/mydiary.html": {
+				"resources": [
+					"images/friend.png",
+					"images/add.png",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"images/msg.png",
+					"css/style.css",
+					"images/diary.png",
+					"js/all.js",
+					"images/nav_bg.png",
+					"images/my_diary.png",
+					"images/member.png",
+					"fonts/mui.ttf",
+					"images/email.png",
+					"images/mydiary_active.png",
+					"images/circle.png",
+					"images/my.png",
+					"js/sea.js",
+					"js/member.js",
+					"js/constant.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/entrance.js"
+				],
+				"refer": [
+					"container/circle/circle.html",
+					"container/member/mydiary_detail.html",
+					"container/member/member.html",
+					"container/member/diary_draft.html",
+					"container/other/add_diary.html",
+					"container/index/index.html"
+				],
+				"priority": 0
+			},
+			"container/other/login.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"images/msg.png",
+					"css/style.css",
+					"js/all.js",
+					"container/other/reg.html",
+					"js/webim.config.js",
+					"js/sea.js",
+					"js/websdk-1.4.10.js",
+					"js/strophe-1.2.8.min.js",
+					"js/constant.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/im.js",
+					"js/entrance.js",
+					"js/other.js",
+					"fonts/mui.ttf",
+					"js/newvue.js",
+					"container/other/resetpwd.html",
+					"js/mui.picker.min.js"
+				],
+				"refer": [
+					"container/index/index.html",
+					"container/other/findpwd.html"
+				],
+				"priority": 0
+			},
+			"container/other/reg.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"container/other/login.html",
+					"js/im.js",
+					"js/webim.config.js",
+					"js/websdk-1.4.10.js",
+					"js/strophe-1.2.8.min.js",
+					"js/functions.js",
+					"js/sea.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/entrance.js",
+					"js/constant.js",
+					"js/other.js",
+					"js/newvue.js"
+				],
+				"refer": [
+					"container/index/index.html"
+				],
+				"priority": 0
+			},
+			"container/other/add_diary.html": {
+				"resources": [
+					"images/friend.png",
+					"images/add.png",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"images/msg.png",
+					"css/style.css",
+					"images/diary.png",
+					"js/all.js",
+					"images/nav_bg.png",
+					"images/my_diary.png",
+					"images/member.png",
+					"fonts/mui.ttf",
+					"images/add_img.png",
+					"images/avatar.png",
+					"images/avatar1.png",
+					"images/timg.jpg",
+					"images/mydiary.png",
+					"images/circle.png",
+					"images/my.png",
+					"js/sea.js",
+					"js/constant.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/entrance.js",
+					"js/other.js",
+					"js/webim.config.js",
+					"js/websdk-1.4.10.js",
+					"js/strophe-1.2.8.min.js",
+					"js/newvue.js",
+					"js/im.js",
+					"css/mui.picker.min.css",
+					"js/mui.picker.min.js"
+				],
+				"refer": [
+					"container/other/add_diary_menu.html",
+					"container/member/mydiary.html",
+					"container/circle/circle.html",
+					"container/member/member.html",
+					"container/circle/diary_detail.html"
+				],
+				"priority": 0
+			},
+			"container/other/add_diary_menu.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"js/functions.js",
+					"js/sea.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/entrance.js",
+					"js/constant.js",
+					"js/newvue.js",
+					"js/other.js",
+					"fonts/mui.ttf",
+					"js/mui.picker.min.js"
+				],
+				"refer": [
+					"container/other/pushset.html",
+					"container/other/ardity_jurisdiction.html",
+					"container/other/sel_temp.html"
+				],
+				"priority": 0
+			},
+			"container/member/wallet.html": {
+				"resources": [
+					"container/member/member.html",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"images/add.png",
+					"images/v.png",
+					"images/avatar.png",
+					"images/diary.png",
+					"images/nav_bg.png",
+					"images/my_diary.png",
+					"images/member.png",
+					"images/friend.png",
+					"images/msg.png",
+					"images/money.png"
+				],
+				"refer": [
+					"container/member/recharge.html",
+					"container/member/exchange.html"
+				],
+				"priority": 0
+			},
+			"container/member/recharge.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"images/alipay.png",
+					"images/wxpay.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/member/exchange.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"images/shop1.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/member/myorder.html": {
+				"resources": [
+					"images/shop1.png",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/member/mydiary_detail.html": {
+				"resources": [
+					"images/friend.png",
+					"images/add.png",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"images/msg.png",
+					"css/style.css",
+					"images/diary.png",
+					"js/all.js",
+					"images/nav_bg.png",
+					"images/my_diary.png",
+					"images/member.png",
+					"images/avatar.png",
+					"images/v.png",
+					"images/male.png",
+					"images/add_firend.png",
+					"images/pl.png",
+					"images/fx.png",
+					"images/s.png",
+					"fonts/mui.ttf"
+				],
+				"refer": [
+					"container/circle/circle.html",
+					"container/other/edit_diary.html"
+				],
+				"priority": 0
+			},
+			"container/circle/diary_detail.html": {
+				"resources": [
+					"images/pl.png",
+					"js/mui.min.js",
+					"images/v.png",
+					"fonts/mui.ttf",
+					"images/add_firend.png",
+					"images/avatar.png",
+					"css/mui.min.css",
+					"images/msg.png",
+					"css/style.css",
+					"images/fx.png",
+					"js/all.js",
+					"images/s.png",
+					"images/male.png",
+					"js/sea.js",
+					"js/circle.js",
+					"js/constant.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/entrance.js",
+					"js/newvue.js"
+				],
+				"refer": [
+					"container/circle/diary_comm.html",
+					"container/index/msg_im.html"
+				],
+				"priority": 0
+			},
+			"container/other/edit_diary.html": {
+				"resources": [
+					"images/friend.png",
+					"images/add.png",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"images/diary.png",
+					"js/all.js",
+					"images/nav_bg.png",
+					"images/my_diary.png",
+					"images/member.png",
+					"images/add_img.png",
+					"images/avatar.png"
+				],
+				"refer": [
+					"container/other/add_diary_menu.html"
+				],
+				"priority": 0
+			},
+			"container/other/pushset.html": {
+				"resources": [
+					"container/member/member.html",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"images/avatar1.png",
+					"images/avatar.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/other/verify.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"images/add_img.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/other/autograph.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"css/icons-extra.css",
+					"fonts/mui-icons-extra.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/other/security.html": {
+				"resources": [
+					"fonts/mui-icons-extra.ttf",
+					"css/icons-extra.css",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js"
+				],
+				"refer": [
+					"container/other/editpwd.html",
+					"container/other/findpwd.html",
+					"container/other/frozen.html",
+					"container/other/thaw.html",
+					"container/other/resetpwd.html"
+				],
+				"priority": 0
+			},
+			"container/other/editpwd.html": {
+				"resources": [
+					"fonts/mui-icons-extra.ttf",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"css/icons-extra.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/other/findpwd.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js"
+				],
+				"refer": [
+					"container/other/setpwd.html"
+				],
+				"priority": 0
+			},
+			"container/other/setpwd.html": {
+				"resources": [
+					"fonts/mui-icons-extra.ttf",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"css/icons-extra.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/other/frozen.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/other/thaw.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/other/about.html": {
+				"resources": [
+					"css/icons-extra.css",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js"
+				],
+				"refer": [
+					"container/other/feedback.html",
+					"container/other/about_content.html"
+				],
+				"priority": 0
+			},
+			"container/other/feedback.html": {
+				"resources": [
+					"fonts/mui-icons-extra.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/other/about_content.html": {
+				"resources": [
+					"fonts/mui-icons-extra.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/other/memberinfo.html": {
+				"resources": [
+					"css/icons-extra.css",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"images/avatar.png",
+					"js/webim.config.js",
+					"js/sea.js",
+					"js/websdk-1.4.10.js",
+					"js/strophe-1.2.8.min.js",
+					"js/constant.js",
+					"js/newvue.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/im.js",
+					"js/entrance.js",
+					"js/other.js",
+					"js/mui.picker.min.js"
+				],
+				"refer": [
+					"container/other/about_content.html",
+					"container/other/constellation.html",
+					"container/other/edit_nickname.html",
+					"container/other/edit_sex.html",
+					"container/other/edit_address.html",
+					"container/other/edit_email.html",
+					"container/other/edit_school.html",
+					"container/other/edit_wx.html",
+					"container/other/edit_qq.html",
+					"container/other/login.html",
+					"container/other/memberinfo.html"
+				],
+				"priority": 0
+			},
+			"container/other/constellation.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"images/avatar.png",
+					"images/1.png",
+					"images/9.png",
+					"images/10.png",
+					"images/5.png",
+					"images/2.png",
+					"images/12.png",
+					"images/3.png",
+					"images/8.png",
+					"images/4.png",
+					"images/11.png",
+					"images/6.png",
+					"images/7.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/other/edit_nickname.html": {
+				"resources": [
+					"fonts/mui-icons-extra.ttf",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"css/icons-extra.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/other/edit_sex.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/other/edit_address.html": {
+				"resources": [
+					"fonts/mui-icons-extra.ttf",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"css/icons-extra.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/other/edit_email.html": {
+				"resources": [
+					"fonts/mui-icons-extra.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/other/edit_school.html": {
+				"resources": [
+					"fonts/mui-icons-extra.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/other/edit_wx.html": {
+				"resources": [
+					"fonts/mui-icons-extra.ttf",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"css/icons-extra.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/other/edit_qq.html": {
+				"resources": [
+					"fonts/mui-icons-extra.ttf",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"css/icons-extra.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/index/v.html": {
+				"resources": [
+					"container/index/index.html",
+					"images/add.png",
+					"fonts/mui.ttf",
+					"images/avatar.png",
+					"css/style.css",
+					"images/diary.png",
+					"images/nav_bg.png",
+					"images/my_diary.png",
+					"images/member.png",
+					"images/friend.png",
+					"images/avatar1.png",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"images/msg.png",
+					"js/all.js"
+				],
+				"refer": [
+					"container/index/gz_friend_info.html"
+				],
+				"priority": 0
+			},
+			"container/index/friends.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"images/add.png",
+					"images/avatar.png",
+					"css/style.css",
+					"images/diary.png",
+					"images/nav_bg.png",
+					"images/my_diary.png",
+					"images/member.png",
+					"images/friend.png",
+					"images/avatar1.png",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"images/msg.png",
+					"js/all.js"
+				],
+				"refer": [
+					"container/index/gz_friend_info.html"
+				],
+				"priority": 0
+			},
+			"container/index/msg.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"images/msg.png",
+					"css/style.css",
+					"js/all.js",
+					"images/avatar.png",
+					"images/male.png",
+					"js/functions.js",
+					"js/sea.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/entrance.js",
+					"js/constant.js",
+					"js/webim.config.js",
+					"js/im.js",
+					"js/websdk-1.4.10.js",
+					"js/strophe-1.2.8.min.js",
+					"js/index.js",
+					"js/newvue.js",
+					"container/index/index.html"
+				],
+				"refer": [
+					"container/index/msg_im.html",
+					"container/circle/diary_detail.html",
+					"container/index/msg.html"
+				],
+				"priority": 0
+			},
+			"container/index/msg_im.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"images/avatar.png",
+					"css/im.css",
+					"images/avatar1.png",
+					"js/mui.min.js",
+					"js/all.js",
+					"js/webim.config.js",
+					"js/functions.js",
+					"js/im.js",
+					"js/websdk-1.4.10.js",
+					"js/strophe-1.2.8.min.js",
+					"js/vue.js",
+					"images/6.png",
+					"js/jquery-1.8.3.min.js",
+					"js/sea.js",
+					"js/constant.js",
+					"js/newvue.js",
+					"js/common.js",
+					"js/entrance.js",
+					"js/index.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/index/add_friend.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"images/avatar.png",
+					"container/index/index.html"
+				],
+				"refer": [
+					"container/index/search_friend.html",
+					"container/index/send_add.html",
+					"container/index/friend_info.html"
+				],
+				"priority": 0
+			},
+			"container/index/search_friend.html": {
+				"resources": [
+					"images/male.png",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"images/avatar.png",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"js/functions.js",
+					"js/sea.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/entrance.js",
+					"js/constant.js",
+					"js/index.js",
+					"js/newvue.js",
+					"js/webim.config.js",
+					"js/websdk-1.4.10.js",
+					"js/strophe-1.2.8.min.js",
+					"js/im.js"
+				],
+				"refer": [
+					"container/index/send_add.html",
+					"container/index/friend_info.html"
+				],
+				"priority": 0
+			},
+			"container/index/send_add.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"js/webim.config.js",
+					"js/sea.js",
+					"js/websdk-1.4.10.js",
+					"js/strophe-1.2.8.min.js",
+					"js/constant.js",
+					"js/newvue.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/im.js",
+					"js/entrance.js",
+					"js/index.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/index/friend_info.html": {
+				"resources": [
+					"images/v.png",
+					"images/msg.png",
+					"js/mui.min.js",
+					"images/avatar.png",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"fonts/mui.ttf"
+				],
+				"refer": [
+					"container/index/send_add.html"
+				],
+				"priority": 0
+			},
+			"container/index/gz_friend_info.html": {
+				"resources": [
+					"images/v.png",
+					"js/mui.min.js",
+					"images/avatar.png",
+					"css/mui.min.css",
+					"images/msg.png",
+					"css/style.css",
+					"js/all.js",
+					"fonts/mui.ttf",
+					"container/member/mydiary.html"
+				],
+				"refer": [
+					"container/member/friend_diary.html"
+				],
+				"priority": 0
+			},
+			"container/circle/diary_comm.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"images/avatar.png",
+					"images/male.png"
+				],
+				"refer": [
+					"container/circle/publish_comm.html"
+				],
+				"priority": 0
+			},
+			"container/circle/publish_comm.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/other/ardity_jurisdiction.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"js/functions.js",
+					"js/sea.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/entrance.js",
+					"js/constant.js",
+					"js/newvue.js",
+					"js/other.js",
+					"js/mui.picker.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/member/diary_draft.html": {
+				"resources": [
+					"images/friend.png",
+					"images/add.png",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"images/msg.png",
+					"css/style.css",
+					"images/diary.png",
+					"images/email.png",
+					"js/all.js",
+					"images/nav_bg.png",
+					"images/my_diary.png",
+					"images/member.png",
+					"fonts/mui.ttf"
+				],
+				"refer": [
+					"container/other/add_diary.html"
+				],
+				"priority": 0
+			},
+			"container/index/tj_friend_info.html": {
+				"resources": [
+					"images/v.png",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"images/avatar.png",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"js/webim.config.js",
+					"js/sea.js",
+					"js/websdk-1.4.10.js",
+					"js/strophe-1.2.8.min.js",
+					"js/constant.js",
+					"js/newvue.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/im.js",
+					"js/entrance.js",
+					"js/index.js",
+					"container/index/index.html"
+				],
+				"refer": [
+					"container/member/friend_diary.html",
+					"container/index/msg_im.html"
+				],
+				"priority": 0
+			},
+			"container/member/friend_diary.html": {
+				"resources": [
+					"images/email.png",
+					"images/friend.png",
+					"images/add.png",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"images/msg.png",
+					"css/style.css",
+					"images/diary.png",
+					"js/all.js",
+					"images/nav_bg.png",
+					"images/my_diary.png",
+					"images/member.png",
+					"fonts/mui.ttf"
+				],
+				"refer": [
+					"container/member/mydiary_detail.html",
+					"container/member/diary_draft.html"
+				],
+				"priority": 0
+			},
+			"container/other/sel_temp.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/all.js",
+					"images/timg.jpg",
+					"js/sea.js",
+					"js/constant.js",
+					"js/newvue.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/entrance.js",
+					"js/other.js",
+					"js/mui.picker.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"container/index/guide.html": {
+				"resources": [
+					"js/functions.js",
+					"js/sea.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/entrance.js",
+					"js/constant.js",
+					"js/index.js",
+					"images/loading.jpg",
+					"fonts/mui.ttf",
+					"js/webim.config.js",
+					"js/websdk-1.4.10.js",
+					"js/strophe-1.2.8.min.js",
+					"js/newvue.js",
+					"js/im.js"
+				],
+				"refer": [
+					"container/index/index.html",
+					"container/other/login.html"
+				],
+				"priority": 0
+			},
+			"container/other/resetpwd.html": {
+				"resources": [
+					"js/webim.config.js",
+					"js/sea.js",
+					"fonts/mui.ttf",
+					"css/style.css",
+					"js/websdk-1.4.10.js",
+					"js/strophe-1.2.8.min.js",
+					"js/constant.js",
+					"js/newvue.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/im.js",
+					"js/entrance.js",
+					"js/other.js",
+					"container/other/login.html"
+				],
+				"refer": [
+					"container/other/resetpwd.html"
+				],
+				"priority": 0
+			}
+		},
+		"idle": {
+			"resources": [
+				"js/mui.js"
+			]
+		}
+	}
+}

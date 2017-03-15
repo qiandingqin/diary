@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>查找笔友</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+</head>
+<body>
+	<!--头部-->
+	<header class="mui-bar gradient mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title colorFFF">查找笔友</h1>
+	</header>
+	
+	<div class="mui-content msg searchFriend addfriend_list">
+		
+		<div class="searchBox pad15">
+			<span class="mui-icon mui-icon-search"></span>
+			<input @keyup="searchBtn" type="search" v-model="search_input"/>
+		</div>
+		
+		<ul class="mui-table-view">
+			<li class="mui-table-view-cell" v-cloak v-for="d in datas">
+				<a :data-href="'friend_info.html?user=' + d.user + '&id=' + d.id" class="addlist">
+					<img :src="d.avatar" />
+					<span class="mui-ellipsis">{{d.nickname}}</span>
+					<button @tap.stop="sendAddFriend(d.id)" class="mui-btn mui-btn-blue mui-btn-outlined">添加</button>
+				</a>
+			</li>
+		</ul>
+	</div>
+<script src="../../js/sea.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/entrance.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

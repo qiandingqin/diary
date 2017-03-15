@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>消息</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+</head>
+<body>
+	<!--头部-->
+	<header class="mui-bar gradient mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title colorFFF">消息</h1>
+	</header>
+	
+	<div class="mui-content msg padbtm0">
+		<div style="padding: 10px 10px;">
+			<div id="segmentedControl" class="mui-segmented-control">
+				<a class="mui-control-item mui-active" href="#item1">添加好友</a>
+				<a class="mui-control-item" href="#item2">日记</a>
+			</div>
+		</div>
+		<div>
+		<div id="item1" class="addfriend_list mui-control-content mui-active">
+			<!--<div class="searchBox pad15">
+				<span class="mui-icon mui-icon-search"></span>
+				<input type="search" />
+			</div>-->
+			
+			<ul class="mui-table-view msglist noline line_buttom">
+				<li class="mui-table-view-cell mui-media" v-cloak v-for="(d,index) in datas">
+					<a href="javascript:;">
+						<img class="mui-media-object mui-pull-left" src="../../images/avatar.png">
+						<div class="mui-media-body">
+							<span class="mui-ellipsis">{{d.from_user_nick}}</span>
+							<!--<p class="mui-ellipsis">123</p>-->
+							<button @tap="yesBtn(d.id,index)" class="mui-btn mui-btn-blue">接受</button>
+							<button @tap="noBtn(d.id,index)" class="mui-btn mui-btn-danger">拒绝</button>
+						</div>
+						<div class="mui-media-body">
+							<p class="mui-ellipsis">{{d.add_at}}</p>
+						</div>
+					</a>
+				</li>
+			</ul>
+			
+		</div>
+		<div id="item2" class="mui-control-content">
+			<div class="data_list">
+		    	<div class="mui-card">
+					<div class="mui-card-header mui-card-media">
+						<img src="../../images/avatar.png">
+						<div class="mui-media-body">
+							<span class="nickname">小M</span>
+							<img class="sex_icon" src="../../images/male.png" />
+							<p>红粉:200人</p>
+							<button class="mui-btn mui-btn-block">关注</button>
+						</div>
+					</div>
+					<div data-href="../circle/diary_detail.html" class="mui-card-content pad15 open">
+						内容日记内容日记内容日记内容日记内容日记内容日记内容日记内容日记内容日记内容日记内容日记内容日记内容日记内容日记内容日记内容日
+					</div>
+					<div class="mui-card-footer">
+						<a class="mui-card-link">2016-06-30</a>
+						<a class="mui-card-link">浏览:1000人</a>
+					</div>
+				</div>
+		   </div>
+		</div>
+	</div>
+<script src="../../js/sea.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/entrance.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

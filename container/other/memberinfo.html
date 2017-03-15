@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>个人资料</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/icons-extra.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+</head>
+<body>
+	<!--头部-->
+	<header class="mui-bar gradient mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title colorFFF">个人资料</h1>
+	</header>
+	
+	<div class="mui-content memberinfo">
+	    <ul class="mui-table-view noline line_buttom">
+			<li class="mui-table-view-cell">
+				<a> 日记号：xxx123123 </a>
+			</li>
+			<li class="mui-table-view-cell edit_avatar">
+				<a class="mui-navigate-right"> 
+					&nbsp;&nbsp;&nbsp;&nbsp;头像： 
+					<img class="avatar_img" src="../../images/avatar.png" width="28" height="28" />
+					<input type="file" accept="image/*" />
+				</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a data-href="constellation.html" class="mui-navigate-right"> &nbsp;&nbsp;&nbsp;&nbsp;星座：金牛座  </a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a data-href="edit_nickname.html" class="mui-navigate-right"> &nbsp;&nbsp;&nbsp;&nbsp;昵称：好久不见 </a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a data-href="edit_sex.html" class="mui-navigate-right"> &nbsp;&nbsp;&nbsp;&nbsp;性别：男 </a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a data-href="edit_address.html" class="mui-navigate-right"> &nbsp;&nbsp;&nbsp;&nbsp;地址：贵州省_贵阳市_南明区_花果园 </a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a data-href="edit_email.html" class="mui-navigate-right"> &nbsp;&nbsp;&nbsp;&nbsp;邮箱：123456789@qq.com </a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a data-href="edit_school.html" class="mui-navigate-right"> &nbsp;&nbsp;&nbsp;&nbsp;学校：清华大学 </a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a data-href="edit_wx.html" class="mui-navigate-right"> 微信号：123456789 </a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a> 手机号：1234567891 </a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a data-href="edit_qq.html" class="mui-navigate-right"> &nbsp;&nbsp;QQ号：123456789 </a>
+			</li>
+		</ul>
+		
+		<button @tap="logout" class="mui-btn mui-btn-blue mui-btn-block">退出</button>
+	</div>
+<script src="../../js/sea.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/entrance.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

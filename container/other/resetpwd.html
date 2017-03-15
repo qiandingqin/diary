@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>重置密码</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+</head>
+<body>
+	<!--头部-->
+	<header class="mui-bar gradient mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title colorFFF">重置密码</h1>
+	</header>
+	
+	<div class="mui-content regBox">
+	    <div id="formBox">
+	    	<input placeholder="手机号" type="tel" v-model="phone"/>
+	    	<div class="verify mui-clearfix">
+	    		<input type="tel" v-model="verifycode" class="verify_input mui-pull-left" placeholder="请输入验证码" />
+	    		<button @tap="sendcode" v-cloak :disabled="!sendBtn" class="mui-btn mui-pull-right mui-btn-blue">{{codetxt}}</button>
+	    	</div>
+	    	<input placeholder="新密码" type="password" v-model="pwd" />
+	    	<input placeholder="确认密码" type="password" v-model="confirmpwd" />
+	    	<button @tap="resetBtn" class="mui-btn mui-btn-block mui-btn-blue">重置</button>
+	    </div>
+	</div>
+<script src="../../js/sea.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/entrance.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>日记圈</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+</head>
+<body>
+	<!--头部-->
+	<header class="mui-bar gradient mui-bar-nav header">
+	    <h1 class="mui-title colorFFF">日记圈</h1>
+	</header>
+	
+	<nav class="mui-bar mui-bar-tab nav">
+		<a class="mui-tab-item" href="../index/index.html">
+			<img src="../../images/friend.png" class="mui-icon"/>
+			<span class="mui-tab-label">笔友</span>
+		</a>
+		<a class="mui-tab-item" href="../member/mydiary.html">
+			<img src="../../images/mydiary.png" class="mui-icon"/>
+			<span class="mui-tab-label">我的日记</span>
+		</a>
+		<a class="mui-tab-item add" href="../other/add_diary.html">
+			<img src="../../images/add.png" />
+		</a>
+		<a class="mui-tab-item active" href="../circle/circle.html">
+			<img src="../../images/circle_active.png" class="mui-icon"/>
+			<span class="mui-tab-label">日记圈</span>
+		</a>
+		<a class="mui-tab-item" href="../member/member.html">
+			<img src="../../images/my.png" class="mui-icon"/>
+			<span class="mui-tab-label">我的</span>
+		</a>
+	</nav>
+	
+	<div class="mui-content">
+		
+	    <div class="data_list">
+	    	<div class="mui-card" v-for="(d,index) in datas" v-cloak>
+				<div class="mui-card-header mui-card-media">
+					<img src="../../images/avatar.png">
+					<div class="mui-media-body">
+						<span class="nickname">{{d.user_name}}</span>
+						<img class="sex_icon" src="../../images/male.png" />
+						<p>红粉:200人</p>
+						<button class="mui-btn mui-btn-block">关注</button>
+					</div>
+				</div>
+				<div :data-href="'diary_detail.html?id=' + d.id" class="mui-card-content pad15 open">
+					{{d.content}}
+				</div>
+				<div class="mui-card-footer">
+					<a class="mui-card-link">{{getDate(d.created_at)}}</a>
+					<a class="mui-card-link">浏览:1000人</a>
+					<!--<a class="mui-card-link">离你&lt;200米</a>-->
+				</div>
+			</div>
+			
+			<!--<div class="mui-card">
+				<div class="mui-card-header mui-card-media">
+					<img src="../../images/avatar.png">
+					<div class="mui-media-body">
+						<span class="nickname">小M</span>
+						<img class="sex_icon" src="../../images/male.png" />
+						<p>红粉:200人</p>
+						<button class="mui-btn mui-btn-block" disabled="disabled">已关注</button>
+					</div>
+				</div>
+				<div data-href="diary_detail.html" class="open mui-card-content pad15">
+					内容日记内容日记内容日记内容日记内容日记内容日记内容日记内容日记内容日记内容日记内容日记内容日记内容日记内容日记内容日记内容日
+				</div>
+				<div class="mui-card-footer">
+					<a class="mui-card-link">2016-06-30</a>
+					<a class="mui-card-link">浏览:1000人</a>
+					<a class="mui-card-link">离你&lt;200米</a>
+				</div>
+			</div>-->
+	   </div>
+	</div>
+	
+<script src="../../js/sea.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/entrance.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

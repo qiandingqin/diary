@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>首页</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+</head>
+<body>
+	<!--头部-->
+	<header class="mui-bar gradient mui-bar-nav header">
+	    <h1 class="mui-title colorFFF">笔友</h1>
+	    <a data-href="msg.html" class="open msgBtn mui-pull-right">
+	    	<img src="../../images/msg.png" />
+	    	<span id="msgNum" class="mui-badge mui-badge-danger">0</span>
+	    </a>
+	</header>
+	<!--底部-->
+	<nav class="mui-bar mui-bar-tab nav">
+		<a class="mui-tab-item active" href="../index/index.html">
+			<img src="../../images/friend_active.png" class="mui-icon"/>
+			<span class="mui-tab-label">笔友</span>
+		</a>
+		<a class="mui-tab-item" href="../member/mydiary.html">
+			<img src="../../images/mydiary.png" class="mui-icon"/>
+			<span class="mui-tab-label">我的日记</span>
+		</a>
+		<a class="mui-tab-item add" href="../other/add_diary.html">
+			<img src="../../images/add.png" />
+		</a>
+		<a class="mui-tab-item" href="../circle/circle.html">
+			<img src="../../images/circle.png" class="mui-icon"/>
+			<span class="mui-tab-label">日记圈</span>
+		</a>
+		<a class="mui-tab-item open" href="../member/member.html">
+			<img src="../../images/my.png" class="mui-icon"/>
+			<span class="mui-tab-label">我的</span>
+		</a>
+	</nav>
+	
+	<div class="mui-content">
+	    
+	    <!--功能列表-->
+	    <ul class="mui-table-view noline fnBtns">
+			<li class="mui-table-view-cell">
+				<a data-href="search_friend.html">
+					<img src="../../images/newFirend.png" />
+					<span>新笔友</span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a data-href="friends.html">
+					<img src="../../images/gz.png" />
+					<span>已关注笔友</span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a data-href="v.html">
+					<img src="../../images/maxV.png" />
+					<span>大V专区</span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a data-href="msg.html">
+					<img src="../../images/session.png" />
+					<span>会话列表</span>
+				</a>
+			</li>
+		</ul>
+		<!--好友列表-->
+		<div class="listGroup">
+			<div class="lists">
+				<p>好友列表</p>
+				<h4 v-cloak class="tisp" :class="{'mui-hidden':datas.length}">您好没有好友哦<a data-href="search_friend.html">去添加</a>一个吧</h4>
+				<ul class="mui-table-view noline fnBtns">
+					<li class="mui-table-view-cell" v-cloak v-for="d in datas">
+						<a :data-href="'tj_friend_info.html?user=' + d.user_name">
+							<img :src="d.avatar || '../../images/avatar.png'" />
+							<span>{{d.nickname}}</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+<script src="../../js/sea.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/entrance.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

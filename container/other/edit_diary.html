@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>编辑日记</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+</head>
+<body>
+	<!--头部-->
+	<header class="mui-bar gradient mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title colorFFF">编辑日记</h1>
+	    <a id="show" class="mui-icon mui-icon-bars mui-pull-right"></a>
+	</header>
+	
+	<nav class="mui-bar mui-bar-tab nav">
+		<a class="mui-tab-item mui-active" href="../index/index.html">
+			<img src="../../images/friend.png" class="mui-icon"/>
+			<span class="mui-tab-label">笔友</span>
+		</a>
+		<a class="mui-tab-item" href="../member/mydiary.html">
+			<img src="../../images/my_diary.png" class="mui-icon"/>
+			<span class="mui-tab-label">我的日记</span>
+		</a>
+		<a class="mui-tab-item add" href="../other/add_diary.html">
+			<img src="../../images/add.png" />
+		</a>
+		<a class="mui-tab-item" href="../circle/circle.html">
+			<img src="../../images/diary.png" class="mui-icon"/>
+			<span class="mui-tab-label">日记圈</span>
+		</a>
+		<a class="mui-tab-item mui-active" href="../member/member.html">
+			<img src="../../images/member.png" class="mui-icon"/>
+			<span class="mui-tab-label">我的</span>
+		</a>
+	</nav>
+	
+	<div class="mui-content add_diary padbtm0">
+	    
+	    <div class="mui-input-row">
+			<label>标题:</label>
+			<input type="text">
+			<button class="mui-btn mui-btn-block">保存</button>
+		</div>
+	    
+	    <div class="setting mui-clearfix">
+	    	<div class="time mui-pull-left">
+	    		<input readonly="readonly" value="03/10"/>
+	    	</div>
+	    	
+	    	<div class="mui-pull-left sel">
+	    		<select name="">
+	    			<option value="">阴</option>
+	    			<option value="">晴</option>
+	    			<option value="">雨</option>
+	    			<option value="">雪</option>
+	    			<option value="">雾</option>
+	    		</select>
+	    	</div>
+	    	
+	    	<div class="mui-pull-left sel">
+	    		<select name="">
+	    			<option value="">不开心</option>
+	    			<option value="">极好</option>
+	    			<option value="">号</option>
+	    			<option value="">郁闷</option>
+	    			<option value="">想哭</option>
+	    		</select>
+	    	</div>
+	    	
+	    	<div class="mui-pull-left sel">
+	    		<select name="">
+	    			<option value="">大字体</option>
+	    			<option value="">中字体</option>
+	    			<option value="">小字体</option>
+	    		</select>
+	    	</div>
+	    	
+	    </div>
+	    <div class="content_text pad15">
+	    	<textarea class="add_content" name="" rows="" cols="">日记呢日哦那个内容内容内容内容内容内容内容内容内容内容内容内容内容内容 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内 容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容 内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内 容内容内容内容内容内容内容内容内容内容内内容内容内容内容内容内容内容内 容内容内容内容内容内容内容内容内容 </textarea>
+	    	<div class="imgUpBox mui-clearfix">
+	    		
+	    		<div class="upFileBox">
+	    			<img src="../../images/avatar.png" />
+	    			<input type="file" accept="image/*" disabled="disabled" />
+	    		</div>
+	    		
+	    		<div class="upFileBox">
+	    			<img src="../../images/avatar.png" />
+	    			<input type="file" accept="image/*" disabled="disabled" />
+	    		</div>
+	    		
+	    		<div class="upFileBox">
+	    			<img src="../../images/avatar.png" />
+	    			<input type="file" accept="image/*" disabled="disabled" />
+	    		</div>
+	    	</div>
+	    </div>
+	    
+	</div>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	startMove();
+	//概览首页添加侧滑菜单方法
+	function startMove(){
+		var main,menu, mask = mui.createMask(_closeMenu);
+		var showMenu = false;
+		/*var muiBack = mui.back;
+		mui.back = back;
+		function back() {
+			showMenu?closeMenu():muiBack();
+		};*/
+		//plusReady事件后，自动创建menu窗口；
+		mui.plusReady(function() {
+			main = plus.webview.currentWebview();
+			//setTimeout的目的是等待窗体动画结束后，再执行create webview操作，避免资源竞争，导致窗口动画不流畅；
+			setTimeout(function () {
+				//侧滑菜单默认隐藏，这样可以节省内存；
+				menu = mui.preload({
+					id: 'add_diary_menu',
+					url: 'add_diary_menu.html',
+					styles: { left: '100%', width: '70%', zindex: 9997 }
+				});
+			});
+			
+		});
+		/*显示菜单菜单*/
+		function openMenu() {
+			if (!showMenu) {
+				//侧滑菜单处于隐藏状态，则立即显示出来；
+				//显示完毕后，根据不同动画效果移动窗体；
+				menu.show('none', 0, function() {
+					menu.setStyle({ left: '30%', transition: { duration: 150 } });
+				});
+				//显示遮罩
+				mask.show();
+				showMenu = true;
+			}
+		}
+		/*关闭侧滑菜单*/
+		function closeMenu (t) {
+			_closeMenu(t);
+			//关闭遮罩
+			mask.close();
+		};
+		
+		/*关闭侧滑菜单（业务部分）*/
+		function _closeMenu(t) {
+			if (showMenu) {
+				//menu页面同时移动
+				menu.setStyle({ left: '100%', transition: { duration: t?0:150 } });
+				//等窗体动画结束后，隐藏菜单webview，节省资源；
+				setTimeout(function() { menu.hide(); }, 200); //改变标志位
+				showMenu = false;
+			};
+		}
+
+		//点击打开侧滑菜单；
+		document.getElementById("show").addEventListener('tap',openMenu);
+		//在android4.4中的swipe事件，需要preventDefault一下，否则触发不正常
+		//故，在dragleft，dragright中preventDefault
+		window.addEventListener('dragright', function(e) {
+			e.detail.gesture.preventDefault();
+		});
+		window.addEventListener('dragleft', function(e) {
+			e.detail.gesture.preventDefault();
+		});
+		//主界面向右滑动，若菜单未显示，则显示菜单；否则不做任何操作；
+		window.addEventListener("swipeleft", openMenu);
+		//主界面向左滑动，若菜单已显示，则关闭菜单；否则，不做任何操作；
+		window.addEventListener("swiperight", closeMenu);
+		//menu页面向左滑动，关闭菜单；
+		window.addEventListener("menu:swipeleft", closeMenu);
+		//监听事件通知关闭mask
+		window.addEventListener('closeMask',function(){
+			closeMenu(true);
+		});
+		//重写mui.menu方法，Android版本menu按键按下可自动打开、关闭侧滑菜单；
+		mui.menu = function() {
+			showMenu?closeMenu():openMenu();
+		};
+	};
+	
+</script>
+</body>
+</html>

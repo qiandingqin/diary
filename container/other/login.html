@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>登录</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+</head>
+<body>
+	<!--头部-->
+	<header class="mui-bar gradient mui-bar-nav header">
+	    <h1 class="mui-title colorFFF">登录</h1>
+	</header>
+	
+	<div class="mui-content">
+	    <div id="formBox">
+	    	<input type="tel" placeholder="手机号" v-model="phone"/>
+	    	<input type="password" placeholder="密码" v-model="pwd"/>
+	    	<!--<button data-href="../index/index.html" class="open mui-btn mui-btn-block mui-btn-blue">登录</button>-->
+	    	<button @tap="loginBtn" class="login mui-btn mui-btn-block mui-btn-blue">登录</button>
+	    	<button data-href="./reg.html" class="open mui-btn reg mui-btn-block">注册</button>
+	    	<a data-href="./resetpwd.html">忘记密码?</a>
+	    </div>
+	</div>
+<script src="../../js/sea.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/entrance.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

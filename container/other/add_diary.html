@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>添加日记</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/mui.picker.min.css"/>
+</head>
+<body>
+	<!--头部-->
+	<header class="mui-bar gradient mui-bar-nav header">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title colorFFF">添加日记</h1>
+	    <a id="show" href="javascript:;" class="mui-icon mui-icon-bars mui-pull-right"></a>
+	</header>
+	
+	<nav class="mui-bar mui-bar-tab nav">
+		<a class="mui-tab-item" href="../index/index.html">
+			<img src="../../images/friend.png" class="mui-icon"/>
+			<span class="mui-tab-label">笔友</span>
+		</a>
+		<a class="mui-tab-item" href="../member/mydiary.html">
+			<img src="../../images/mydiary.png" class="mui-icon"/>
+			<span class="mui-tab-label">我的日记</span>
+		</a>
+		<a class="mui-tab-item add" href="../other/add_diary.html">
+			<img src="../../images/add.png" />
+		</a>
+		<a class="mui-tab-item" href="../circle/circle.html">
+			<img src="../../images/circle.png" class="mui-icon"/>
+			<span class="mui-tab-label">日记圈</span>
+		</a>
+		<a class="mui-tab-item" href="../member/member.html">
+			<img src="../../images/my.png" class="mui-icon"/>
+			<span class="mui-tab-label">我的</span>
+		</a>
+	</nav>
+	
+	<div class="mui-content add_diary padbtm0">
+	    
+	    <div class="mui-input-row">
+			<label>标题:</label>
+			<input type="text" v-model="title">
+			<button @tap="add" class="mui-btn mui-btn-block">发表</button>
+		</div>
+	    
+	    <div class="setting mui-clearfix" v-cloak>
+	    	<div class="time mui-pull-left">
+	    		<input readonly="readonly" @tap="selDate" v-model="date"/>
+	    	</div>
+	    	
+	    	<div class="mui-pull-left sel">
+	    		<select v-model="weather">
+	    			<option v-for="w in weatherArr">{{w}}</option>
+	    		</select>
+	    	</div>
+	    	<!--<div style="clear: both;"></div>-->
+	    	<div class="mui-pull-left sel">
+	    		<select v-model="mood">
+	    			<option v-for="m in moodArr">{{m}}</option>
+	    		</select>
+	    	</div>
+	    	
+	    	<div class="mui-pull-left sel">
+	    		<select v-model="font">
+	    			<option v-for="f in fontArr">{{f}}</option>
+	    		</select>
+	    	</div>
+	    </div>
+	    
+	    <!--默认模板-->
+	    <div class="content_text pad15 default mui-hidden" :class="[template=='default'?'show':'']">
+	    	<textarea class="add_content" :class="[font == '大字体'?'max':(font == '中字体'?'center' : 'min')]" placeholder="内容" v-model="content1"></textarea>
+	    	<div class="imgUpBox mui-clearfix">
+	    		
+	    		<div class="upFileBox mui-pull-left">
+	    			<img src="../../images/add_img.png" />
+	    			<input type="file" accept="image/*" />
+	    		</div>
+	    		
+	    		<div class="upFileBox mui-pull-left">
+	    			<img src="../../images/add_img.png" />
+	    			<input type="file" accept="image/*" />
+	    		</div>
+	    		
+	    		<div class="upFileBox mui-pull-left">
+	    			<img src="../../images/add_img.png" />
+	    			<input type="file" accept="image/*" />
+	    		</div>
+	    	</div>
+	    </div>
+	    <!--特色模板1-->
+	    <div class="content_text temp1 mui-hidden" :class="[template=='temp1'?'show':'']">
+	    	
+	    	<textarea class="left autoHeight mui-pull-left" v-model="content1"></textarea>
+	    	
+	    	<div class="upFileBox right mui-pull-right autoHeight">
+    			<img src="../../images/add_img.png" />
+    			<input type="file" accept="image/*" />
+    		</div>
+    		
+    		<div class="upFileBox bom mui-pull-left">
+    			<img src="../../images/add_img.png" />
+    			<input type="file" accept="image/*" />
+    		</div>
+    		<textarea v-model="content2"></textarea>
+	    </div>
+	    
+	     <!--特色模板2-->
+	    <div class="content_text temp1 mui-hidden" :class="[template=='temp2'?'show':'']">
+	    	<textarea class="left autoHeight mui-pull-right" v-model="content1"></textarea>
+	    	<div class="upFileBox right mui-pull-left autoHeight">
+    			<img src="../../images/add_img.png" />
+    			<input type="file" accept="image/*" />
+    		</div>
+    		<textarea v-model="content2"></textarea>
+    		<div class="upFileBox bom">
+    			<img src="../../images/add_img.png" />
+    			<input type="file" accept="image/*" />
+    		</div>
+	    </div>
+	</div>
+<script src="../../js/sea.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/entrance.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>
