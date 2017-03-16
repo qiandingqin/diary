@@ -46,9 +46,9 @@ define(function(require, exports, module){
 				//分割图片路径
 				if(r.images){
 					if(r.images.indexOf(',') != -1){
-						v.imgs = r.images;
-					}else{
 						v.imgs = r.images.split(',');
+					}else{
+						v.imgs = [r.images];
 					};
 				}else{
 					v.imgs = [];
