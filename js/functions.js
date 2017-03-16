@@ -206,13 +206,13 @@ $.GetUnix.prototype.getNowMonth = function(){
 };
 
 //重写localStorage.setItem()
-var orignalSetItem = window.localStorage.setItem;
-window.localStorage.setItem = function(key,newValue){
-    var setItemEvent = new Event("setItem");
-    setItemEvent.newValue = newValue;
-    window.dispatchEvent(setItemEvent);
-    orignalSetItem.apply(this,arguments);
-};
+//var orignalSetItem = window.localStorage.setItem;
+//window.localStorage.setItem = function(key,newValue){
+//  var setItemEvent = new Event("setItem");
+//  setItemEvent.newValue = newValue;
+//  window.dispatchEvent(setItemEvent);
+//  orignalSetItem.apply(this,arguments);
+//};
 
 //为系统对象提供删除置顶下标的数组
 Array.prototype.removeItem = function(i){

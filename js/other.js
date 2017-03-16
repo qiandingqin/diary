@@ -336,7 +336,7 @@ define(function(require, exports, module){
 			var oImg = _this.parentNode.querySelector('img');
 			oImg.src = window.URL.createObjectURL(_this.files[0]);
 			files.push(_this.files[0]);
-			_this.remove();
+			_this.parentNode.removeChild(_this);
 		};
 		
 		//提交数据

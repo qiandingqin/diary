@@ -149,7 +149,7 @@ Mask.prototype.show = function(str){
 };
 
 Mask.prototype.close = function(){
-	if(this.oDiv)this.oDiv.remove();
+	if(this.oDiv)this.oDiv.parentNode.removeChild(this.oDiv);
 };
 
 //修改muiback 双击返回退出应用
@@ -193,9 +193,11 @@ function addCloseView(){
 		mui.plusReady(function(){
 			var curView = plus.webview.currentWebview();
 			console.log('我是：' + curView.id + '接到了关闭指令');
-			setTimeout(function(){
-				curView.close('none',0);
-			},400);
+			if(curView.id !== 'HBuilder'){
+				setTimeout(function(){
+					curView.close('none',0);
+				},500);
+			};
 		});
 	});
 };
