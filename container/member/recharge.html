@@ -18,8 +18,8 @@
 	    <div class="pad15 rechargeBox">
 	    	<div class="mui-input-row">
 				<label>充值金额:</label>
-				<input type="tel">
-				<span>= 1000 红币</span>
+				<input v-model="money" type="tel" placeholder="金额">
+				<span>= {{money * 10}} 红币</span>
 			</div>
 	    </div>
 	    <p class="title">充值方式</p>
@@ -45,7 +45,7 @@
 		</ul>
 		<button class="pay mui-btn mui-btn-blue mui-btn-block">支付</button>
 	</div>
-<script src="../../js/mui.min.js"></script>
-<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/sea.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/entrance.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>

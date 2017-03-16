@@ -51,7 +51,10 @@
 			<span>心情：{{feeling}}</span>
 		</p>
 		
-		<p class="diary_content pad15">{{content}}</p>
+		<div class="diary_content pad15">
+			<p>{{content}}</p>
+			<img v-for="img in imgs" :src="imgHost + img" />
+		</div>
 		
 		<nav class="mui-bar footer mui-bar-tab">
 			<div data-href="diary_comm.html" class="open fnBtns pl">

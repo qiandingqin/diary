@@ -19,82 +19,21 @@
 	    	<!--好友列表-->
 			<div class="listGroup">
 				<div class="lists">
-					<p>A</p>
+					<p>好友列表</p>
 					<ul class="mui-table-view noline fnBtns mui-input-group">
-						<li class="mui-input-row mui-checkbox mui-left">
+						<li class="mui-input-row mui-checkbox mui-left" v-cloak v-for="d in datas">
 							<label>
-								<img src="../../images/avatar1.png" />
-								<span>有妖气</span>
+								<img :src="d.avatar || '../../images/avatar.png'" />
+								<span>{{d.nickname}}</span>
 							</label>
-							<input name="checkbox" value="Item 1" type="checkbox">
-						</li>
-						
-						<li class="mui-input-row mui-checkbox mui-left">
-							<label>
-								<img src="../../images/avatar1.png" />
-								<span>有妖气</span>
-							</label>
-							<input name="checkbox" value="Item 1" type="checkbox">
-						</li>
-						
-						<li class="mui-input-row mui-checkbox mui-left">
-							<label>
-								<img src="../../images/avatar1.png" />
-								<span>有妖气</span>
-							</label>
-							<input name="checkbox" value="Item 1" type="checkbox">
-						</li>
-						
-						<li class="mui-input-row mui-checkbox mui-left">
-							<label>
-								<img src="../../images/avatar1.png" />
-								<span>有妖气</span>
-							</label>
-							<input name="checkbox" value="Item 1" type="checkbox">
-						</li>
-					</ul>
-				</div>
-				
-				<div class="lists">
-					<p>B</p>
-					<ul class="mui-table-view noline fnBtns">
-						<li class="mui-input-row mui-checkbox mui-left">
-							<label>
-								<img src="../../images/avatar.png" />
-								<span>有妖气</span>
-							</label>
-							<input name="checkbox" value="Item 1" type="checkbox">
-						</li>
-						
-						<li class="mui-input-row mui-checkbox mui-left">
-							<label>
-								<img src="../../images/avatar.png" />
-								<span>有妖气</span>
-							</label>
-							<input name="checkbox" value="Item 1" type="checkbox">
-						</li>
-						
-						<li class="mui-input-row mui-checkbox mui-left">
-							<label>
-								<img src="../../images/avatar.png" />
-								<span>有妖气</span>
-							</label>
-							<input name="checkbox" value="Item 1" type="checkbox">
-						</li>
-						
-						<li class="mui-input-row mui-checkbox mui-left">
-							<label>
-								<img src="../../images/avatar.png" />
-								<span>有妖气</span>
-							</label>
-							<input name="checkbox" value="Item 1" type="checkbox">
+							<input :value="d.user_id" v-model="pushs" type="checkbox">
 						</li>
 					</ul>
 				</div>
 			</div>
 	    </div>
 	</div>
-<script src="../../js/mui.min.js"></script>
-<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/sea.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/entrance.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>

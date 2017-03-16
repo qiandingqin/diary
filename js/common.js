@@ -224,6 +224,40 @@ function saveMsg(message){
 	window.localStorage.setItem('applyMsg',oldObject);
 };
 
+//保存聊天记录
+function saveChatLog(ChatJson){
+	//复制对象
+	var cJsonString = JSON.stringify(ChatJson);
+	var cJson = JSON.parse(cJsonString);
+	//取出历史记录
+	var oldLog = window.localStorage.getItem('chat');
+	oldLog = JSON.parse(oldLog) || {};
+	
+	oldLog[cJson.target] = oldLog[cJson.target] || [];
+	
+	//添加新记录
+	oldLog[cJson.target].push(cJson);
+	//将新聊天记录转化为字符串
+	var newlog = JSON.stringify(oldLog);
+	//覆盖历史聊天记录
+	window.localStorage.setItem('chat',newlog);
+};
+
+//取出聊天记录
+function getChatLog(target){
+	
+	var chatLog = window.localStorage.getItem('chat');
+	chatLog = JSON.parse(chatLog);
+	
+	//判断是否为空对象
+	if(!$.isEmptyObject(chatLog)){
+		return [];
+	};
+	
+	return chatLog[target] || [];
+	
+};
+
 //删除指定下标的消息
 function rmItemMsg(index){
 	//删除当前数组
@@ -233,7 +267,7 @@ function rmItemMsg(index){
 	window.localStorage.setItem('applyMsg',JSON.stringify(nowStorage));
 };
 
-//提取好友列表
+//提取IM好友列表
 function getFrendsList(data){
 	var datas = [];
 	for(var i in data){
@@ -243,6 +277,45 @@ function getFrendsList(data){
 	};
 	
 	return datas;
+};
+
+//提取好友列表
+function getFriendsList(cb){
+	var mask = new Mask();
+	mask.show();
+	//查询好友列表
+	$.ajax({
+		url:API.FRIENDS,
+		success:function(res){
+			mask.close();
+			var thisUser = localStorage.getItem('phone');
+			//重组数据
+			var newArr = [];
+			mui.each(res.data,function(i,item){
+				//判断添加者是否为当前用户 是则使用to_user_xx否则使用from_user_xx
+				var newJson = {
+					avatar : '',
+					user_name : '',
+					user_nickname : '',
+					user_id : ''
+				};
+				if(item.from_user_name === thisUser){
+					//为自己
+					newJson.user_name = item.to_user_name;
+					newJson.nickname = item.to_user_nick;
+					newJson.user_id = item.to_user_id;
+				}else{
+					newJson.user_name = item.from_user_name;
+					newJson.nickname = item.from_user_nick;
+					newJson.user_id = item.from_user_id;
+				};
+				newArr.push(newJson);
+			});
+			cb&&cb(newArr);
+		},error : function(){
+			mask.close();
+		}
+	});
 };
 
 //添加好友
@@ -280,3 +353,6 @@ function pending(cb){
 		},
 	});
 };
+
+
+//下载文件

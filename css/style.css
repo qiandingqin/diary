@@ -144,14 +144,14 @@ nav.nav a.active span{color:#28ACDD;}
 .wallet .walletBox h4,.wallet .walletBox p,.wallet button{margin-top:10px;}
 
 .rechargeBox .mui-input-row label{width:25%;font-size:15px;line-height: 40px;padding-top:0;padding-bottom:0;}
-.rechargeBox .mui-input-row input{width:50%;border:1px solid #E3E3E3;float: left;text-indent: .5em;;}
+.rechargeBox .mui-input-row input{width:40%;border:1px solid #E3E3E3;float: left;text-indent: .5em;;}
 .rechargeBox .mui-input-row span{line-height: 40px;font-size:13px;margin-left:5px;color:#A0A0A0;}
 .recharge p.title{font-size:14px;background: #CDCDCD;padding:10px 15px 10px 30px;}
 .recharge li.mui-media{position: relative;}
 .recharge button.pay{width:80%;height:40px;padding:0;margin:15px auto 0;}
 @media only screen and (max-width: 320px) {
-	.rechargeBox .mui-input-row label{width:30%;line-height: 30px;font-size:13px;}
-	.rechargeBox .mui-input-row input{width:43%;height:30px;padding:0;}
+	.rechargeBox .mui-input-row label{width:30%;line-height: 30px;font-size:12px;}
+	.rechargeBox .mui-input-row input{width:30%;height:30px;padding:0;}
 	.rechargeBox .mui-input-row span{line-height: 30px;}
 }
 
@@ -185,6 +185,7 @@ nav.nav a.active span{color:#28ACDD;}
 .diary_detail .diary_title{font-size: 18px;color:#333333;padding:15px;}
 .diary_detail .diary_date{padding:0 15px;}
 .diary_detail .diary_content{font-size:16px;color: #333333;}
+.diary_detail .diary_content>img{width:100px;height: 100px;margin-right:6px;}
 .diary_detail .footer{padding:0 15px;}
 .diary_detail .fnBtns{width:25%;float: left;line-height: 48px;}
 .diary_detail .fnBtns img{width:24px;vertical-align:middle;}

@@ -9,7 +9,8 @@ define(function(require, exports, module){
 		resetpwd : resetpwd,
 		memberinfo:memberinfo,
 		sel_temp:sel_temp,
-		ardity_jurisdiction:ardity_jurisdiction
+		ardity_jurisdiction:ardity_jurisdiction,
+		pushset : pushset
 	};
 	
 	//用户资料中心
@@ -296,11 +297,13 @@ define(function(require, exports, module){
 				content1:'',
 				content2:'',
 				template:'default',
-				permit : 'public'
+				permit : 'public',
+				push : ''
 			},
-			methods : {selDate : selDate,add : add}
+			methods : {selDate : selDate,add : add,change : change}
 		};
 		var v = require('newvue').methods.vue(vOption);
+		var files = [];
 		//JS处理添加图片高度的问题
 		var oDiv = document.querySelectorAll('div.autoHeight');
 		var Textarea = document.querySelectorAll('textarea.autoHeight');
@@ -321,6 +324,21 @@ define(function(require, exports, module){
 			v.permit = permit;
 		});
 		
+		//监听定向推送
+		window.addEventListener('tabPush',function(e){
+			var push = e.detail.push;
+			v.push = push;
+		});
+		
+		//监听选择文件事件
+		function change(ev){
+			var _this = ev.target;
+			var oImg = _this.parentNode.querySelector('img');
+			oImg.src = window.URL.createObjectURL(_this.files[0]);
+			files.push(_this.files[0]);
+			_this.remove();
+		};
+		
 		//提交数据
 		function add(){
 			var mask = new Mask();
@@ -333,23 +351,53 @@ define(function(require, exports, module){
 				"data[font]" : v.font,
 				"data[feeling]" : v.mood,
 				"data[template]" : v.template,
-				"data[permit]" : v.permit
+				"data[permit]" : v.permit,
+				"data[push]" : v.push
 			};
+			
+			//判断用户是否需要上传图片
+			if(files.length){
+				//引入上传图片组件
+				require.async('upImg.js',function(e){
+					//提交图片上传
+					var upOp = {
+						host : API.IMAGESUPLOAD,
+						name : 'images[]'
+					};
+					var up = new e.UpLoadImg(files,upOp);
+					up.Up(function(result){
+						var imgPaths = result.data.success;
+						//拼接图片地址
+						var pathsStr = '';
+						mui.each(imgPaths,function(i,item){
+							pathsStr += item.path + ',';
+						});
+						pathsStr = pathsStr.substring(0,pathsStr.length - 1);
+						subJson['data[images]'] = pathsStr;
+						reseale(subJson);
+					});
+				});
+			}else{
+				reseale(subJson);
+			};
+			
 			//提交数据
-			$.ajax({
-				url : API.RESEASE,
-				type: 'post',
-				data : subJson,
-				success:function(result){
-					mask.close();
-					if(!result.success)return;
-					mui.toast('发布成功');
-					openView({url : '../circle/diary_detail.html',data : {id : result.data.id}},fireCloseView);
-				},
-				error : function(){
-					mask.close();
-				}
-			});
+			function reseale(subJson){
+				$.ajax({
+					url : API.RESEASE,
+					type: 'post',
+					data : subJson,
+					success:function(result){
+						mask.close();
+						if(!result.success)return;
+						mui.toast('发布成功');
+						openView({url : '../circle/diary_detail.html',data : {id : result.data.id}},fireCloseView);
+					},
+					error : function(){
+						mask.close();
+					}
+				});
+			};
 		};
 		
 		//选择日期
@@ -362,7 +410,6 @@ define(function(require, exports, module){
 				v.date = rs.value;
 				picker.dispose();
 			});
-			
 		};
 	};
 	
@@ -396,6 +443,24 @@ define(function(require, exports, module){
 			mui.plusReady(function(){
 				var targetView = plus.webview.getWebviewById('add_diary');
 				mui.fire(targetView,'tabPermit',{permit : permit});
+			});
+		});
+	};
+	
+	//选择定向推送
+	function pushset(){
+		var vOption = { data : {datas : [] , pushs : []} };
+		//引入vue
+		var v = require('newvue').methods.vue(vOption);
+		//获取好友列表
+		getFriendsList(function(newArr){
+			v.datas = newArr;
+		});
+		v.$watch('pushs',function(newVal){
+			//发送选择结果到添加日记界面
+			mui.plusReady(function(){
+				var targetView = plus.webview.getWebviewById('add_diary');
+				mui.fire(targetView,'tabPush',{push : newVal.join(',')});
 			});
 		});
 	};

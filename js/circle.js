@@ -13,6 +13,7 @@ define(function(require, exports, module){
 			data : {
 				title : '',
 				content : '',
+				imgs : [],
 				date : '',
 				day : '',
 				user_name : '',
@@ -41,6 +42,17 @@ define(function(require, exports, module){
 				v.id = r.id;
 				v.date = $.getTimes(r.created_at).timerStr;
 				v.day = new Date(parseInt(r.created_at) * 1000).getDay();
+				v.imgHost = HOST;
+				//分割图片路径
+				if(r.images){
+					if(r.images.indexOf(',') != -1){
+						v.imgs = r.images;
+					}else{
+						v.imgs = r.images.split(',');
+					};
+				}else{
+					v.imgs = [];
+				};
 			},
 			error : function(){
 				mask.close();

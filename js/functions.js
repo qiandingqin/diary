@@ -157,6 +157,12 @@ var $ = {
 		};
 		return newArr;
 	},
+	//判断JSON 是否为空
+	isEmptyObject : function(e) {  
+		for (var t in e){
+			return 1;
+		};
+	},
 };
 
 //获取今日

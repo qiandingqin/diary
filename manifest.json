@@ -446,7 +446,8 @@
 					"js/newvue.js",
 					"js/im.js",
 					"css/mui.picker.min.css",
-					"js/mui.picker.min.js"
+					"js/mui.picker.min.js",
+					"js/upImg.js"
 				],
 				"refer": [
 					"container/other/add_diary_menu.html",
@@ -498,7 +499,14 @@
 					"images/member.png",
 					"images/friend.png",
 					"images/msg.png",
-					"images/money.png"
+					"images/money.png",
+					"js/functions.js",
+					"js/sea.js",
+					"js/common.js",
+					"js/member.js",
+					"js/vue.js",
+					"js/entrance.js",
+					"js/constant.js"
 				],
 				"refer": [
 					"container/member/recharge.html",
@@ -514,7 +522,15 @@
 					"css/style.css",
 					"js/all.js",
 					"images/alipay.png",
-					"images/wxpay.png"
+					"images/wxpay.png",
+					"js/sea.js",
+					"js/member.js",
+					"js/constant.js",
+					"js/newvue.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/entrance.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -593,7 +609,8 @@
 					"js/common.js",
 					"js/vue.js",
 					"js/entrance.js",
-					"js/newvue.js"
+					"js/newvue.js",
+					"images/1.png"
 				],
 				"refer": [
 					"container/circle/diary_comm.html",
@@ -631,7 +648,16 @@
 					"css/style.css",
 					"js/all.js",
 					"images/avatar1.png",
-					"images/avatar.png"
+					"images/avatar.png",
+					"js/sea.js",
+					"js/vue.js",
+					"js/entrance.js",
+					"js/constant.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/mui.picker.min.js",
+					"js/newvue.js",
+					"js/other.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -1206,7 +1232,8 @@
 				],
 				"refer": [
 					"container/member/friend_diary.html",
-					"container/index/msg_im.html"
+					"container/index/msg_im.html",
+					"container/index/send_add.html"
 				],
 				"priority": 0
 			},

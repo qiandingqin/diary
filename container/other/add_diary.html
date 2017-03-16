@@ -77,17 +77,17 @@
 	    		
 	    		<div class="upFileBox mui-pull-left">
 	    			<img src="../../images/add_img.png" />
-	    			<input type="file" accept="image/*" />
+	    			<input @change="change($event)" type="file" accept="image/*" />
 	    		</div>
 	    		
 	    		<div class="upFileBox mui-pull-left">
 	    			<img src="../../images/add_img.png" />
-	    			<input type="file" accept="image/*" />
+	    			<input @change="change($event)" type="file" accept="image/*" />
 	    		</div>
 	    		
 	    		<div class="upFileBox mui-pull-left">
 	    			<img src="../../images/add_img.png" />
-	    			<input type="file" accept="image/*" />
+	    			<input @change="change($event)" type="file" accept="image/*" />
 	    		</div>
 	    	</div>
 	    </div>
@@ -98,12 +98,12 @@
 	    	
 	    	<div class="upFileBox right mui-pull-right autoHeight">
     			<img src="../../images/add_img.png" />
-    			<input type="file" accept="image/*" />
+    			<input @change="change($event)" type="file" accept="image/*" />
     		</div>
     		
     		<div class="upFileBox bom mui-pull-left">
     			<img src="../../images/add_img.png" />
-    			<input type="file" accept="image/*" />
+    			<input @change="change($event)" type="file" accept="image/*" />
     		</div>
     		<textarea v-model="content2"></textarea>
 	    </div>
@@ -113,12 +113,12 @@
 	    	<textarea class="left autoHeight mui-pull-right" v-model="content1"></textarea>
 	    	<div class="upFileBox right mui-pull-left autoHeight">
     			<img src="../../images/add_img.png" />
-    			<input type="file" accept="image/*" />
+    			<input @change="change($event)" type="file" accept="image/*" />
     		</div>
     		<textarea v-model="content2"></textarea>
     		<div class="upFileBox bom">
     			<img src="../../images/add_img.png" />
-    			<input type="file" accept="image/*" />
+    			<input @change="change($event)" type="file" accept="image/*" />
     		</div>
 	    </div>
 	</div>

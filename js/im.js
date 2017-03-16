@@ -11,7 +11,6 @@ define(function(require, exports, module){
 		    isAutoLogin: WebIM.config.isAutoLogin,
 		    isMultiLoginSessions: WebIM.config.isMultiLoginSessions
 		});
-		
 		//监听各种接收消息处理
 		conn.listen({
 			 //连接成功回调
@@ -20,9 +19,10 @@ define(function(require, exports, module){
 				//是否手动上线
 				if(isOnlone)conn.setPresence();
 				//开启心跳连接
-				/*if(conn.isOpened()){
+				if(conn.isOpened()){
+					console.log('开启心跳连接');
 					conn.heartBeat(conn);
-				};*/
+				};
 		        cbJson.onOpened&&cbJson.onOpened(message);
 		    },
 		    onPresence: function ( message ) {
@@ -59,11 +59,6 @@ define(function(require, exports, module){
     			console.log(234);
     		},                 
 		    onError:function(message){
-		    	//开启心跳
-		    	if(!conn.isOpened()){
-		    		console.log('执行开启心跳函数');
-					conn.heartBeat(conn);
-				};
 		    	//连接失败
 		    	cbJson.onError&&cbJson.onError(message);
 		    	console.log(message);

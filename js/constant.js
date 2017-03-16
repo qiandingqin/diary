@@ -34,7 +34,9 @@ var API = {
 	//日记圈
 	DIARYCIRCLE : HOST + '?r=diary/index',
 	//单篇日记详情
-	DIARYDETAIL : HOST + '?r=diary/view'
+	DIARYDETAIL : HOST + '?r=diary/view',
+	//多图片上传
+	IMAGESUPLOAD: HOST + '?r=site/image-uploads',
 	
 };
 //常量设置

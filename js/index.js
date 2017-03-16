@@ -35,52 +35,15 @@ define(function(require, exports, module){
 			pending(function(res){
 				mui('#msgNum')[0].innerText = res.length;
 			});
-			getFriendsList();
+			getFriendsList(function(newArr){
+				v.datas = newArr;
+			});
 		});
 		//获取好友列表
 		
-		getFriendsList();
-		
-		function getFriendsList(){
-			mask.show();
-			//查询好友列表
-			$.ajax({
-				url:API.FRIENDS,
-				success:function(res){
-					mask.close();
-					var thisUser = localStorage.getItem('phone');
-					console.log(res);
-					
-					//重组数据
-					var newArr = [];
-					mui.each(res.data,function(i,item){
-						//判断添加者是否为当前用户 是则使用to_user_xx否则使用from_user_xx
-						var newJson = {
-							avatar : '',
-							user_name : '',
-							user_nickname : '',
-							user_id : ''
-						};
-						if(item.from_user_name === thisUser){
-							//为自己
-							newJson.user_name = item.to_user_name;
-							newJson.nickname = item.to_user_nick;
-							newJson.user_id = item.to_user_id;
-						}else{
-							newJson.user_name = item.from_user_name;
-							newJson.nickname = item.from_user_nick;
-							newJson.user_id = item.from_user_id;
-						};
-						newArr.push(newJson);
-						console.log(newJson);
-					});
-					v.datas = newArr;
-				},error : function(){
-					mask.close();
-				}
-			});
-		};
-		
+		getFriendsList(function(newArr){
+			v.datas = newArr;
+		});
 		//获取待处理好友列表 修改头部消息通知数量
 		pending(function(res){
 			mui('#msgNum')[0].innerText = res.length;
@@ -229,20 +192,18 @@ define(function(require, exports, module){
 		var phone = $.getUrlData().user;
 		var msgHeight = document.querySelector('.msgList').offsetHeight;
 		var vOptionMsg = {
-			data : {datas : [],textArea:''},
+			data : {datas : getChatLog(phone),textArea:''},
 			methods : {send : send,sendImg : sendImg},
 			cycle : {updated : setScroll}
 		};
 		var v = require('newvue').methods.vue(vOptionMsg);
-		
+		setScroll();
 		//设置聊天区域滚动条位置
 		function setScroll(){
 			var msgList = v.$el.querySelector('.msgList');
 			var msgListTioVal = msgHeight + msgList.scrollHeight;
 			msgList.scrollTop = msgListTioVal;
 		};
-		
-		
 		//接收聊天消息
 		var iOption = { 
 			onOpened:closeMask,
@@ -284,9 +245,14 @@ define(function(require, exports, module){
 				text : txt[0],
 				time : time,
 				isSelf:false,
-				img : null
+				img : null,
+				target : msg.from
 			};
-			v.datas.push(dataJson);
+			saveChatLog(dataJson);
+			//判断当前消息来源是否为正在聊天对象，否则存入缓存不做渲染
+			if(msg.from == phone){
+				v.datas.push(dataJson);
+			};
 		};
 		
 		//处理接收图片消息
@@ -303,9 +269,14 @@ define(function(require, exports, module){
 					text : '',
 					time : $.getTimes(curDate).timerStr,
 					isSelf:false,
-					img : fileUrl
+					img : msg.url,
+					target : msg.from
 				};
-				v.datas.push(dataJson);
+				saveChatLog(dataJson);
+				//判断当前消息来源是否为正在聊天对象，否则存入缓存不做渲染
+				if(msg.from == phone){
+					v.datas.push(dataJson);
+				};
 	            console.log('图片下载成功');
 	        };
 	        WebIM.utils.download.call(conn, options);
@@ -323,8 +294,10 @@ define(function(require, exports, module){
 					text : _this.textArea,
 					time : $.getTimes(curDate).timerStr,
 					isSelf:true,
-					img : null
+					img : null,
+					target : phone
 				};
+				saveChatLog(dataJson);
 				_this.datas.push(dataJson);
 				//清空输入框
 				_this.textArea = '';
@@ -340,6 +313,7 @@ define(function(require, exports, module){
             var id = conn.getUniqueId();             // 生成本地消息id
             var msg = new WebIM.message('img', id);  // 创建图片消息
             var curDate = parseInt(new Date().getTime() / 1000);
+            var imgFileName = '';
             msg.set({
                 apiUrl: WebIM.config.apiURL,
                 file: {data: blob, url: url},
@@ -347,15 +321,19 @@ define(function(require, exports, module){
                 roomType: false,
                 chatType: 'singleChat',
                 onFileUploadError: function (error) { },
-                onFileUploadComplete: function (data) { },
+                onFileUploadComplete: function (data) {
+                	imgFileName = data.uri + '/' +data.entities[0].uuid;
+                },
                 success: function (id) {
                     var dataJson = {
 						user : '我',
 						text : '',
 						time : $.getTimes(curDate).timerStr,
 						isSelf:true,
-						img : url
+						img : imgFileName,
+						target : phone
 					};
+					saveChatLog(dataJson);
 					v.datas.push(dataJson);
                 }
             });
