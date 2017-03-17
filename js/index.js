@@ -259,27 +259,41 @@ define(function(require, exports, module){
 		function onPictureMessage(msg){
 			console.log(msg);
 			var options = {url: msg.url};
-	        options.onFileDownloadComplete = function (file) {
-	            // 图片下载成功
-	            var fileUrl = window.URL.createObjectURL(file);
-	            //推送到聊天区域
-	            var curDate = parseInt(new Date().getTime() / 1000);
-	            var dataJson = {
+	        var fileSuffix = msg.filename.split('.');
+	        fileSuffix = '.' + fileSuffix[fileSuffix.length-1];
+	       	require.async('plusdown.js',function(e){
+	       		var down = e.down;
+	       		var curDate = parseInt(new Date().getTime() / 1000);
+	       		var dataJson = {
 					user : msg.from,
 					text : '',
 					time : $.getTimes(curDate).timerStr,
 					isSelf:false,
-					img : msg.url,
+					img : "",
 					target : msg.from
 				};
-				saveChatLog(dataJson);
-				//判断当前消息来源是否为正在聊天对象，否则存入缓存不做渲染
-				if(msg.from == phone){
-					v.datas.push(dataJson);
+				
+				var downOption = {
+					url : msg.url,
+					filename : new Date().getTime() + fileSuffix
 				};
-	            console.log('图片下载成功');
-	        };
-	        WebIM.utils.download.call(conn, options);
+				//下载图片
+				down(downOption,function(data,path){
+					var dataJson = {
+						user : msg.from,
+						text : '',
+						time : $.getTimes(curDate).timerStr,
+						isSelf:false,
+						img : path,
+						target : msg.from
+					};
+					saveChatLog(dataJson);
+					if(msg.from == phone){
+						console.log('聊天记录已经保存',path)
+						v.datas.push(dataJson);
+					};
+				});
+	      	});
 		};
 		
 		//发送文本消息
@@ -313,7 +327,6 @@ define(function(require, exports, module){
             var id = conn.getUniqueId();             // 生成本地消息id
             var msg = new WebIM.message('img', id);  // 创建图片消息
             var curDate = parseInt(new Date().getTime() / 1000);
-            var imgFileName = '';
             msg.set({
                 apiUrl: WebIM.config.apiURL,
                 file: {data: blob, url: url},
@@ -322,20 +335,36 @@ define(function(require, exports, module){
                 chatType: 'singleChat',
                 onFileUploadError: function (error) { },
                 onFileUploadComplete: function (data) {
-                	imgFileName = data.uri + '/' +data.entities[0].uuid;
+                	var imgFileName = data.uri + '/' +data.entities[0].uuid;
+                	
+                	//保存图片至本地
+                	require.async('plusdown.js',function(e){
+                		var down = e.down;
+                		var fileSuffix = _this.value.split('.');
+	        			fileSuffix = '.' + fileSuffix[fileSuffix.length-1];
+                		//下载配置参数
+                		var downOption = {
+                			url : imgFileName,
+                			filename : new Date().getTime() + fileSuffix
+                		};
+                		//下载
+                		down(downOption,function(data,path){
+                			var dataJson = {
+								user : '我',
+								text : '',
+								time : $.getTimes(curDate).timerStr,
+								isSelf:true,
+								img : path,
+								target : phone
+							};
+							//保存到聊天记录
+							saveChatLog(dataJson);
+							v.datas.push(dataJson);
+                		});
+                		
+                	});
                 },
-                success: function (id) {
-                    var dataJson = {
-						user : '我',
-						text : '',
-						time : $.getTimes(curDate).timerStr,
-						isSelf:true,
-						img : imgFileName,
-						target : phone
-					};
-					saveChatLog(dataJson);
-					v.datas.push(dataJson);
-                }
+                success: function (id) { }
             });
             conn.send(msg.body);
 		};

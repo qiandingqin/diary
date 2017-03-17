@@ -63,7 +63,7 @@
         },
         "NativeObj":{
         	"description": "原生对象"
-        },"XMLHttpRequest":{}
+        },"XMLHttpRequest":{},"Downloader":{},"File":{}
 	},
 	"plus": {
 		"splashscreen": {
@@ -144,10 +144,7 @@
 				},
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
-					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "C:/Users/Administrator/Desktop/images/480.png", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "C:/Users/Administrator/Desktop/images/720.png", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": "C:/Users/Administrator/Desktop/images/1080.png"
+					"ldpi": ""
 				}
 			}
 		}
@@ -265,7 +262,8 @@
 					"js/common.js",
 					"js/vue.js",
 					"js/entrance.js",
-					"js/member.js"
+					"js/member.js",
+					"js/newvue.js"
 				],
 				"refer": [
 					"container/circle/circle.html",
@@ -344,7 +342,8 @@
 					"js/functions.js",
 					"js/common.js",
 					"js/vue.js",
-					"js/entrance.js"
+					"js/entrance.js",
+					"js/newvue.js"
 				],
 				"refer": [
 					"container/circle/circle.html",
@@ -506,7 +505,8 @@
 					"js/member.js",
 					"js/vue.js",
 					"js/entrance.js",
-					"js/constant.js"
+					"js/constant.js",
+					"js/newvue.js"
 				],
 				"refer": [
 					"container/member/recharge.html",
@@ -1034,7 +1034,8 @@
 					"js/newvue.js",
 					"js/common.js",
 					"js/entrance.js",
-					"js/index.js"
+					"js/index.js",
+					"js/plusdown.js"
 				],
 				"refer": [],
 				"priority": 0

@@ -355,6 +355,3 @@ function pending(cb){
 		},
 	});
 };
-
-
-//下载文件
