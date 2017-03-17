@@ -149,7 +149,11 @@ Mask.prototype.show = function(str){
 };
 
 Mask.prototype.close = function(){
-	if(this.oDiv)this.oDiv.parentNode.removeChild(this.oDiv);
+	try{
+		this.oDiv.parentNode.removeChild(this.oDiv);
+	}catch(e){
+		//TODO handle the exception
+	}
 };
 
 //修改muiback 双击返回退出应用
