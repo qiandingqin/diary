@@ -9,6 +9,10 @@ define(function(require, exports, module){
 	function diary_detail(){
 		var mask = new Mask();
 		var diaryId = $.getUrlData().id;
+		//引入图片预览
+		require('mui.zoom.js');
+		require('mui.previewimage.js');
+		
 		var vOption = {
 			data : {
 				title : '',
@@ -22,8 +26,9 @@ define(function(require, exports, module){
 				feeling : '',
 				id : ''
 			},
-			methods : { give : give}
+			methods : { give : give},
 		};
+		
 		var v = require('newvue').methods.vue(vOption);
 		mask.show();
 		//获取日记详情
@@ -53,10 +58,16 @@ define(function(require, exports, module){
 				}else{
 					v.imgs = [];
 				};
+				
 			},
 			error : function(){
 				mask.close();
 			}
+		});
+		
+		//DOM加载完毕这执行图片预览方法
+		v.$nextTick(function(){
+			mui.previewImage();
 		});
 		
 		//打赏按钮点击

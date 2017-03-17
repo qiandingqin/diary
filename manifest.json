@@ -610,7 +610,9 @@
 					"js/vue.js",
 					"js/entrance.js",
 					"js/newvue.js",
-					"images/1.png"
+					"images/1.png",
+					"js/mui.zoom.js",
+					"js/mui.previewimage.js"
 				],
 				"refer": [
 					"container/circle/diary_comm.html",
