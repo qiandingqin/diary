@@ -49,6 +49,8 @@ define(function(require, exports, module){
 			mui('#msgNum')[0].innerText = res.length;
 		});
 		
+		//开启更新查询
+		require('update.js').methods.up();
 	};
 	//查找笔友
 	function search_friend(){

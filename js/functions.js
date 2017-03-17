@@ -63,7 +63,7 @@ var $ = {
 						return;
 					};
 				}else{
-					if(!result || !result.success){
+					if(!result && !result.success){
 						if(result.data.indexOf('操作拒绝') == -1){
 							mui.alert(result.data);
 						};

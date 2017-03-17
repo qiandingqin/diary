@@ -37,7 +37,8 @@ var API = {
 	DIARYDETAIL : HOST + '?r=diary/view',
 	//多图片上传
 	IMAGESUPLOAD: HOST + '?r=site/image-uploads',
-	
+	//获取最新版本
+	GETVERSION : 'http://bj.cmyba.cn:801'
 };
 //常量设置
 var AJAX_TIMEOUT = 8000;				//ajax请求时间

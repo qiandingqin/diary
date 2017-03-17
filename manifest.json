@@ -222,7 +222,8 @@
 					"container/index/add_friend.html",
 					"js/newvue.js",
 					"container/index/msg.html",
-					"container/index/tj_friend_info.html"
+					"container/index/tj_friend_info.html",
+					"js/update.js"
 				],
 				"refer": [
 					"container/member/mydiary.html",
@@ -698,7 +699,17 @@
 					"fonts/mui.ttf",
 					"css/mui.min.css",
 					"css/style.css",
-					"js/all.js"
+					"js/all.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/mui.picker.min.js",
+					"js/vue.js",
+					"js/constant.js",
+					"js/newvue.js",
+					"js/other.js",
+					"js/sea.js",
+					"js/update.js",
+					"js/entrance.js"
 				],
 				"refer": [
 					"container/other/editpwd.html",
@@ -777,7 +788,17 @@
 					"fonts/mui.ttf",
 					"css/mui.min.css",
 					"css/style.css",
-					"js/all.js"
+					"js/all.js",
+					"js/sea.js",
+					"js/mui.picker.min.js",
+					"js/constant.js",
+					"js/newvue.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/update.js",
+					"js/entrance.js",
+					"js/other.js"
 				],
 				"refer": [
 					"container/other/feedback.html",
@@ -1302,7 +1323,8 @@
 					"js/websdk-1.4.10.js",
 					"js/strophe-1.2.8.min.js",
 					"js/newvue.js",
-					"js/im.js"
+					"js/im.js",
+					"js/update.js"
 				],
 				"refer": [
 					"container/index/index.html",

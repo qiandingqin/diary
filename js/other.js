@@ -10,7 +10,9 @@ define(function(require, exports, module){
 		memberinfo:memberinfo,
 		sel_temp:sel_temp,
 		ardity_jurisdiction:ardity_jurisdiction,
-		pushset : pushset
+		pushset : pushset,
+		security : security,
+		about : about
 	};
 	
 	//用户资料中心
@@ -462,6 +464,21 @@ define(function(require, exports, module){
 				var targetView = plus.webview.getWebviewById('add_diary');
 				mui.fire(targetView,'tabPush',{push : newVal.join(',')});
 			});
+		});
+	};
+	
+	//安全中心
+	function security(){
+		
+	};
+	
+	//关于我们
+	function about(){
+		//获取最新版本
+		var update = require('update.js').methods;
+		update.getVersion(function(result){
+			var versioncode = document.getElementById("versioncode");
+			versioncode.innerText = result.version;
 		});
 	};
 	
