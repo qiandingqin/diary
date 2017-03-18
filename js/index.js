@@ -43,14 +43,15 @@ define(function(require, exports, module){
 		
 		getFriendsList(function(newArr){
 			v.datas = newArr;
+			
+			//开启更新查询
+			require('update.js').methods.up();
+			
 		});
 		//获取待处理好友列表 修改头部消息通知数量
 		pending(function(res){
 			mui('#msgNum')[0].innerText = res.length;
 		});
-		
-		//开启更新查询
-		require('update.js').methods.up();
 	};
 	//查找笔友
 	function search_friend(){

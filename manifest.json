@@ -3,7 +3,7 @@
 	"id": "H507DC6AC",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "达人日记",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "1.0.0",/*应用版本名称*/
+		"name": "1.0.11",/*应用版本名称*/
 		"code": "83"
 	},
 	"description": "",/*应用描述信息*/
@@ -72,7 +72,7 @@
 		},
 		"runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
-		"distribute": {
+		"distribute": {"plugins":{"payment":{"alipay":{"description":"阿里支付","scheme":""}}},
 			"apple": {
 				"appid": "",/*iOS应用标识，苹果开发网站申请的appid，如io.dcloud.HelloH5*/
 				"mobileprovision": "",/*iOS应用打包配置文件*/
@@ -144,7 +144,7 @@
 				},
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
-					"ldpi": ""
+					"ldpi": "","hdpi":"C:/Users/Administrator/Desktop/images/480.png","xhdpi":"C:/Users/Administrator/Desktop/images/720.png","xxhdpi":"C:/Users/Administrator/Desktop/images/1080.png"
 				}
 			}
 		}
@@ -223,7 +223,8 @@
 					"js/newvue.js",
 					"container/index/msg.html",
 					"container/index/tj_friend_info.html",
-					"js/update.js"
+					"js/update.js",
+					"js/plusdown.js"
 				],
 				"refer": [
 					"container/member/mydiary.html",
@@ -378,7 +379,8 @@
 					"fonts/mui.ttf",
 					"js/newvue.js",
 					"container/other/resetpwd.html",
-					"js/mui.picker.min.js"
+					"js/mui.picker.min.js",
+					"js/update.js"
 				],
 				"refer": [
 					"container/index/index.html",
@@ -841,7 +843,8 @@
 					"js/im.js",
 					"js/entrance.js",
 					"js/other.js",
-					"js/mui.picker.min.js"
+					"js/mui.picker.min.js",
+					"js/update.js"
 				],
 				"refer": [
 					"container/other/about_content.html",
@@ -1324,7 +1327,8 @@
 					"js/strophe-1.2.8.min.js",
 					"js/newvue.js",
 					"js/im.js",
-					"js/update.js"
+					"js/update.js",
+					"js/plusdown.js"
 				],
 				"refer": [
 					"container/index/index.html",

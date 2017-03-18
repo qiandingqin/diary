@@ -1,10 +1,10 @@
 define(function(require,exports,module){
 	
-	exports.down = function(option,suc,err){
+	exports.down = function(option,suc,err,downloadingcb){
 		if(!option.url)return;
 		//创建下载任务
 		mui.plusReady(function(){
-			var filepath = '_downloads/chat/img/';
+			var filepath = option.filepath || '_downloads/chat/img/';
 			var fileSuffix = option.url.split('.');
 			fileSuffix = fileSuffix[fileSuffix.length-1];
 			var d = plus.downloader.createDownload(option.url,{filename:filepath + option.filename},function(data,status){
@@ -24,6 +24,7 @@ define(function(require,exports,module){
 			//监听下载状态
 			d.addEventListener('statechanged',function(data,status){
 				console.log('下载中',status);
+				downloadingcb&&downloadingcb(data);
 			});
 			
 			d.start();
