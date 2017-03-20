@@ -11,10 +11,6 @@
 	<!--头部-->
 	<header class="mui-bar gradient mui-bar-nav header">
 	    <h1 class="mui-title colorFFF">我的</h1>
-	    <a class="msgBtn mui-pull-right">
-	    	<img src="../../images/msg.png" />
-	    	<span class="mui-badge mui-badge-danger">5</span>
-	    </a>
 	</header>
 	
 	<nav class="mui-bar mui-bar-tab nav">
@@ -33,7 +29,7 @@
 			<img src="../../images/circle.png" class="mui-icon"/>
 			<span class="mui-tab-label">日记圈</span>
 		</a>
-		<a class="mui-tab-item mui-active" href="../member/member.html">
+		<a class="mui-tab-item active" href="../member/member.html">
 			<img src="../../images/my_active.png" class="mui-icon"/>
 			<span class="mui-tab-label">我的</span>
 		</a>
@@ -44,16 +40,16 @@
 	    <div class="gradient memberinfo">
 	    	<div class="member_avatar mui-pull-left">
 		    	<p class="avatar_bg">
-		    		<img class="avatar_img" src="../../images/avatar.png" />
-		    		<img class="icon-v" src="../../images/v.png" />
+		    		<img class="avatar_img" :src="user.head_img || '../../images/avatar.png'" />
+		    		<img v-if="user.is_auth" class="icon-v" src="../../images/v.png" />
 		    	</p>
 		    </div>
 		    
 		    <div class="member_info mui-pull-left">
-		    	<h2 class="colorFFF">昵称</h2>
-		    	<p class="colorFFF">日记号:xxxx123456789</p>
+		    	<h2 class="colorFFF" v-cloak>{{user.nickname || user.username}}</h2>
+		    	<p class="colorFFF" v-cloak>日记号:{{user.diarysn}}</p>
 		    	<p class="colorFFF">
-		    		<span>红粉: 200 人</span>
+		    		<span v-cloak>红粉: {{user.fans}} 人</span>
 		    		<!--<span>日记号 : xx123456</span>-->
 		    	</p>
 		    </div>

@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>笔友信息</title>
+	<title>用户信息</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
 	<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
@@ -11,8 +11,8 @@
 	<!--头部-->
 	<header class="mui-bar gradient mui-bar-nav header">
 		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-	    <h1 class="mui-title colorFFF">笔友</h1>
-	    <button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">私信</button>
+	    <h1 class="mui-title colorFFF"></h1>
+	    <button class="openim mui-btn mui-btn-blue mui-btn-link mui-pull-right">私信</button>
 	</header>
 	
 	<div class="mui-content friendinfo">
@@ -20,39 +20,61 @@
 	    <div class="gradient memberinfo">
 	    	<div class="member_avatar mui-pull-left">
 		    	<p class="avatar_bg">
-		    		<img class="avatar_img" src="../../images/avatar.png" />
-		    		<img class="icon-v" src="../../images/v.png" />
+		    		<img class="avatar_img" :src="user.head_img || '../../images/avatar.png'" />
+		    		<img v-cloak v-if="user.is_auth" class="icon-v" src="../../images/v.png" />
 		    	</p>
 		    </div>
 		    
-		    <div class="member_info mui-pull-left">
-		    	<h2 class="colorFFF">昵称</h2>
-		    	<p class="colorFFF">日记号:xxxx123456789</p>
+		    <div class="member_info mui-pull-left" v-cloak>
+		    	<h2 class="colorFFF">{{user.nickname || user.username}}</h2>
+		    	<p class="colorFFF">日记号:{{user.diarysn}}</p>
 		    	<p class="colorFFF">
-		    		<span>红粉: 200 人</span>
+		    		<span>红粉: {{user.fans}} 人</span>
+		    		<!--<a data-href="../member/friend_diary.html" class="targetDiary mui-btn mui-btn-green">查看日记</a>-->
 		    	</p>
 		    </div>
 	    </div>
 	    <!--连接-->
-	    <ul class="mui-table-view">
+	    <ul class="mui-table-view" v-cloak>
 	    	<li class="mui-table-view-cell">
-				<a>性别：男</a>
+				<a href="javascript:;" v-if="user.sex == 0">&nbsp;&nbsp;&nbsp;&nbsp;性别：保密</a>
+				<a href="javascript:;" v-else-if="user.sex == 1">&nbsp;&nbsp;&nbsp;&nbsp;性别：男</a>
+				<a href="javascript:;" v-else-if="user.sex == 2">&nbsp;&nbsp;&nbsp;&nbsp;性别：女</a>
 			</li>
 			<li class="mui-table-view-cell">
-				<a>地址：贵州省贵阳南明区花果园</a>
+				<a href="javascript:;">&nbsp;&nbsp;&nbsp;&nbsp;地址：{{user.address || '未填写'}}</a>
 			</li>
 			<li class="mui-table-view-cell">
-				<a>学校：清华大学</a>
+				<a href="javascript:;">&nbsp;&nbsp;&nbsp;&nbsp;学校：{{user.school || '未填写'}}</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a href="javascript:;">&nbsp;&nbsp;&nbsp;&nbsp;邮箱：{{user.email || '未填写'}}</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a href="javascript:;">手机号：{{user.mobile || '未填写'}}</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a href="javascript:;">微信号：{{user.wechat || '未填写'}}</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a href="javascript:;">&nbsp;&nbsp;&nbsp;QQ号：{{user.qq || '未填写'}}</a>
 			</li>
 		</ul>
 		
-		<div class="btnsBox">
-			<button data-href="send_add.html" class="open mui-btn mui-btn-blue">加为笔友</button>
-			<button class="mui-btn mui-btn-blue">添加关注</button>
+		<div class="btnsBox" v-cloak>
+			<button @tap="deleteFirend(user.id)" v-if="user.is_friend" class="mui-btn mui-btn-danger">删除笔友</button>
+			<button @tap="addFirend(user.id)" v-else-if="!user.is_friend" class="mui-btn mui-btn-green">添加笔友</button>
+			
+			
+			<button @tap="cancelSubscribed(user.id)" v-if="user.is_subscribed" class="mui-btn mui-btn-danger mui-btn-outlined">取消关注</button>
+			<button @tap="addSubscribed(user.id)" v-else-if="!user.is_subscribed" class="mui-btn mui-btn-green mui-btn-outlined">添加关注</button>
+			
+			
+			<button :data-href="'../member/friend_diary.html?id=' + user.id + '&username=' + (user.nickname || user.username)" class="open mui-btn mui-btn-green ">查看日记</button>
 		</div>
 	</div>
 	
-<script src="../../js/mui.min.js"></script>
-<script src="../../js/all.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/sea.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/entrance.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>

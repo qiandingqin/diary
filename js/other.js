@@ -12,17 +12,69 @@ define(function(require, exports, module){
 		ardity_jurisdiction:ardity_jurisdiction,
 		pushset : pushset,
 		security : security,
-		about : about
+		about : about,
+		autograph:autograph,
+		constellation:constellation,
+		edit_nickname:edit_nickname,
+		edit_sex:edit_sex,
+		edit_address:edit_address,
+		edit_email:edit_email,
+		edit_school:edit_school,
+		edit_wx:edit_wx,
+		edit_qq:edit_qq
 	};
 	
 	//用户资料中心
 	function memberinfo(){
 		var vOption = {
-			data : {data : {}},
-			methods : {logout : logoutBtn}
+			data : {user : {sex : 0}},
+			methods : {logout : logoutBtn,setAvatar:setAvatar},
+			cycle : {created : getMemberInfo}
 		};
 		var v = require('newvue').methods.vue(vOption);
 		
+		//监听刷新事件
+		window.addEventListener('reloadUserInfo',function(){
+			getMemberInfo.call(v);
+		});
+		
+		//获取用户信息
+		function getMemberInfo(){
+			var id = localStorage.getItem('id');
+			var _this = this;
+			getUserInfo(id,function(result){
+				var avatar = result.data.head_img;
+				result.data.head_img = avatar?HOST + avatar:'';
+				_this.user = result.data;
+			});
+		};
+		
+		//修改头像
+		function setAvatar(e){
+			var files = e.target.files;
+			var src = window.URL.createObjectURL(files[0]);
+			this.user.head_img = src;
+			//引入上传图片组件
+			require.async('upImg.js',function(e){
+				var option = {
+					host : API.IMAGESUPLOAD,
+					name : 'images[]'
+				};
+				var up = new e.UpLoadImg(files,option);
+				up.Up(function(result){
+					if(!result.success)return;
+					var path = result.data.success[0].path;
+					//提交用户头像图片路径
+					$.ajax({
+						url:API.SETAVATAR,
+						data:{headimg:path},
+						success:function(result){
+							mui.toast(result.data);
+						}
+					});
+				});
+			});
+		};
 		//退出按钮
 		function logoutBtn(){
 			var mask = new Mask();
@@ -41,8 +93,120 @@ define(function(require, exports, module){
 			},function(){
 				mask.close();
 			});
-			
 		};
+	};
+	
+	//设置星座
+	function constellation(){
+		//监听单选框
+		mui('.mui-table-view-radio')[0].addEventListener('selected',function(e){
+			var val = e.target.querySelector('em').innerText;
+			setUserInfo('data[constellation]',val);
+		});
+	};
+	
+	//设置昵称
+	function edit_nickname(name){
+		var data = decodeURI($.getUrlData().data);
+		var inputVal = mui('input')[0];
+		var saveBtn = mui('.save')[0];
+		var dataName = name || 'data[nickname]';
+		inputVal.value = data;
+		
+		saveBtn.addEventListener('tap',function(){
+			if(!inputVal.value){
+				mui.toast('不能输入空');
+				return;
+			};
+			setUserInfo(dataName,inputVal.value);
+		});
+	};
+	
+	//设置性别
+	function edit_sex(){
+		//监听单选框
+		mui('.mui-table-view-radio')[0].addEventListener('selected',function(e){
+			var selVal = e.target.querySelector('a').innerText;
+			var val;
+			switch (selVal){
+				case '保密':
+					val = 0;
+					break;
+				case '男':
+					val = 1;
+					break;
+				case '女':
+					val = 2;
+					break;
+			};
+			setUserInfo('data[sex]',val);
+		});
+	};
+	
+	//设置地址
+	function edit_address(){
+		var cityInput = mui('input')[0];
+		var addressInput = mui('input')[1];
+		var saveBtn = mui('.save')[0];
+		
+		require.async('mui.picker.js',function(){
+			require.async('mui.poppicker.js',function(){
+				var cityPicker = new mui.PopPicker({layer: 3});
+				cityPicker.setData(cityData3);
+				
+				//区域点击弹出选择菜单
+				cityInput.addEventListener('tap',function(){
+					var _this = this;
+					cityPicker.show(function(items){
+						var selVal = items[0].text+'	'+items[1].text+'	'+items[2].text;
+						_this.value = selVal;
+					});
+				});
+			});
+		});
+		
+		saveBtn.addEventListener('tap',function(){
+			var val = cityInput.value + '	' + addressInput.value;
+			setUserInfo('data[address]',val);
+		});
+	};
+	
+	//设置邮箱
+	function edit_email(){
+		edit_nickname('data[email]');
+	};
+	
+	//设置学校
+	function edit_school(){
+		edit_nickname('data[school]');
+	};
+	
+	//设置微信号
+	function edit_wx(){
+		edit_nickname('data[wechat]');
+	};
+	
+	//设置QQ号
+	function edit_qq(){
+		edit_nickname('data[qq]');
+	};
+	
+	//用户签名
+	function autograph(){
+		var signature = localStorage.getItem('signature');
+		var text = mui('#signature_text')[0];
+		text.value = signature;
+		
+		mui('.save')[0].addEventListener('tap',function(){
+			if(!text.value){
+				mui.toast('不能输入空');
+				return;
+			};
+			setUserInfo('data[signature]',text.value,function(){
+				localStorage.setItem('signature',text.value);
+			});
+		});
+		
 	};
 	
 	//注册 注册包含同时注册IM，跟自己服务器
@@ -171,8 +335,8 @@ define(function(require, exports, module){
 					if(!res.success)return;
 					window.localStorage.setItem('phone',dataJson.phone);
 					window.localStorage.setItem('pwd',dataJson.pwd);
+					window.localStorage.setItem('id',res.data.user_id);
 					openView({ url : '../index/index.html' },function(){
-						console.log(234);
 						fireCloseView();
 					});
 				},error:function(){mask.close();}
@@ -405,12 +569,13 @@ define(function(require, exports, module){
 		//选择日期
 		function selDate(){
 			//选择日期组件
-			require('../js/mui.picker.min.js');
-			var options = {"type":"date","beginYear":2014,"endYear":2018};
-			var picker = new mui.DtPicker(options);
-			picker.show(function(rs){
-				v.date = rs.value;
-				picker.dispose();
+			require.async('../js/mui.picker.min.js',function(){
+				var options = {"type":"date","beginYear":2014,"endYear":2018};
+				var picker = new mui.DtPicker(options);
+				picker.show(function(rs){
+					v.date = rs.value;
+					picker.dispose();
+				});
 			});
 		};
 	};

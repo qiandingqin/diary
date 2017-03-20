@@ -3,7 +3,7 @@
 	"id": "H507DC6AC",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "达人日记",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "1.0.11",/*应用版本名称*/
+		"name": "1.0.21",/*应用版本名称*/
 		"code": "83"
 	},
 	"description": "",/*应用描述信息*/
@@ -63,7 +63,7 @@
         },
         "NativeObj":{
         	"description": "原生对象"
-        },"XMLHttpRequest":{},"Downloader":{},"File":{},"Payment":{}
+        },"XMLHttpRequest":{},"Downloader":{},"File":{},"Payment":{},"Share":{}
 	},
 	"plus": {
 		"splashscreen": {
@@ -72,7 +72,7 @@
 		},
 		"runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
-		"distribute": {"plugins":{"payment":{"alipay":{"description":"阿里支付","scheme":""}}},
+		"distribute": {"plugins":{"share":{"weixin":{"appid":"wxc2961b3e594240e5","appsecret":"dfdb291e55a0645055b95b957c883c32","description":"可选，微信分享"}},"payment":{"alipay":{"description":"阿里支付","scheme":""}}},
 			"apple": {
 				"appid": "",/*iOS应用标识，苹果开发网站申请的appid，如io.dcloud.HelloH5*/
 				"mobileprovision": "",/*iOS应用打包配置文件*/
@@ -86,7 +86,7 @@
 				"keystore": "",/*Android应用打包使用的密钥库文件*/
 				"password": "",/*Android应用打包使用密钥库中证书的密码*/
 				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
-				"permissions": ["<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>"]
+				"permissions": ["<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>"]
 			},
 			"orientation": ["portrait-primary", "portrait-secondary"],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
 			"icons": {
@@ -232,7 +232,8 @@
 					"container/circle/circle.html",
 					"container/index/friends.html",
 					"container/index/gz_friend_info.html",
-					"container/index/search_friend.html"
+					"container/index/search_friend.html",
+					"container/index/friend_info.html"
 				],
 				"priority": 0
 			},
@@ -265,7 +266,8 @@
 					"js/vue.js",
 					"js/entrance.js",
 					"js/member.js",
-					"js/newvue.js"
+					"js/newvue.js",
+					"container/other/memberinfo.html"
 				],
 				"refer": [
 					"container/circle/circle.html",
@@ -274,7 +276,6 @@
 					"container/other/autograph.html",
 					"container/other/security.html",
 					"container/other/about.html",
-					"container/other/memberinfo.html",
 					"container/other/add_diary.html",
 					"container/member/mydiary.html",
 					"container/member/member.html"
@@ -308,7 +309,9 @@
 					"js/common.js",
 					"js/vue.js",
 					"js/entrance.js",
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"js/mui.zoom.js",
+					"js/mui.previewimage.js"
 				],
 				"refer": [
 					"container/member/mydiary.html",
@@ -316,7 +319,8 @@
 					"container/member/mydiary_detail.html",
 					"container/circle/diary_detail.html",
 					"container/index/index.html",
-					"container/other/add_diary.html"
+					"container/other/add_diary.html",
+					"container/index/friend_info.html"
 				],
 				"priority": 0
 			},
@@ -353,7 +357,8 @@
 					"container/member/member.html",
 					"container/member/diary_draft.html",
 					"container/other/add_diary.html",
-					"container/index/index.html"
+					"container/index/index.html",
+					"container/circle/diary_detail.html"
 				],
 				"priority": 0
 			},
@@ -380,7 +385,8 @@
 					"js/newvue.js",
 					"container/other/resetpwd.html",
 					"js/mui.picker.min.js",
-					"js/update.js"
+					"js/update.js",
+					"js/plusdown.js"
 				],
 				"refer": [
 					"container/index/index.html",
@@ -449,7 +455,9 @@
 					"js/im.js",
 					"css/mui.picker.min.css",
 					"js/mui.picker.min.js",
-					"js/upImg.js"
+					"js/upImg.js",
+					"js/plusdown.js",
+					"js/update.js"
 				],
 				"refer": [
 					"container/other/add_diary_menu.html",
@@ -616,11 +624,13 @@
 					"js/newvue.js",
 					"images/1.png",
 					"js/mui.zoom.js",
-					"js/mui.previewimage.js"
+					"js/mui.previewimage.js",
+					"js/share.js"
 				],
 				"refer": [
 					"container/circle/diary_comm.html",
-					"container/index/msg_im.html"
+					"container/index/msg_im.html",
+					"container/index/friend_info.html"
 				],
 				"priority": 0
 			},
@@ -688,7 +698,18 @@
 					"css/style.css",
 					"js/all.js",
 					"css/icons-extra.css",
-					"fonts/mui-icons-extra.ttf"
+					"fonts/mui-icons-extra.ttf",
+					"js/sea.js",
+					"js/mui.picker.min.js",
+					"js/plusdown.js",
+					"js/constant.js",
+					"js/newvue.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/update.js",
+					"js/entrance.js",
+					"js/other.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -844,14 +865,16 @@
 					"js/entrance.js",
 					"js/other.js",
 					"js/mui.picker.min.js",
-					"js/update.js"
+					"js/update.js",
+					"js/plusdown.js",
+					"js/upImg.js",
+					"container/other/edit_nickname.html",
+					"container/other/edit_address.html"
 				],
 				"refer": [
 					"container/other/about_content.html",
 					"container/other/constellation.html",
-					"container/other/edit_nickname.html",
 					"container/other/edit_sex.html",
-					"container/other/edit_address.html",
 					"container/other/edit_email.html",
 					"container/other/edit_school.html",
 					"container/other/edit_wx.html",
@@ -880,7 +903,18 @@
 					"images/4.png",
 					"images/11.png",
 					"images/6.png",
-					"images/7.png"
+					"images/7.png",
+					"js/sea.js",
+					"js/mui.picker.min.js",
+					"js/newvue.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/entrance.js",
+					"js/plusdown.js",
+					"js/constant.js",
+					"js/functions.js",
+					"js/update.js",
+					"js/other.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -893,7 +927,19 @@
 					"css/mui.min.css",
 					"css/style.css",
 					"js/all.js",
-					"css/icons-extra.css"
+					"css/icons-extra.css",
+					"js/sea.js",
+					"js/mui.picker.min.js",
+					"js/plusdown.js",
+					"js/constant.js",
+					"js/newvue.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/update.js",
+					"js/entrance.js",
+					"js/other.js",
+					"container/other/memberinfo.html"
 				],
 				"refer": [],
 				"priority": 0
@@ -904,7 +950,18 @@
 					"fonts/mui.ttf",
 					"css/mui.min.css",
 					"css/style.css",
-					"js/all.js"
+					"js/all.js",
+					"js/sea.js",
+					"js/mui.picker.min.js",
+					"js/plusdown.js",
+					"js/constant.js",
+					"js/newvue.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/update.js",
+					"js/entrance.js",
+					"js/other.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -917,7 +974,25 @@
 					"css/mui.min.css",
 					"css/style.css",
 					"js/all.js",
-					"css/icons-extra.css"
+					"css/icons-extra.css",
+					"js/sea.js",
+					"js/mui.picker.min.js",
+					"js/plusdown.js",
+					"js/constant.js",
+					"js/newvue.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/update.js",
+					"js/entrance.js",
+					"js/other.js",
+					"container/other/memberinfo.html",
+					"js/mui.poppicker.js",
+					"css/mui.picker.min.css",
+					"css/mui.poppicker.css",
+					"js/city.data-3.js",
+					"js/mui.picker.js",
+					"js/mui.picker.all.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -1062,7 +1137,9 @@
 					"js/common.js",
 					"js/entrance.js",
 					"js/index.js",
-					"js/plusdown.js"
+					"js/plusdown.js",
+					"js/update.js",
+					"js/websdk-1.4.5.min.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -1104,7 +1181,9 @@
 					"js/webim.config.js",
 					"js/websdk-1.4.10.js",
 					"js/strophe-1.2.8.min.js",
-					"js/im.js"
+					"js/im.js",
+					"js/plusdown.js",
+					"js/update.js"
 				],
 				"refer": [
 					"container/index/send_add.html",
@@ -1144,10 +1223,26 @@
 					"css/mui.min.css",
 					"css/style.css",
 					"js/all.js",
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"js/webim.config.js",
+					"js/plusdown.js",
+					"js/websdk-1.4.10.js",
+					"js/strophe-1.2.8.min.js",
+					"js/constant.js",
+					"js/newvue.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/update.js",
+					"js/im.js",
+					"js/index.js",
+					"js/sea.js",
+					"js/entrance.js"
 				],
 				"refer": [
-					"container/index/send_add.html"
+					"container/index/send_add.html",
+					"container/index/msg_im.html",
+					"container/member/friend_diary.html"
 				],
 				"priority": 0
 			},
@@ -1176,10 +1271,21 @@
 					"css/style.css",
 					"js/all.js",
 					"images/avatar.png",
-					"images/male.png"
+					"images/male.png",
+					"js/sea.js",
+					"js/constant.js",
+					"js/circle.js",
+					"js/newvue.js",
+					"js/functions.js",
+					"js/mui.zoom.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/mui.previewimage.js",
+					"js/entrance.js"
 				],
 				"refer": [
-					"container/circle/publish_comm.html"
+					"container/circle/publish_comm.html",
+					"container/circle/diary_detail.html"
 				],
 				"priority": 0
 			},
@@ -1189,7 +1295,17 @@
 					"fonts/mui.ttf",
 					"css/mui.min.css",
 					"css/style.css",
-					"js/all.js"
+					"js/all.js",
+					"js/sea.js",
+					"js/constant.js",
+					"js/circle.js",
+					"js/newvue.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/mui.zoom.js",
+					"js/vue.js",
+					"js/mui.previewimage.js",
+					"js/entrance.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -1256,7 +1372,9 @@
 					"js/im.js",
 					"js/entrance.js",
 					"js/index.js",
-					"container/index/index.html"
+					"container/index/index.html",
+					"js/plusdown.js",
+					"js/update.js"
 				],
 				"refer": [
 					"container/member/friend_diary.html",
@@ -1279,11 +1397,20 @@
 					"images/nav_bg.png",
 					"images/my_diary.png",
 					"images/member.png",
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"js/sea.js",
+					"js/member.js",
+					"js/constant.js",
+					"js/newvue.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/entrance.js"
 				],
 				"refer": [
 					"container/member/mydiary_detail.html",
-					"container/member/diary_draft.html"
+					"container/member/diary_draft.html",
+					"container/circle/diary_detail.html"
 				],
 				"priority": 0
 			},

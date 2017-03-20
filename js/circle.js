@@ -2,7 +2,9 @@ define(function(require, exports, module){
 	
 	exports.methods = {
 		diary_detail : diary_detail,
-		circle : circle
+		circle : circle,
+		publish_comm : publish_comm,
+		diary_comm : diary_comm
 	};
 	
 	//日记详情
@@ -22,11 +24,16 @@ define(function(require, exports, module){
 				day : '',
 				user_name : '',
 				user_id : '',
+				avatar : '',
 				weather : '',
 				feeling : '',
-				id : ''
+				id : '',
+				fans:'',
+				is_auth:'',
+				is_subscribed:'',
+				avatar : ''
 			},
-			methods : { give : give},
+			methods : { give : give , addSub : addSub , share : share},
 		};
 		
 		var v = require('newvue').methods.vue(vOption);
@@ -40,7 +47,7 @@ define(function(require, exports, module){
 				r = r.data;
 				v.title = r.title;
 				v.content = r.content,
-				v.user_name = r.user_name;
+				v.user_name = r.user.nickname || r.user.username;
 				v.user_id = r.user_id;
 				v.feeling = r.feeling;
 				v.weather = r.weather;
@@ -48,6 +55,9 @@ define(function(require, exports, module){
 				v.date = $.getTimes(r.created_at).timerStr;
 				v.day = new Date(parseInt(r.created_at) * 1000).getDay();
 				v.imgHost = HOST;
+				v.fans = r.user.fans;
+				v.is_auth = r.user.is_auth;
+				v.is_subscribed = r.user.is_subscribed;
 				//分割图片路径
 				if(r.images){
 					if(r.images.indexOf(',') != -1){
@@ -58,7 +68,8 @@ define(function(require, exports, module){
 				}else{
 					v.imgs = [];
 				};
-				
+				var avatar = r.user.head_img;
+				v.avatar = avatar?HOST + avatar:'';
 			},
 			error : function(){
 				mask.close();
@@ -72,23 +83,52 @@ define(function(require, exports, module){
 		
 		//打赏按钮点击
 		function give(){
-			
 			mui.prompt('打赏金额','','打赏',null,function(e){
-				
 				alert('开发中');
-				
 			})
-			
+		};
+		
+		//关注按钮
+		function addSub(uid){
+			addSubscribedId(uid,function(result){
+				mui.toast(result.data);
+			});
+		};
+		
+		//分享按钮
+		function share(){
+			//引入分享组件
+			var _this = this;
+			require.async('share.js',function(e){
+				var share = e.share;
+				var mask = new Mask();
+				var option = {
+					title : _this.title,
+					content : _this.content,
+					name : 'weixin'
+				};
+				mask.show();
+				share(option,function(){
+					mask.close();
+					mui.toast('分享成功');
+				},function(){
+					mask.close();
+					mui.toast('分享失败');
+				});
+			});
 		};
 	};
-	
+	//日记圈
 	function circle(){
 		
 		var vOption = {
 			data : {datas : []},
-			methods : {getDate : function(val){
-				return $.getTimes(val).timerStr;
-			}},
+			methods : {
+				getDate : function(val){
+					return $.getTimes(val).timerStr;
+				},
+				addSub : addSub
+			},
 			//生命周期
 			cycle : {
 				created : getDateList
@@ -106,13 +146,131 @@ define(function(require, exports, module){
 				success:function(result){
 					mask.close();
 					if(!result.success)return;
+					
+					mui.each(result.data,function(i,item){
+						var avatar = item.user.head_img;
+						result.data[i].user.head_img = avatar?HOST + avatar:'';
+					});
 					v.datas = result.data;
 				},
 				error:function(){
 					mask.close();
 				}
 			});
+		};
+		
+		//添加关注
+		function addSub(uid){
+			addSubscribedId(uid,function(result){
+				mui.toast(result.data);
+			});
+		};
+		
+	};
+	
+	//发表评论
+	function publish_comm(){
+		var data = $.getUrlData();
+		var title = decodeURI(data.title);
+		var id = data.id;
+		var score;
+		mui('#title')[0].innerText = title;
+		
+		//分数点击事件
+		mui('.fen').on('tap','i',function(){
+			var iAll = mui('.fen i');
+			mui.each(iAll,function(i,item){
+				item.classList.remove('active');
+			});
 			
+			for(var i=0;i<=this.dataset.index;i++){
+				iAll[i].classList.add('active');
+			};
+		});
+		
+		//提交
+		mui('.publish_comm')[0].addEventListener('tap',function(){
+			var content = mui('#content')[0].value;
+			score = mui('.fen i.active').length;
+			if(!content.length){
+				mui.toast('评论内容不能输入空');
+				return;
+			};
+			
+			subData(content,score);
+		});
+		
+		//提交数据
+		function subData(content,score){
+			var mask = new Mask();
+			var subJson = {
+				"data[content]" : content,
+				"data[score]" : score
+			};
+			mask.show();
+			$.ajax({
+				type:"post",
+				data : subJson,
+				url:API.PUBLISH_COMM + '&id=' + id,
+				success:function(result){
+					mask.close();
+					mui.toast(result.data);
+					if(result.success){
+						mui.back();
+						//刷新评论列表
+						mui.plusReady(function(){
+							var parentView = plus.webview.currentWebview().opener();
+							mui.fire(parentView,'reloadList');
+						});
+					};
+				},
+				error:function(){mask.close();}
+			});
+		};
+		
+	};
+	
+	//评论列表
+	function diary_comm(){
+		var data = $.getUrlData();
+		var title = decodeURI(data.title);
+		var id = data.id;
+		//发表按钮点击跳转
+		mui('.publish')[0].addEventListener('tap',function(){
+			var url = './publish_comm.html';
+			openView({url : url,data : {title : title,id : id}});
+		});
+		
+		//引入vue
+		var vOption = {
+			data : { datas :[] }
+		};
+		var v = require('newvue').methods.vue(vOption);
+		
+		getCommList();
+		
+		//监听刷新列表事件
+		window.addEventListener('reloadList',getCommList);
+		
+		//获取评论列表
+		function getCommList(){
+			var mask = new Mask();
+			mask.show();
+			$.ajax({
+				url:API.GETCOMMLIST,
+				data:{id : id , sort:'-created_at'},
+				success:function(result){
+					mask.close();
+					//处理时间
+					mui.each(result.data,function(i,item){
+						var avatar = item.head_img;
+						result.data[i].head_img = avatar?HOST + avatar:'';
+						result.data[i].created_at = $.getTimes(item.created_at).timerStr;
+					});
+					v.datas = result.data;
+				},
+				error:function(){mask.close();}
+			});
 		};
 		
 	};

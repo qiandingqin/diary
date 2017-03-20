@@ -21,6 +21,8 @@ var API = {
 	MEMBERINFO : HOST + '?r=user/index',
 	//添加好友
 	ADDFRIEND : HOST + '?r=pfriend/add',
+	//删除好友
+	DELETEFRIEND : HOST + '?r=pfriend/delete',
 	//待处理好友列表
 	PENDING : HOST + '?r=pfriend/pending',
 	//好友列表
@@ -38,7 +40,21 @@ var API = {
 	//多图片上传
 	IMAGESUPLOAD: HOST + '?r=site/image-uploads',
 	//获取最新版本
-	GETVERSION : 'http://bj.cmyba.cn:801'
+	GETVERSION : 'http://bj.cmyba.cn:801',
+	//获取指定ID用户信息
+	GETUSERINFO : HOST + '?r=user/view',
+	//添加关注
+	ADDSUB : HOST + '?r=user/subscribe',
+	//取消关注
+	CANCELSUB : HOST + '?r=user/subscribe-cancel',
+	//设置用户头像
+	SETAVATAR : HOST + '?r=user/set-head-img',
+	//发表评论
+	PUBLISH_COMM : HOST + '?r=diary/add-comment',
+	//获取日记评论列表
+	GETCOMMLIST : HOST + '?r=diary/get-comments',
+	//设置用户信息
+	SETINFO : HOST + '?r=user/update'
 };
 //常量设置
 var AJAX_TIMEOUT = 8000;				//ajax请求时间

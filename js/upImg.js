@@ -1,10 +1,10 @@
 define(function(require, exports, module){
 	//封装上传图片
-	function UpLoadImg(files,exports){
+	function UpLoadImg(files,exp){
 	
 		this.files = files;
-		this.host = exports.host;
-		this.name = exports.name;
+		this.host = exp.host;
+		this.name = exp.name;
 	};
 	
 	//获取图片的预览

@@ -196,8 +196,9 @@ function addCloseView(){
 	window.addEventListener('closeCurView',function(){
 		mui.plusReady(function(){
 			var curView = plus.webview.currentWebview();
+			var indexView = plus.webview.getLaunchWebview();
 			console.log('我是：' + curView.id + '接到了关闭指令');
-			if(curView.id !== 'HBuilder'){
+			if(curView.id != indexView.id){
 				setTimeout(function(){
 					curView.close('none',0);
 				},500);
@@ -342,6 +343,57 @@ function addFriendId(uid,cb){
 	});
 };
 
+//删除好友
+function deleteFriendId(uid,cb){
+	var mask = new Mask();
+	mask.show();
+	$.ajax({
+		url : API.DELETEFRIEND + '&user_id=' + uid,
+		type: 'post',
+		success:function(result){
+			mask.close();
+			cb&&cb(result);
+		},
+		error : function(){
+			mask.close();
+		}
+	});
+};
+
+//添加关注
+function addSubscribedId(uid,cb){
+	var mask = new Mask();
+	mask.show();
+	$.ajax({
+		url : API.ADDSUB,
+		data : {user_id : uid},
+		success:function(result){
+			mask.close();
+			cb&&cb(result);
+		},
+		error : function(){
+			mask.close();
+		}
+	});
+};
+
+//取消关注
+function cancelSubscribedId(uid,cb){
+	var mask = new Mask();
+	mask.show();
+	$.ajax({
+		url : API.CANCELSUB,
+		data : {user_id : uid},
+		success:function(result){
+			mask.close();
+			cb&&cb(result);
+		},
+		error : function(){
+			mask.close();
+		}
+	});
+};
+
 //获取待处理好友列表
 function pending(cb){
 	$.ajax({
@@ -357,5 +409,71 @@ function pending(cb){
 			result = $.filterArrJson(result,'from_user_id');
 			cb&&cb(result);
 		},
+	});
+};
+
+//获取用户信息
+function getUserInfo(id,cb){
+	var mask = new Mask();
+	mask.show();
+	$.ajax({
+		url:API.GETUSERINFO,
+		data : {"user_id" : id},
+		success:function(result){
+			mask.close();
+			cb&&cb(result);
+		},
+		error:function(){mask.close()}
+	});
+};
+
+//设置用户信息
+function setUserInfo(name,val,cb){
+	/*POST提交数组数据：data[]，数组元素可以是：'email','signature','
+	constellation','nickname','sex',
+	'address','school','wechat','qq'中的任一个。*/
+	var mask = new Mask();
+	mask.show();
+	
+	//创建对象
+	var subJson = {
+		"data[email]" : val,
+		"data[signature]" : val,
+		"data[constellation]" : val,
+		"data[nickname]" : val,
+		"data[sex]" : val,
+		"data[address]" : val,
+		"data[email]" : val,
+		"data[school]" : val,
+		"data[wechat]" : val,
+		"data[qq]" : val,
+	};
+	for(var key in subJson){
+		if(key != name){
+			delete subJson[key];
+		};
+	};
+	
+	$.ajax({
+		url:API.SETINFO,
+		type:'post',
+		data:subJson,
+		success:function(result){
+			mask.close();
+			mui.toast(result.data);
+			if(result.success)reloadUserInfo();
+			cb&&cb(result);
+		},
+		error:function(){
+			mask.close();
+		}
+	});
+};
+
+//刷新个人资料
+function reloadUserInfo(){
+	mui.plusReady(function(){
+		var userinfoView = plus.webview.getWebviewById('memberinfo');
+		mui.fire(userinfoView,'reloadUserInfo');
 	});
 };

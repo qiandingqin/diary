@@ -18,41 +18,41 @@
 	<div class="mui-content memberinfo">
 	    <ul class="mui-table-view noline line_buttom">
 			<li class="mui-table-view-cell">
-				<a> 日记号：xxx123123 </a>
+				<a href="javascript:;"> 日记号：{{user.diarysn}} </a>
 			</li>
 			<li class="mui-table-view-cell edit_avatar">
-				<a class="mui-navigate-right"> 
+				<a href="javascript:;" class="mui-navigate-right"> 
 					&nbsp;&nbsp;&nbsp;&nbsp;头像： 
-					<img class="avatar_img" src="../../images/avatar.png" width="28" height="28" />
-					<input type="file" accept="image/*" />
+					<img class="avatar_img" :src="user.head_img || '../../images/avatar.png'" width="28" height="28" />
+					<input @change="setAvatar($event)" type="file" accept="image/*" />
 				</a>
 			</li>
 			<li class="mui-table-view-cell">
-				<a data-href="constellation.html" class="mui-navigate-right"> &nbsp;&nbsp;&nbsp;&nbsp;星座：金牛座  </a>
+				<a data-href="constellation.html" class="mui-navigate-right"> &nbsp;&nbsp;&nbsp;&nbsp;星座：{{user.constellation || '未填写'}}  </a>
 			</li>
 			<li class="mui-table-view-cell">
-				<a data-href="edit_nickname.html" class="mui-navigate-right"> &nbsp;&nbsp;&nbsp;&nbsp;昵称：好久不见 </a>
+				<a :data-href="'edit_nickname.html?data=' + user.nickname" class="mui-navigate-right"> &nbsp;&nbsp;&nbsp;&nbsp;昵称：{{user.nickname || '未填写'}} </a>
 			</li>
 			<li class="mui-table-view-cell">
-				<a data-href="edit_sex.html" class="mui-navigate-right"> &nbsp;&nbsp;&nbsp;&nbsp;性别：男 </a>
+				<a data-href="edit_sex.html" class="mui-navigate-right"> &nbsp;&nbsp;&nbsp;&nbsp;性别：{{user.sex == 0?'保密':(user.sex == 1?'男':'女')}} </a>
 			</li>
 			<li class="mui-table-view-cell">
-				<a data-href="edit_address.html" class="mui-navigate-right"> &nbsp;&nbsp;&nbsp;&nbsp;地址：贵州省_贵阳市_南明区_花果园 </a>
+				<a :data-href="'edit_address.html?data='+user.address" class="mui-navigate-right"> &nbsp;&nbsp;&nbsp;&nbsp;地址：{{user.address || '未填写'}} </a>
 			</li>
 			<li class="mui-table-view-cell">
-				<a data-href="edit_email.html" class="mui-navigate-right"> &nbsp;&nbsp;&nbsp;&nbsp;邮箱：123456789@qq.com </a>
+				<a :data-href="'edit_email.html?data='+user.email" class="mui-navigate-right"> &nbsp;&nbsp;&nbsp;&nbsp;邮箱：{{user.email || '未填写'}} </a>
 			</li>
 			<li class="mui-table-view-cell">
-				<a data-href="edit_school.html" class="mui-navigate-right"> &nbsp;&nbsp;&nbsp;&nbsp;学校：清华大学 </a>
+				<a :data-href="'edit_school.html?data='+user.school" class="mui-navigate-right"> &nbsp;&nbsp;&nbsp;&nbsp;学校：{{user.school || '未填写'}} </a>
 			</li>
 			<li class="mui-table-view-cell">
-				<a data-href="edit_wx.html" class="mui-navigate-right"> 微信号：123456789 </a>
+				<a :data-href="'edit_wx.html?data='+user.wechat" class="mui-navigate-right"> 微信号：{{user.wechat || '未填写'}} </a>
 			</li>
 			<li class="mui-table-view-cell">
-				<a> 手机号：1234567891 </a>
+				<a href="javascript:;"> 手机号：{{user.mobile}} </a>
 			</li>
 			<li class="mui-table-view-cell">
-				<a data-href="edit_qq.html" class="mui-navigate-right"> &nbsp;&nbsp;QQ号：123456789 </a>
+				<a :data-href="'edit_qq.html?data='+user.qq" class="mui-navigate-right"> &nbsp;&nbsp;QQ号：{{user.qq || '未填写'}} </a>
 			</li>
 		</ul>
 		

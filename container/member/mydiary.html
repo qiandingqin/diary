@@ -12,10 +12,6 @@
 	<header class="mui-bar gradient mui-bar-nav header">
 		<a data-href="diary_draft.html" class="msgBtn mui-pull-left"><img src="../../images/email.png" /></a>
 	    <h1 class="mui-title colorFFF">我的日记</h1>
-	    <a class="msgBtn mui-pull-right">
-	    	<img src="../../images/msg.png" />
-	    	<span class="mui-badge mui-badge-danger">5</span>
-	    </a>
 	</header>
 	
 	<nav class="mui-bar mui-bar-tab nav">
@@ -42,37 +38,12 @@
 	
 	<div class="mui-content">
 		
-		<ul class="diary_list mui-table-view noline line_buttom">
-			<li data-href="./mydiary_detail.html" class="open mui-table-view-cell">
-				<p class="mui-pull-left date"><span>13</span>/12月</p>
+		<ul class="diary_list mui-table-view noline line_buttom" v-cloak>
+			<li :data-href="'../circle/diary_detail.html?id=' + d.id" v-for="d in datas" class="open mui-table-view-cell">
+				<p class="mui-pull-left date"><span>{{d.d}}</span>/{{d.m}}月</p>
 				<div class="content mui-pull-left">
-					<p>
-						内容日记内容日记内容日记内容日记内容日记内容日记内容日记内
-						容日记内容日记内容日记内容日记内容日记内容日记内容日记内容日记内容日
-					</p>
-					<p>浏览:1000人</p>
-				</div>
-			</li>
-			
-			<li data-href="./mydiary_detail.html" class="open mui-table-view-cell">
-				<p class="mui-pull-left date"><span>13</span>/12月</p>
-				<div class="content mui-pull-left">
-					<p>
-						内容日记内容日记内容日记内容日记内容日记
-						内容日记内容日记内容日记内容日记内容
-					</p>
-					<p>浏览:1000人</p>
-				</div>
-			</li>
-			
-			<li data-href="./mydiary_detail.html" class="open mui-table-view-cell">
-				<p class="mui-pull-left date"><span>13</span>/12月</p>
-				<div class="content mui-pull-left">
-					<p>
-						内容日记内容日记内容日记内容日记内容日记内容日记内容日记内
-						容日记内容日记内容日记内容日记内容日记内容日记内容日记内容日记内容日
-					</p>
-					<p>浏览:1000人</p>
+					<p>{{d.content}}</p>
+					<!--<p>浏览:1000人</p>-->
 				</div>
 			</li>
 		</ul>

@@ -1,6 +1,6 @@
 html,body,p,h1,h2,h3,h4,h5,h6,ol,ul,li,dl,dt,dd,form,input,button{margin:0;padding:0;}
 li{list-style: none;}
-i{font-style: normal;}
+i,em{font-style: normal;}
 /*通用*/
 html,body,.mui-content{background: #FFF;}
 [v-cloak]{display: none;}
@@ -29,6 +29,11 @@ h4.tisp{color:green;font-size: 15px;font-weight: 500;text-align: center;margin:3
 h4.tisp a{font-size: 18px;}
 .show{display: block !important;}
 @-webkit-keyframes myrotate{from{-webkit-transform: rotate(0deg);}to{-webkit-transform: rotate(-360deg);}}
+.updateBox{width:300px;height: 200px;position: fixed;left:50%;margin:-100px 0 0 -150px;top:50%;background: #FFF;padding:10px;box-shadow: 3px 3px 5px rgba(0,0,0,0.5);}
+.updateBox h4{font-size: 16px;margin-bottom: 5px;}
+.updateBox .updateDesc{height: 60%;overflow-y: auto;}
+.updateBox .mui-progressbar span{transform: translate3d(-100%, 0px, 0px);}
+.updateBox .updateSize{margin-top:10px;}
 /*启动引导页*/
 .guide-show{position: relative;}
 .animated { -webkit-animation-duration: 1s; -webkit-animation-play-state: paused; -webkit-animation-fill-mode: both; }

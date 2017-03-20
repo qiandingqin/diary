@@ -5,7 +5,7 @@ define(function(require, exports, module){
 		guide : guide,
 		search_friend : search_friend,
 		msg : msg,
-		tj_friend_info : tj_friend_info,
+		friend_info : friend_info,
 		msg_im : msg_im
 	};
 	//启动引导页面
@@ -174,14 +174,66 @@ define(function(require, exports, module){
 	};
 	
 	//查看用户信息
-	function tj_friend_info(){
-		var phone = $.getUrlData().user;
-		var vOptionMsg = {
-			data : {user : {nickname : phone}}
+	function friend_info(){
+		var parameter = $.getUrlData();
+		var phone = parameter.user;
+		var userId = parameter.id;
+		var vOption = {
+			data : {user : {}},
+			methods : {
+				addFirend : addFirend,
+				deleteFirend : deleteFirend,
+				addSubscribed : addSubscribed,
+				cancelSubscribed : cancelSubscribed
+			}
 		};
-		var v = require('newvue').methods.vue(vOptionMsg);
+		var v = require('newvue').methods.vue(vOption);
 		
-		//私信聊天
+		//获取用户信息
+		getUserInfo(userId,function(result){
+			var avatar = result.data.head_img;
+			result.data.head_img = avatar?HOST + avatar:'';
+			v.user = result.data;
+		});
+		
+		//绑定事件
+		//添加笔友
+		function addFirend(uid){
+			addFriendId(uid,function(result){
+				if(result.success)mui.toast('添加成功，等等对方验证');
+			});
+		};
+		//删除笔友
+		function deleteFirend(uid){
+			deleteFriendId(uid,function(result){
+				mui.toast(result.data);
+				if(result.success){
+					reloadFriendsList();
+					mui.back();
+				};
+			});
+		};
+		//添加关注
+		function addSubscribed(uid){
+			var _this = this;
+			addSubscribedId(uid,function(result){
+				mui.toast(result.data);
+				if(result.success){
+					_this.user.is_subscribed = true;
+				};
+			});
+		};
+		//取消关注
+		function cancelSubscribed(uid){
+			var _this = this;
+			cancelSubscribedId(uid,function(result){
+				mui.toast(result.data);
+				if(result.success){
+					_this.user.is_subscribed = false;
+				};
+			});
+		};
+		//打开私信聊天
 		var openImBtn = mui('.openim')[0];
 		openImBtn.addEventListener('tap',function(){
 			openView({url : 'msg_im.html?user=' + phone});
@@ -364,7 +416,6 @@ define(function(require, exports, module){
 							saveChatLog(dataJson);
 							v.datas.push(dataJson);
                 		});
-                		
                 	});
                 },
                 success: function (id) { }

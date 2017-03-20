@@ -171,23 +171,24 @@
 		
 		<ul class="mui-table-view noline">
 			<li class="mui-table-view-cell mui-media">
-				<a href="javascript:;" class="infoBox">
+				<a :href="'../index/friend_info.html?id='+ user_id + '&user=' + user_name" class="infoBox">
 					<p class="avatar_box">
-						<img class="avatar_img mui-media-object mui-pull-left" src="../../images/avatar.png">
-						<img class="icon-v" src="../../images/v.png" />
+						<img class="avatar_img mui-media-object mui-pull-left" :src="avatar || '../../images/avatar.png'">
+						<img v-if="is_auth" class="icon-v" src="../../images/v.png" />
 					</p>
 					
 					<div class="mui-media-body">
-						<span>{{user_name}}</span>
-						<img src="../../images/male.png" />
+						<span style="display: inline-block;height: 20px;"><em>{{user_name}}</em></span>
+						<!--<img src="../../images/male.png" />-->
 						<!--<img src="../../images/add_firend.png" />-->
 						<p class="mui-ellipsis">
-							<span>红粉:200人</span>
-							<span>评论:200人</span>
+							<span>红粉:{{fans}}人</span>
+							<!--<span>评论:200人</span>-->
 						</p>
 						<div class="detailBtns">
 							<button :data-href="'../index/msg_im.html?user=' + user_name" class="open mui-btn mui-btn-outlined mui-btn-blue">私信</button>
-							<button class="mui-btn mui-btn-outlined mui-btn-blue">关注</button>
+							<button v-if="is_subscribed" class="mui-btn mui-btn-outlined mui-btn-blue" disabled>已关注</button>
+							<button v-else @tap.stop="addSub(user_id)" class="mui-btn mui-btn-outlined mui-btn-blue">关注</button>
 						</div>
 					</div>
 				</a>
@@ -210,11 +211,11 @@
 		</div>
 		
 		<nav class="mui-bar footer mui-bar-tab">
-			<div data-href="diary_comm.html" class="open fnBtns pl">
+			<div :data-href="'diary_comm.html?title=' + title + '&id=' + id" class="open fnBtns pl">
 				<img src="../../images/pl.png" />
 				<span>评论</span>
 			</div>
-			<div class="fnBtns">
+			<div @tap="share" class="fnBtns">
 				<img src="../../images/fx.png" />
 				<span>分享</span>
 			</div>

@@ -4,16 +4,40 @@ define(function(require, exports, module){
 		//提供调用接口
 		member:member,
 		wallet:wallet,
-		recharge:recharge
+		recharge:recharge,
+		friend_diary:friend_diary,
+		mydiary:mydiary
 	};
 	
 	function member(){
+		var vOption = {
+			data : {user : {}},
+			cycle : {created : getMemberInfo}
+		};
+		var v = require('newvue').methods.vue(vOption);
 		
+		//获取用户信息
+		function getMemberInfo(){
+			var _this = this;
+			var id = localStorage.getItem('id');
+			getUserInfo(id,function(result){
+				var avatar = result.data.head_img;
+				result.data.head_img = avatar?HOST + avatar:'';
+				_this.user = result.data;
+				//将用户签名存入缓存 签名页面使用缓存即可
+				window.localStorage.setItem('signature');
+			});
+		};
 	};
 	
 	//我的钱包
 	function wallet(){
 		
+	};
+	
+	//我的日记
+	function mydiary(){
+		friend_diary(true);
 	};
 	
 	//充值
@@ -72,6 +96,39 @@ define(function(require, exports, module){
 				};
 			});
 		};
+		
+	};
+	
+	//查询某用户的日记列表
+	function friend_diary(isMember){
+		
+		var parameter = $.getUrlData();
+		var userId = isMember?localStorage.getItem('id'):parameter.id;
+		var userName = decodeURI(parameter.username);
+		//设置头部
+		if(!isMember)mui('#user')[0].innerText = userName;
+		//引入vue
+		var vOption = { data : {datas : []} };
+		var v = require('newvue').methods.vue(vOption);
+		var mask = new Mask();
+		mask.show();
+		//获取日记列表
+		$.ajax({
+			url:API.DIARYCIRCLE,
+			data : {"search[user_id]" : userId},
+			success:function(result){
+				mask.close();
+				if(!result.success)return;
+				mui.each(result.data,function(i,item){
+					result.data[i].m = new Date(item.created_at * 1000).getMonth() + 1;
+					result.data[i].d = new Date(item.created_at * 1000).getDate();
+				});
+				v.datas = result.data;
+			},
+			error : function(){
+				mask.close();
+			}
+		});
 		
 	};
 	
