@@ -6,7 +6,8 @@ define(function(require, exports, module){
 		search_friend : search_friend,
 		msg : msg,
 		friend_info : friend_info,
-		msg_im : msg_im
+		msg_im : msg_im,
+		friends:friends
 	};
 	//启动引导页面
 	function guide(){
@@ -238,6 +239,37 @@ define(function(require, exports, module){
 		openImBtn.addEventListener('tap',function(){
 			openView({url : 'msg_im.html?user=' + phone});
 		});
+	};
+	
+	//已关注笔友列表
+	function friends(){
+		var vOption = {
+			data : {datas : {}},
+			cycle:{created : getList}
+		};
+		var v = require('newvue').methods.vue(vOption);
+		
+		//获取已关注笔友列表
+		function getList(){
+			var _this = this;
+			var mask = new Mask();
+			mask.show();
+			$.ajax({
+				url:API.GETSUB,
+				success:function(result){
+					mask.close();
+					
+					mui.each(result.data,function(i,item){
+						var avatar = item.user.head_img;
+						item.user.head_img = avatar?HOST + avatar:'';
+					});
+					_this.datas = result.data;
+				},error:function(){
+					mask.close();
+				}
+			});
+		};
+		
 	};
 	
 	//IM聊天室 单聊

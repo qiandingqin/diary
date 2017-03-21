@@ -12,111 +12,25 @@
 	<header class="mui-bar gradient mui-bar-nav header">
 		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 	    <h1 class="mui-title colorFFF">已关注笔友</h1>
-	    <a class="msgBtn mui-pull-right">
-	    	<img src="../../images/msg.png" />
-	    	<span class="mui-badge mui-badge-danger">5</span>
-	    </a>
 	</header>
-	<!--底部-->
-	<nav class="mui-bar mui-bar-tab nav">
-		<a class="mui-tab-item mui-active" href="../index/index.html">
-			<img src="../../images/friend.png" class="mui-icon"/>
-			<span class="mui-tab-label">笔友</span>
-		</a>
-		<a class="mui-tab-item" href="../member/mydiary.html">
-			<img src="../../images/my_diary.png" class="mui-icon"/>
-			<span class="mui-tab-label">我的日记</span>
-		</a>
-		<a class="mui-tab-item add" href="../other/add_diary.html">
-			<img src="../../images/add.png" />
-		</a>
-		<a class="mui-tab-item" href="../circle/circle.html">
-			<img src="../../images/diary.png" class="mui-icon"/>
-			<span class="mui-tab-label">日记圈</span>
-		</a>
-		<a class="mui-tab-item open" href="../member/member.html">
-			<img src="../../images/member.png" class="mui-icon"/>
-			<span class="mui-tab-label">我的</span>
-		</a>
-	</nav>
 	
 	<div class="mui-content">
 		<!--好友列表-->
 		<div class="listGroup">
 			<div class="lists">
-				<p>A</p>
+				<p style="padding-top:10px;">已关注笔友列表</p>
 				<ul class="mui-table-view noline fnBtns">
-					<li class="mui-table-view-cell">
-						<a data-href="gz_friend_info.html">
-							<img src="../../images/avatar1.png" />
-							<span>有妖气</span>
-						</a>
-					</li>
-					<li class="mui-table-view-cell">
-						<a data-href="gz_friend_info.html">
-							<img src="../../images/avatar.png" />
-							<span>缘来缘去</span>
-						</a>
-					</li>
-					<li class="mui-table-view-cell">
-						<a data-href="gz_friend_info.html">
-							<img src="../../images/avatar.png" />
-							<span>哈哈大笑</span>
-						</a>
-					</li>
-					<li class="mui-table-view-cell">
-						<a data-href="gz_friend_info.html">
-							<img src="../../images/avatar.png" />
-							<span>哈哈大笑</span>
-						</a>
-					</li>
-					<li class="mui-table-view-cell">
-						<a data-href="gz_friend_info.html">
-							<img src="../../images/avatar.png" />
-							<span>哈哈大笑</span>
-						</a>
-					</li>
-				</ul>
-			</div>
-			
-			<div class="lists">
-				<p>B</p>
-				<ul class="mui-table-view noline fnBtns">
-					<li class="mui-table-view-cell">
-						<a data-href="gz_friend_info.html">
-							<img src="../../images/avatar1.png" />
-							<span>有妖气</span>
-						</a>
-					</li>
-					<li class="mui-table-view-cell">
-						<a data-href="gz_friend_info.html">
-							<img src="../../images/avatar.png" />
-							<span>缘来缘去</span>
-						</a>
-					</li>
-					<li class="mui-table-view-cell">
-						<a data-href="gz_friend_info.html">
-							<img src="../../images/avatar.png" />
-							<span>哈哈大笑</span>
-						</a>
-					</li>
-					<li class="mui-table-view-cell">
-						<a data-href="gz_friend_info.html">
-							<img src="../../images/avatar.png" />
-							<span>哈哈大笑</span>
-						</a>
-					</li>
-					<li class="mui-table-view-cell">
-						<a data-href="gz_friend_info.html">
-							<img src="../../images/avatar.png" />
-							<span>哈哈大笑</span>
+					<li class="mui-table-view-cell" v-for="d in datas">
+						<a :data-href="'friend_info.html?id='+d.user.id+'&user=' + d.user.username">
+							<img :src=" d.user.head_img || '../../images/avatar.png'" />
+							<span>{{d.user.nickname || d.user.username}}</span>
 						</a>
 					</li>
 				</ul>
 			</div>
 		</div>
 	</div>
-<script src="../../js/mui.min.js"></script>
-<script src="../../js/all.js"></script>
+<script src="../../js/sea.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/entrance.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>

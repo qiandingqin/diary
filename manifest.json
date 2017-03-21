@@ -224,13 +224,13 @@
 					"container/index/msg.html",
 					"container/index/tj_friend_info.html",
 					"js/update.js",
-					"js/plusdown.js"
+					"js/plusdown.js",
+					"container/index/friends.html"
 				],
 				"refer": [
 					"container/member/mydiary.html",
 					"container/other/add_diary.html",
 					"container/circle/circle.html",
-					"container/index/friends.html",
 					"container/index/gz_friend_info.html",
 					"container/index/search_friend.html",
 					"container/index/friend_info.html"
@@ -1075,10 +1075,26 @@
 					"js/mui.min.js",
 					"css/mui.min.css",
 					"images/msg.png",
-					"js/all.js"
+					"js/all.js",
+					"js/sea.js",
+					"js/websdk-1.4.10.js",
+					"js/newvue.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/im.js",
+					"js/entrance.js",
+					"js/webim.config.js",
+					"js/plusdown.js",
+					"js/strophe-1.2.8.min.js",
+					"js/constant.js",
+					"js/functions.js",
+					"js/update.js",
+					"js/index.js",
+					"container/index/index.html"
 				],
 				"refer": [
-					"container/index/gz_friend_info.html"
+					"container/index/gz_friend_info.html",
+					"container/index/friend_info.html"
 				],
 				"priority": 0
 			},

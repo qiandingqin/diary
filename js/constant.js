@@ -54,7 +54,8 @@ var API = {
 	//获取日记评论列表
 	GETCOMMLIST : HOST + '?r=diary/get-comments',
 	//设置用户信息
-	SETINFO : HOST + '?r=user/update'
+	SETINFO : HOST + '?r=user/update',
+	GETSUB : HOST + '?r=user/get-subscribed-user'
 };
 //常量设置
 var AJAX_TIMEOUT = 8000;				//ajax请求时间
