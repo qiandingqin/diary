@@ -55,7 +55,10 @@ var API = {
 	GETCOMMLIST : HOST + '?r=diary/get-comments',
 	//设置用户信息
 	SETINFO : HOST + '?r=user/update',
-	GETSUB : HOST + '?r=user/get-subscribed-user'
+	//获取已关注笔友列表
+	GETSUB : HOST + '?r=user/get-subscribed-user',
+	//实名认证
+	NAMEAUTH : HOST + '?r=user/name-auth'
 };
 //常量设置
 var AJAX_TIMEOUT = 8000;				//ajax请求时间

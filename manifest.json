@@ -685,7 +685,18 @@
 					"css/mui.min.css",
 					"css/style.css",
 					"js/all.js",
-					"images/add_img.png"
+					"images/add_img.png",
+					"js/sea.js",
+					"js/plusdown.js",
+					"js/constant.js",
+					"js/newvue.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/update.js",
+					"js/entrance.js",
+					"js/other.js",
+					"js/upImg.js"
 				],
 				"refer": [],
 				"priority": 0

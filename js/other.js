@@ -21,7 +21,8 @@ define(function(require, exports, module){
 		edit_email:edit_email,
 		edit_school:edit_school,
 		edit_wx:edit_wx,
-		edit_qq:edit_qq
+		edit_qq:edit_qq,
+		verify:verify
 	};
 	
 	//用户资料中心
@@ -207,6 +208,98 @@ define(function(require, exports, module){
 			});
 		});
 		
+	};
+	
+	//实名认证
+	function verify(){
+		
+		var filesArr = [];
+		
+		//提交
+		mui('.verify_sumbit')[0].addEventListener('tap',function(){
+			var mask = new Mask();
+			var inputText = mui('input[type=text],input[type=tel]');
+			var inputFile = mui('input[type=file]');
+			//检测姓名，身份证号是否为空
+			for(var i=0,l=inputText.length;i<l;i++){
+				
+				if(!inputText[i].value){
+					mui.toast(inputText[i].placeholder);
+					return;
+				};
+				
+			};
+			
+			//检测所需上传图片数量是否为空
+			for(var i=0,l=inputFile.length;i<l;i++){
+				
+				if(!inputFile[i].value){
+					var msg = inputFile[i].parentNode.parentNode.querySelector('p').innerText;
+					mui.toast('请添加' + msg);
+					return;
+				};
+				
+			};
+			
+			mask.show();
+			//先上传图片文件 成功后提交数据
+			require.async('upImg.js',function(e){
+				var upJson = {
+					host : API.IMAGESUPLOAD,
+					name : 'images[]'
+				};
+				var up = new e.UpLoadImg(filesArr,upJson);
+				up.Up(function(result){
+					if(!result.success){
+						mask.close();
+						return;
+					};
+					
+					//组装提交数据
+					var filepaths = result.data.success;
+					var subJson = {
+						"data[real_name]" : inputText[0].value,
+						"data[card_sn]" : inputText[1].value,
+						"data[card_front]" : filepaths[0].path,
+						"data[card_back]" : filepaths[1].path,
+						"data[card_hand]" : filepaths[2].path,
+					};
+					
+					submitData(subJson,mask);
+				});
+			});
+			
+		});
+		
+		//监听选择图片
+		mui('body').on('change','input[type=file]',function(){
+			this.disabled = true;
+			filesArr.push(this.files[0]);
+			
+			//预览
+			var src = window.URL.createObjectURL(this.files[0]);
+			this.parentNode.querySelector('img').src = src;
+			
+		});
+		
+		//提交数据
+		function submitData(subJson,mask){
+			$.ajax({
+				type:"post",
+				url:API.NAMEAUTH,
+				data : subJson,
+				success:function(result){
+					mask.close();
+					mui.toast(result.data);
+					if(result.success){
+						mui.back();
+					};
+				},
+				error:function(){
+					mask.close();
+				}
+			});
+		};
 	};
 	
 	//注册 注册包含同时注册IM，跟自己服务器
