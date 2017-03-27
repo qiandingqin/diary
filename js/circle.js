@@ -53,7 +53,7 @@ define(function(require, exports, module){
 				v.weather = r.weather;
 				v.id = r.id;
 				v.date = $.getTimes(r.created_at).timerStr;
-				v.day = new Date(parseInt(r.created_at) * 1000).getDay();
+				v.day = WEEK[new Date(parseInt(r.created_at) * 1000).getDay()];
 				v.imgHost = HOST;
 				v.fans = r.user.fans;
 				v.is_auth = r.user.is_auth;
