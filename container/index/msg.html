@@ -31,7 +31,7 @@
 			<ul class="mui-table-view msglist noline line_buttom">
 				<li class="mui-table-view-cell mui-media" v-cloak v-for="(d,index) in datas">
 					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-left" src="../../images/avatar.png">
+						<img class="mui-media-object mui-pull-left" :src="d.avatar || '../../images/avatar.png'">
 						<div class="mui-media-body">
 							<span class="mui-ellipsis">{{d.from_user_nick}}</span>
 							<!--<p class="mui-ellipsis">123</p>-->

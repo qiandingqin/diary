@@ -126,14 +126,17 @@ define(function(require, exports, module){
 		};
 		//引入vue
 		var vMsg = require('newvue').methods.vue(vOptionMsg);
-		
+		var mask = new Mask();
+		mask.show();
 		//获取待处理好友申请列表
 		pending(function(res){
 			mui.each(res,function(i,item){
 				res[i].add_at = $.getTimes(item.add_at).timerStr;
+				res[i].nickname = item.user.nickname || item.user.username;
+				res[i].avatar = item.user.head_img?HOST + item.user.head_img:'';
 				vMsg.datas.push(item);
 			});
-		});
+		},mask);
 		
 		//同意添加好友
 		function yesBtn(uid,index){

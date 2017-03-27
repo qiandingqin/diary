@@ -1131,7 +1131,9 @@
 					"js/strophe-1.2.8.min.js",
 					"js/index.js",
 					"js/newvue.js",
-					"container/index/index.html"
+					"container/index/index.html",
+					"js/plusdown.js",
+					"js/update.js"
 				],
 				"refer": [
 					"container/index/msg_im.html",

@@ -313,8 +313,9 @@ function getFriendsList(cb){
 					newJson.user_id = item.to_user_id;
 				}else{
 					newJson.user_name = item.from_user_name;
-					newJson.nickname = item.from_user_nick;
+					newJson.nickname = item.user.nickname || item.user.username;
 					newJson.user_id = item.from_user_id;
+					newJson.avatar = item.user.head_img?HOST + item.user.head_img:'';
 				};
 				newArr.push(newJson);
 			});
@@ -395,10 +396,11 @@ function cancelSubscribedId(uid,cb){
 };
 
 //获取待处理好友列表
-function pending(cb){
+function pending(cb,mask){
 	$.ajax({
 		url : API.PENDING,
 		success : function(result){
+			mask&&mask.close();
 			//过滤已同意,已拒绝的
 			result = result.data;
 			mui.each(result,function(i,item){
@@ -409,6 +411,9 @@ function pending(cb){
 			result = $.filterArrJson(result,'from_user_id');
 			cb&&cb(result);
 		},
+		error:function(){
+			mask&&mask.close();
+		}
 	});
 };
 
