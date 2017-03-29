@@ -18,22 +18,22 @@
 	</header>
 	<!--底部-->
 	<nav class="mui-bar mui-bar-tab nav">
-		<a class="mui-tab-item active" href="../index/index.html">
+		<a class="mui-tab-item active" data-href="../index/index.html">
 			<img src="../../images/friend_active.png" class="mui-icon"/>
 			<span class="mui-tab-label">笔友</span>
 		</a>
-		<a class="mui-tab-item" href="../member/mydiary.html">
+		<a class="mui-tab-item" data-href="../member/mydiary.html">
 			<img src="../../images/mydiary.png" class="mui-icon"/>
 			<span class="mui-tab-label">我的日记</span>
 		</a>
-		<a class="mui-tab-item add" href="../other/add_diary.html">
+		<a class="mui-tab-item add" data-href="../other/add_diary.html">
 			<img src="../../images/add.png" />
 		</a>
-		<a class="mui-tab-item" href="../circle/circle.html">
+		<a class="mui-tab-item" data-href="../circle/circle.html">
 			<img src="../../images/circle.png" class="mui-icon"/>
 			<span class="mui-tab-label">日记圈</span>
 		</a>
-		<a class="mui-tab-item open" href="../member/member.html">
+		<a class="mui-tab-item open" data-href="../member/member.html">
 			<img src="../../images/my.png" class="mui-icon"/>
 			<span class="mui-tab-label">我的</span>
 		</a>
@@ -77,7 +77,7 @@
 					<li class="mui-table-view-cell" v-cloak v-for="d in datas">
 						<a :data-href="'friend_info.html?id='+d.user_id+'&user=' + d.user_name">
 							<img :src="d.avatar || '../../images/avatar.png'" />
-							<span>{{d.nickname}}</span>
+							<span>{{d.nickname || d.user_diarysn}}</span>
 						</a>
 					</li>
 				</ul>

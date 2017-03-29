@@ -19,11 +19,11 @@
 		<div class="listGroup">
 			<div class="lists">
 				<p style="padding-top:10px;">已关注笔友列表</p>
-				<ul class="mui-table-view noline fnBtns">
+				<ul class="mui-table-view noline fnBtns" v-cloak>
 					<li class="mui-table-view-cell" v-for="d in datas">
 						<a :data-href="'friend_info.html?id='+d.user.id+'&user=' + d.user.username">
 							<img :src=" d.user.head_img || '../../images/avatar.png'" />
-							<span>{{d.user.nickname || d.user.username}}</span>
+							<span>{{d.user.nickname || d.user.diarysn}}</span>
 						</a>
 					</li>
 				</ul>

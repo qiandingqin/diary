@@ -11,23 +11,16 @@ define(function(require, exports, module){
 	
 	function member(){
 		var vOption = {
-			data : {user : {}},
-			cycle : {created : getMemberInfo}
+			data : {user : JSON.parse(localStorage.getItem('selfUserInfo'))}
 		};
+		
 		var v = require('newvue').methods.vue(vOption);
 		
-		//获取用户信息
-		function getMemberInfo(){
-			var _this = this;
-			var id = localStorage.getItem('id');
-			getUserInfo(id,function(result){
-				var avatar = result.data.head_img;
-				result.data.head_img = avatar?HOST + avatar:'';
-				_this.user = result.data;
-				//将用户签名存入缓存 签名页面使用缓存即可
-				window.localStorage.setItem('signature');
-			});
-		};
+		//监听修改头像操作
+		window.addEventListener('update',function(){
+			v.user = JSON.parse(localStorage.getItem('selfUserInfo'));
+		});
+		
 	};
 	
 	//我的钱包
@@ -115,7 +108,7 @@ define(function(require, exports, module){
 		//获取日记列表
 		$.ajax({
 			url:API.DIARYCIRCLE,
-			data : {"search[user_id]" : userId},
+			data : {"search[user_id]" : userId,'sort':'-created_at'},
 			success:function(result){
 				mask.close();
 				if(!result.success)return;

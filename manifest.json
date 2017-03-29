@@ -63,7 +63,7 @@
         },
         "NativeObj":{
         	"description": "原生对象"
-        },"XMLHttpRequest":{},"Downloader":{},"File":{},"Payment":{},"Share":{}
+        },"XMLHttpRequest":{},"Downloader":{},"File":{},"Payment":{},"Share":{},"Audio":{},"Gallery":{},"Zip":{}
 	},
 	"plus": {
 		"splashscreen": {
@@ -86,7 +86,7 @@
 				"keystore": "",/*Android应用打包使用的密钥库文件*/
 				"password": "",/*Android应用打包使用密钥库中证书的密码*/
 				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
-				"permissions": ["<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>"]
+				"permissions": ["<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>","<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>"]
 			},
 			"orientation": ["portrait-primary", "portrait-secondary"],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
 			"icons": {
@@ -144,9 +144,9 @@
 				},
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
-					"ldpi": "","hdpi":"C:/Users/Administrator/Desktop/images/480.png","xhdpi":"C:/Users/Administrator/Desktop/images/720.png","xxhdpi":"C:/Users/Administrator/Desktop/images/1080.png"
+					"ldpi": ""
 				}
-			}
+			},"debug":true
 		}
 	},
 	"dependencies": {
@@ -225,15 +225,15 @@
 					"container/index/tj_friend_info.html",
 					"js/update.js",
 					"js/plusdown.js",
-					"container/index/friends.html"
+					"container/index/friends.html",
+					"container/index/friend_info.html"
 				],
 				"refer": [
 					"container/member/mydiary.html",
 					"container/other/add_diary.html",
 					"container/circle/circle.html",
 					"container/index/gz_friend_info.html",
-					"container/index/search_friend.html",
-					"container/index/friend_info.html"
+					"container/index/search_friend.html"
 				],
 				"priority": 0
 			},
@@ -413,7 +413,9 @@
 					"js/entrance.js",
 					"js/constant.js",
 					"js/other.js",
-					"js/newvue.js"
+					"js/newvue.js",
+					"js/plusdown.js",
+					"js/update.js"
 				],
 				"refer": [
 					"container/index/index.html"
@@ -483,7 +485,9 @@
 					"js/newvue.js",
 					"js/other.js",
 					"fonts/mui.ttf",
-					"js/mui.picker.min.js"
+					"js/mui.picker.min.js",
+					"js/plusdown.js",
+					"js/update.js"
 				],
 				"refer": [
 					"container/other/pushset.html",
@@ -625,12 +629,12 @@
 					"images/1.png",
 					"js/mui.zoom.js",
 					"js/mui.previewimage.js",
-					"js/share.js"
+					"js/share.js",
+					"container/index/friend_info.html"
 				],
 				"refer": [
 					"container/circle/diary_comm.html",
-					"container/index/msg_im.html",
-					"container/index/friend_info.html"
+					"container/index/msg_im.html"
 				],
 				"priority": 0
 			},
@@ -832,7 +836,8 @@
 					"js/vue.js",
 					"js/update.js",
 					"js/entrance.js",
-					"js/other.js"
+					"js/other.js",
+					"js/plusdown.js"
 				],
 				"refer": [
 					"container/other/feedback.html",
@@ -842,7 +847,13 @@
 			},
 			"container/other/feedback.html": {
 				"resources": [
-					"fonts/mui-icons-extra.ttf"
+					"fonts/mui-icons-extra.ttf",
+					"js/all.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"css/icons-extra.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -880,7 +891,8 @@
 					"js/plusdown.js",
 					"js/upImg.js",
 					"container/other/edit_nickname.html",
-					"container/other/edit_address.html"
+					"container/other/edit_address.html",
+					"container/member/member.html"
 				],
 				"refer": [
 					"container/other/about_content.html",
@@ -1030,7 +1042,17 @@
 					"css/mui.min.css",
 					"css/style.css",
 					"js/all.js",
-					"css/icons-extra.css"
+					"css/icons-extra.css",
+					"js/sea.js",
+					"js/plusdown.js",
+					"js/constant.js",
+					"js/newvue.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/update.js",
+					"js/entrance.js",
+					"js/other.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -1043,7 +1065,17 @@
 					"css/mui.min.css",
 					"css/style.css",
 					"js/all.js",
-					"css/icons-extra.css"
+					"css/icons-extra.css",
+					"js/sea.js",
+					"js/plusdown.js",
+					"js/constant.js",
+					"js/newvue.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/update.js",
+					"js/entrance.js",
+					"js/other.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -1168,7 +1200,11 @@
 					"js/index.js",
 					"js/plusdown.js",
 					"js/update.js",
-					"js/websdk-1.4.5.min.js"
+					"js/websdk-1.4.5.min.js",
+					"js/chat.js",
+					"js/lib/rongIm.js",
+					"js/lib/sha1.js",
+					"js/lib/RongIMLib-2.2.5.min.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -1266,7 +1302,8 @@
 					"js/im.js",
 					"js/index.js",
 					"js/sea.js",
-					"js/entrance.js"
+					"js/entrance.js",
+					"container/circle/diary_detail.html"
 				],
 				"refer": [
 					"container/index/send_add.html",
@@ -1439,7 +1476,8 @@
 				"refer": [
 					"container/member/mydiary_detail.html",
 					"container/member/diary_draft.html",
-					"container/circle/diary_detail.html"
+					"container/circle/diary_detail.html",
+					"container/circle/circle.html"
 				],
 				"priority": 0
 			},
@@ -1459,7 +1497,9 @@
 					"js/vue.js",
 					"js/entrance.js",
 					"js/other.js",
-					"js/mui.picker.min.js"
+					"js/mui.picker.min.js",
+					"js/plusdown.js",
+					"js/update.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -1510,7 +1550,9 @@
 					"js/im.js",
 					"js/entrance.js",
 					"js/other.js",
-					"container/other/login.html"
+					"container/other/login.html",
+					"js/plusdown.js",
+					"js/update.js"
 				],
 				"refer": [
 					"container/other/resetpwd.html"

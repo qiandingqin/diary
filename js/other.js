@@ -28,27 +28,15 @@ define(function(require, exports, module){
 	//用户资料中心
 	function memberinfo(){
 		var vOption = {
-			data : {user : {sex : 0}},
-			methods : {logout : logoutBtn,setAvatar:setAvatar},
-			cycle : {created : getMemberInfo}
+			data : {user : JSON.parse(localStorage.getItem('selfUserInfo'))},
+			methods : {logout : logoutBtn,setAvatar:setAvatar}
 		};
 		var v = require('newvue').methods.vue(vOption);
 		
 		//监听刷新事件
 		window.addEventListener('reloadUserInfo',function(){
-			getMemberInfo.call(v);
+			v.user = JSON.parse(localStorage.getItem('selfUserInfo'));
 		});
-		
-		//获取用户信息
-		function getMemberInfo(){
-			var id = localStorage.getItem('id');
-			var _this = this;
-			getUserInfo(id,function(result){
-				var avatar = result.data.head_img;
-				result.data.head_img = avatar?HOST + avatar:'';
-				_this.user = result.data;
-			});
-		};
 		
 		//修改头像
 		function setAvatar(e){
@@ -62,6 +50,8 @@ define(function(require, exports, module){
 					name : 'images[]'
 				};
 				var up = new e.UpLoadImg(files,option);
+				var mask = new Mask();
+				mask.show('上传中..');
 				up.Up(function(result){
 					if(!result.success)return;
 					var path = result.data.success[0].path;
@@ -70,7 +60,18 @@ define(function(require, exports, module){
 						url:API.SETAVATAR,
 						data:{headimg:path},
 						success:function(result){
+							mask.close();
 							mui.toast(result.data);
+							var userinfo = JSON.parse(localStorage.getItem('selfUserInfo'));
+							userinfo.head_img = HOST + path;
+							localStorage.setItem('selfUserInfo',JSON.stringify(userinfo));
+							//通知“我的”界面刷新
+							mui.plusReady(function(){
+								var targetView = plus.webview.getWebviewById('member');
+								mui.fire(targetView,'update');
+							});
+						},error:function(){
+							mask.close();
 						}
 					});
 				});
@@ -194,7 +195,8 @@ define(function(require, exports, module){
 	
 	//用户签名
 	function autograph(){
-		var signature = localStorage.getItem('signature');
+		var userInfo = JSON.parse(localStorage.getItem('selfUserInfo'));
+		var signature = userInfo.signature;
 		var text = mui('#signature_text')[0];
 		text.value = signature;
 		
@@ -204,7 +206,8 @@ define(function(require, exports, module){
 				return;
 			};
 			setUserInfo('data[signature]',text.value,function(){
-				localStorage.setItem('signature',text.value);
+				userInfo.signature = text.value;
+				localStorage.setItem('selfUserInfo',JSON.stringify(userInfo));
 			});
 		});
 		
@@ -304,90 +307,92 @@ define(function(require, exports, module){
 	
 	//注册 注册包含同时注册IM，跟自己服务器
 	function reg(){
-		//首先注册IM账号 成功后再注册自己服务器账号 保证双边账号同步
-		//引入IM封装文件
-		
-		require.async('im',function(methods){
-			var im = methods.methods.connection();
-		
-			var time = 60;
-			//初始化 Vue 用做处理数据
-			var vOption = {
-				data : {phone : '',pwd : '',verifycode : '',isAgree : true,codetxt:STR.GETCODE,sendBtn:true},
-				methods : {regBtn : regBtn,sendcode:sendcode}
+		var time = 60;
+		//初始化 Vue 用做处理数据
+		var vOption = {
+			data : {phone : '',pwd : '',verifycode : '',isAgree : true,codetxt:STR.GETCODE,sendBtn:true},
+			methods : {regBtn : regBtn,sendcode:sendcode}
+		};
+		var v = require('newvue').methods.vue(vOption);
+		//注册按钮
+		function regBtn(){
+			var mask = new Mask();
+			//验证手机号是否正确。
+			var msg = '';
+			if(!$.regExp('phonecode',this.phone)){
+				msg = '手机号不正确';
+			}else if(this.pwd.length < 6){
+				msg = '密码长度在6位数以上';
+			}else if(!this.isAgree){
+				msg = '请先同意用户协议';
 			};
-			var v = require('newvue').methods.vue(vOption);
-			//注册按钮
-			function regBtn(){
-				var mask = new Mask();
-				//验证手机号是否正确。
-				var msg = '';
-				if(!$.regExp('phonecode',this.phone)){
-					msg = '手机号不正确';
-				}else if(this.pwd.length < 6){
-					msg = '密码长度在6位数以上';
-				}else if(!this.isAgree){
-					msg = '请先同意用户协议';
+			
+			if(msg){ mui.alert(msg); return; };
+			
+			var dataJson = { phone:this.phone,pwd:this.pwd,nickname:this.phone};
+			
+			//注册账号->注册IM账号->保存用户信息->自动登录IM账号->保存IM token->打开首页->关闭注册登录界面
+			regUser();
+			
+			function regUser(cb){
+				mask.show();
+				var subJson = {
+					'data[mobile]':dataJson.phone,
+					'data[password]':dataJson.pwd,
+					'data[code]': v.verifycode
 				};
-				
-				if(msg){ mui.alert(msg); return; };
-				
-				var dataJson = { phone:this.phone,pwd:this.pwd,nickname:this.phone};
-				
-				//注册账号->注册IM账号->保存用户信息->自动登录IM账号->保存IM token->打开首页->关闭注册登录界面
-				regUser(function(res){
-					//注册 IM账号 注册成功后调用注册服务器账号
-					im.regUser(dataJson);
+				//发起注册
+				$.ajax({
+					type:"post",
+					url:API.REG,
+					data : subJson,
+					success:function(result){
+						mask.close();
+						if(result.success){
+							//注册成功
+							//保存用户基本信息
+							window.localStorage.setItem('phone',result.data.mobile);
+							window.localStorage.setItem('id',result.data.user_id);
+							mui.plusReady(function(){
+				    		openView({url : '../index/index.html'},function(){
+				    			if(plus.webview.currentWebview().id == 'login'){
+				    				fireCloseView();
+				    			}else{
+				    				fireCloseView('login');
+				    				fireCloseView();
+				    			};
+				    		});
+				    	});
+						}else{
+							mui.toast(result.data);
+						}
+						
+					},error:function(){mask.close();}
 				});
-				
-				function regUser(cb){
-					mask.show();
-					var subJson = {
-						'data[mobile]':dataJson.phone,
-						'data[password]':dataJson.pwd,
-						'data[code]': v.verifycode
-					};
-					//发起注册
-					$.ajax({
-						type:"post",
-						url:API.REG,
-						data : subJson,
-						success:function(result){
-							mask.close();
-							if(result.success){
-								//注册成功
-								//保存用户基本信息
-								window.localStorage.setItem('phone',result.data.mobile);
-								cb&&cb(result);
-							};
-							
-						},error:function(){mask.close();}
-					});
+			};
+		};
+		//发送验证码
+		function sendcode(){
+			var _this = this;
+			var setInt = null;
+			_this.codetxt = --time + 's后获取';
+			_this.sendBtn = false;
+			setInt = setInterval(function(){
+				if(time <= 0){
+					clearInterval(setInt);
+					_this.sendBtn = true;
+					_this.codetxt = STR.GETCODE;
+					time = 60;
+				}else{
+					_this.codetxt = --time + 's后获取';
 				};
-			};
+			},1000);
 			//发送验证码
-			function sendcode(){
-				var _this = this;
-				var setInt = null;
-				_this.codetxt = --time + 's后获取';
-				_this.sendBtn = false;
-				setInt = setInterval(function(){
-					if(time <= 0){
-						clearInterval(setInt);
-						_this.sendBtn = true;
-						_this.codetxt = STR.GETCODE;
-						time = 60;
-					}else{
-						_this.codetxt = --time + 's后获取';
-					};
-				},1000);
-				//发送验证码
-				sendVerifyCode(_this.phone);
-			};
-		});
+			sendVerifyCode(_this.phone);
+		};
 	};
 	
-	//登录页面 登录包含同时登录IM，跟自己服务器
+	//登录页面 
 	function login(){
 		//双击退出应用
 		doubleBack();
@@ -425,7 +430,10 @@ define(function(require, exports, module){
 				data : subJson,
 				success:function(res){
 					mask.close();
-					if(!res.success)return;
+					if(!res.success){
+						mui.toast(res.data);
+						return;
+					};
 					window.localStorage.setItem('phone',dataJson.phone);
 					window.localStorage.setItem('pwd',dataJson.pwd);
 					window.localStorage.setItem('id',res.data.user_id);
@@ -487,27 +495,18 @@ define(function(require, exports, module){
 				data : subJson,
 				success:function(result){
 					mask.close();
+					mui.toast(result.data);
 					if(!result || !result.success)return;
-					//修改IM密码
-					require.async('im',function(methods){
-						var im = methods.methods;
-						var imconn = im.connection();
-						var imrest = im.rest;
-						imrest.resetPwd(_this.phone,_this.pwd,function(res){
-							//修改成功 退出登录后退
-							mui.plusReady(function(){
-								var firstView = plus.webview.currentWebview().opener();
-								if(firstView.id == 'login'){
-									logout(function(){
-										mui.toast(result.data);
-										mui.back();
-									});
-								}else{
-									mui.toast(result.data);
-									mui.back();
-								};
+					//修改成功 退出登录后退
+					mui.plusReady(function(){
+						var firstView = plus.webview.currentWebview().opener();
+						if(firstView.id == 'login'){
+							logout(function(){
+								mui.back();
 							});
-						});
+						}else{
+							mui.back();
+						};
 					});
 				},
 				error:function(){
@@ -562,7 +561,11 @@ define(function(require, exports, module){
 			methods : {selDate : selDate,add : add,change : change}
 		};
 		var v = require('newvue').methods.vue(vOption);
-		var files = [];
+		var files = {
+			"default" : [null,null,null],
+			"temp1" : [null,null],
+			"temp2" : [null,null]
+		};
 		//JS处理添加图片高度的问题
 		var oDiv = document.querySelectorAll('div.autoHeight');
 		var Textarea = document.querySelectorAll('textarea.autoHeight');
@@ -590,12 +593,11 @@ define(function(require, exports, module){
 		});
 		
 		//监听选择文件事件
-		function change(ev){
+		function change(ev,index){
 			var _this = ev.target;
 			var oImg = _this.parentNode.querySelector('img');
 			oImg.src = window.URL.createObjectURL(_this.files[0]);
-			files.push(_this.files[0]);
-			_this.parentNode.removeChild(_this);
+			files[v.template][index] = _this.files[0];
 		};
 		
 		//提交数据
@@ -613,9 +615,15 @@ define(function(require, exports, module){
 				"data[permit]" : v.permit,
 				"data[push]" : v.push
 			};
+			var filesArr = [];
 			
+			for(var i=0,l=files[v.template].length;i<l;i++){
+				if(files[v.template][i]){
+					filesArr.push(files[v.template][i]);
+				};
+			};
 			//判断用户是否需要上传图片
-			if(files.length){
+			if(filesArr.length){
 				//引入上传图片组件
 				require.async('upImg.js',function(e){
 					//提交图片上传
@@ -623,7 +631,8 @@ define(function(require, exports, module){
 						host : API.IMAGESUPLOAD,
 						name : 'images[]'
 					};
-					var up = new e.UpLoadImg(files,upOp);
+					
+					var up = new e.UpLoadImg(filesArr,upOp);
 					up.Up(function(result){
 						var imgPaths = result.data.success;
 						//拼接图片地址
@@ -650,7 +659,9 @@ define(function(require, exports, module){
 						mask.close();
 						if(!result.success)return;
 						mui.toast('发布成功');
-						openView({url : '../circle/diary_detail.html',data : {id : result.data.id}},fireCloseView);
+						openView({url : '../circle/diary_detail.html',data : {id : result.data.id}},function(){
+							fireCloseView();
+						});
 					},
 					error : function(){
 						mask.close();
@@ -737,6 +748,13 @@ define(function(require, exports, module){
 		update.getVersion(function(result){
 			var versioncode = document.getElementById("versioncode");
 			versioncode.innerText = result.version;
+		});
+		
+		mui.plusReady(function(){
+			//获取当前版本
+			plus.runtime.getProperty(plus.runtime.appid,function(info){
+				document.getElementById("curVersion").innerText = info.version;
+			});
 		});
 	};
 	

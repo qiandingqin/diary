@@ -42,7 +42,7 @@
 				<div :data-href="'../index/friend_info.html?id=' + d.user_id + '&user=' + d.user_name" class="open mui-card-header mui-card-media">
 					<img :src="d.user.head_img || '../../images/avatar.png'">
 					<div class="mui-media-body">
-						<span class="nickname">{{d.user.nickname || d.user.username}}</span>
+						<span class="nickname">{{d.user.nickname || d.user.diarysn}}</span>
 						<!--<img class="sex_icon" src="../../images/male.png" />-->
 						<p>红粉:{{d.user.fans}}</p>
 						<button v-if="d.user.is_subscribed" class="mui-btn mui-btn-block" disabled="disabled">已关注</button>

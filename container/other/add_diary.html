@@ -74,20 +74,22 @@
 	    <div class="content_text pad15 default mui-hidden" :class="[template=='default'?'show':'']">
 	    	<textarea class="add_content" :class="[font == '大字体'?'max':(font == '中字体'?'center' : 'min')]" placeholder="内容" v-model="content1"></textarea>
 	    	<div class="imgUpBox mui-clearfix">
-	    		
 	    		<div class="upFileBox mui-pull-left">
-	    			<img src="../../images/add_img.png" />
-	    			<input @change="change($event)" type="file" accept="image/*" />
+	    			<img />
+	    			<i class="icon_add" style="line-height: 100px;">+</i>
+	    			<input @change="change($event,0)" type="file" accept="image/*" />
 	    		</div>
 	    		
 	    		<div class="upFileBox mui-pull-left">
-	    			<img src="../../images/add_img.png" />
-	    			<input @change="change($event)" type="file" accept="image/*" />
+	    			<img />
+	    			<i class="icon_add" style="line-height: 100px;">+</i>
+	    			<input @change="change($event,1)" type="file" accept="image/*" />
 	    		</div>
 	    		
 	    		<div class="upFileBox mui-pull-left">
-	    			<img src="../../images/add_img.png" />
-	    			<input @change="change($event)" type="file" accept="image/*" />
+	    			<img />
+	    			<i class="icon_add" style="line-height: 110px;">+</i>
+	    			<input @change="change($event,2)" type="file" accept="image/*" />
 	    		</div>
 	    	</div>
 	    </div>
@@ -97,13 +99,15 @@
 	    	<textarea class="left autoHeight mui-pull-left" v-model="content1"></textarea>
 	    	
 	    	<div class="upFileBox right mui-pull-right autoHeight">
-    			<img src="../../images/add_img.png" />
-    			<input @change="change($event)" type="file" accept="image/*" />
+    			<img />
+    			<i class="icon_add">+</i>
+    			<input @change="change($event,0)" type="file" accept="image/*" />
     		</div>
     		
     		<div class="upFileBox bom mui-pull-left">
-    			<img src="../../images/add_img.png" />
-    			<input @change="change($event)" type="file" accept="image/*" />
+    			<img />
+    			<i class="icon_add" style="line-height: 100px;">+</i>
+    			<input @change="change($event,1)" type="file" accept="image/*" />
     		</div>
     		<textarea v-model="content2"></textarea>
 	    </div>
@@ -112,13 +116,15 @@
 	    <div class="content_text temp1 mui-hidden" :class="[template=='temp2'?'show':'']">
 	    	<textarea class="left autoHeight mui-pull-right" v-model="content1"></textarea>
 	    	<div class="upFileBox right mui-pull-left autoHeight">
-    			<img src="../../images/add_img.png" />
-    			<input @change="change($event)" type="file" accept="image/*" />
+    			<img />
+    			<i class="icon_add">+</i>
+    			<input @change="change($event,0)" type="file" accept="image/*" />
     		</div>
     		<textarea v-model="content2"></textarea>
     		<div class="upFileBox bom">
-    			<img src="../../images/add_img.png" />
-    			<input @change="change($event)" type="file" accept="image/*" />
+    			<img />
+    			<i class="icon_add" style="line-height: 110px;">+</i>
+    			<input @change="change($event,1)" type="file" accept="image/*" />
     		</div>
 	    </div>
 	</div>

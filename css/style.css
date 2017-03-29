@@ -132,8 +132,8 @@ nav.nav a.active span{color:#28ACDD;}
 }
 .add_diary .add_content{height:170px;background: #FFF;}
 .add_diary .content_text .upFileBox{width:100px;height: 100px;position: relative;-float: left;margin:0 10px 10px 0;}
-.add_diary .content_text .upFileBox img{width: 100%;height: 100%;display: block;}
-.add_diary .content_text .upFileBox input[type=file]{display:block;width:100%;height:100%;position: absolute;left:0;top:0;opacity: 0;}
+.add_diary .content_text .upFileBox img{width: 100%;height: 100%;display: block;border:none;position: absolute;left:0;top:0;z-index:1;}
+.add_diary .content_text .upFileBox input[type=file]{display:block;width:100%;height:100%;position: absolute;left:0;top:0;opacity: 0;z-index: 2;}
 
 .content_text{padding:15px;}
 .content_text.temp1 textarea.left{width:55%;}
@@ -148,6 +148,10 @@ nav.nav a.active span{color:#28ACDD;}
 .wallet button{width:120px;height: 40px;padding: 0;margin:0 auto;}
 .wallet .walletBox h4,.wallet .walletBox p,.wallet button{margin-top:10px;}
 
+.upFileBox i.icon_add{display: block;width:100%;height:100%;border:1px solid #CCC;font-size: 30px;font-weight: 100;text-align: center;color:#ccc;line-height: 152px;}
+@media only screen and (max-width: 320px) {
+	.upFileBox i.icon_add{line-height: 116px;}
+}
 .rechargeBox .mui-input-row label{width:25%;font-size:15px;line-height: 40px;padding-top:0;padding-bottom:0;}
 .rechargeBox .mui-input-row input{width:40%;border:1px solid #E3E3E3;float: left;text-indent: .5em;;}
 .rechargeBox .mui-input-row span{line-height: 40px;font-size:13px;margin-left:5px;color:#A0A0A0;}
@@ -212,8 +216,9 @@ nav.nav a.active span{color:#28ACDD;}
 .verify .upimg{padding-bottom:10px;}
 .verify .upimg p{font-size: 18px;color: #3E3E3E;margin-bottom:5px;}
 .verify .upimg .upfileBox{width:90px;height: 90px;position: relative;margin:0 auto;}
-.verify .upimg .upfileBox img{width: 100%;height: 100%;}
-.verify .upimg .upfileBox input[type=file]{position: absolute;left:0;top:0;display: block;width:100%;height: 100%;opacity: 0;}
+.verify .upimg .upfileBox img{width: 100%;height: 100%;position: absolute;left:0;top:0;display: block;z-index: 1;}
+.verify .upimg .upfileBox input[type=file]{position: absolute;left:0;top:0;display: block;width:100%;height: 100%;opacity: 0;z-index: 2;}
+.verify .upimg .upfileBox >i.icon_add{display: block;width:100%;height: 100%;font-size: 30px;color:#CCC;text-align: center;line-height: 90px;}
 .verify .verify_sumbit{width:80%;height: 40px;padding:0;margin:0 auto;}
 
 .autograph textarea{height:150px;}

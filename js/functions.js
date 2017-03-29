@@ -75,7 +75,7 @@ var $ = {
 				if(b === 'timeout'){
 					mui.alert('访问服务器超时,请重试');
 				}else{
-					alert('系统错误');
+					mui.toast('访问服务器超时,请重试');
 				};
 				obj.error&&obj.error();
 			}

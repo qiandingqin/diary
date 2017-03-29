@@ -33,7 +33,7 @@ define(function(require, exports, module){
 				is_subscribed:'',
 				avatar : ''
 			},
-			methods : { give : give , addSub : addSub , share : share},
+			methods : { give : give , addSub : addSub , share : share ,openIm : openIm},
 		};
 		
 		var v = require('newvue').methods.vue(vOption);
@@ -47,8 +47,9 @@ define(function(require, exports, module){
 				r = r.data;
 				v.title = r.title;
 				v.content = r.content,
-				v.user_name = r.user.nickname || r.user.username;
+				v.user_name = r.user.nickname || r.user.diarysn;
 				v.user_id = r.user_id;
+				v.phone = r.user_name;
 				v.feeling = r.feeling;
 				v.weather = r.weather;
 				v.id = r.id;
@@ -117,6 +118,17 @@ define(function(require, exports, module){
 				});
 			});
 		};
+		
+		//打开私信聊天
+		function openIm(){
+			var dataJson = {
+				userId : v.user_id,
+				name : v.user_name,
+				portraitUri : v.avatar
+			};
+			openView({url : '../index/msg_im.html' , data : dataJson});
+		};
+		
 	};
 	//日记圈
 	function circle(){

@@ -1,10 +1,13 @@
 //API接口设置
 var HOST = 'http://bj.cmyba.cn/';
 var IM_HOST = 'http://a1.easemob.com/';
+var RONG_IM_HOST = 'http://api.cn.ronghub.com/';
 var API = {
 	//环信 IM接口
 	//获取IM token
 	IM_GETTOKEN : '/token',
+	//获取融云token
+	IM_RONGYUN_TOKEN : RONG_IM_HOST + 'user/getToken.json',
 	//注册
 	REG : HOST + '?r=site/signup',
 	//登录
@@ -85,3 +88,6 @@ var MOOD = ['极好','一般般','郁闷','不开心','想哭'];
 var FONT = ['大字体','中字体','小字体'];
 //星期转换
 var WEEK = ['日','一','二','三','四','五','六'];
+//融云信息
+var RONGIMKEY = 'c9kqb3rdcebcj';
+var RONGIMSECRET = 'QWmOuTE76wX4';

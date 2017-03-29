@@ -14,7 +14,7 @@ seajs.config({
 		strophe   : 'js/trophe-1.2.8.min.js',
 		websdk    : 'js/websdk-1.4.10.js',
 		newvue    : '../js/newvue.js',
-		im        : '../js/im.js'
+		im        : '../js/im.js',
 	},
 	//加载必须预先加载的模块
 	preload :['mui','constant','functions','common']

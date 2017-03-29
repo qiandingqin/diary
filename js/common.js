@@ -11,16 +11,19 @@ function disposeA(){
 	var openMethod = 'pop-in';
 	var openTime = 200;
 	mui.each(muiA,function(i,item){
-		item.addEventListener('tap',function(ev){
-			//默认阻止a标签跳转 tap事件不能阻止
-			ev.preventDefault();
-			this.href = this.dataset.href || this.href;
-			if(!this.href || $.getFileName(null,this.href).indexOf('#') != -1 || this.href == 'javascript:;')return;
-			if(!ev.target.classList.contains('mui-action-back'))ev.stopPropagation();
-			//打开新窗口
-			openView({url : this.href});
-		});
+		item.addEventListener('tap',tapEvent);
 	});
+	
+	function tapEvent(ev){
+		//默认阻止a标签跳转 tap事件不能阻止
+		var href = '';
+		href = this.dataset.href || this.href;
+		if(!href || $.getFileName(null,href).indexOf('#') != -1 || href == 'javascript:;')return;
+		if(!ev.target.classList.contains('mui-action-back'))ev.stopPropagation();
+		//打开新窗口
+		openView({url : href});
+	};
+	
 };
 
 //打开新窗口
@@ -65,14 +68,16 @@ function createView(obj,cb){
 
 //显示窗口
 function showView(viewObj,cb){
+	//alert(3)
 	//打开新窗口之后检测菜单窗口是否显示状态,显示则隐藏并干掉遮罩层
-	var menuView = plus.webview.getWebviewById('add_diary');
-	if(menuView){mui.fire(menuView,'closeMask');}
 	setTimeout(function(){
 		viewObj.show('pop-in',250,function(){
+//			console.log('显示了' + viewObj.id)
+			var menuView = plus.webview.getWebviewById('add_diary');
+			if(menuView){mui.fire(menuView,'closeMask');}
 			cb&&cb();
-		},'capture');
-	},50);
+		});
+	},200);
 };
 
 //检查登陆
@@ -197,9 +202,9 @@ function addCloseView(){
 		mui.plusReady(function(){
 			var curView = plus.webview.currentWebview();
 			var indexView = plus.webview.getLaunchWebview();
-			console.log('我是：' + curView.id + '接到了关闭指令');
 			if(curView.id != indexView.id){
 				setTimeout(function(){
+					console.log('我是：' + curView.id + '接到了关闭指令');
 					curView.close('none',0);
 				},500);
 			};
@@ -304,6 +309,7 @@ function getFriendsList(cb){
 					avatar : '',
 					user_name : '',
 					user_nickname : '',
+					user_diarysn : '',
 					user_id : ''
 				};
 				if(item.from_user_name === thisUser){
@@ -316,6 +322,7 @@ function getFriendsList(cb){
 					newJson.nickname = item.user.nickname || item.user.username;
 					newJson.user_id = item.from_user_id;
 					newJson.avatar = item.user.head_img?HOST + item.user.head_img:'';
+					newJson.user_diarysn = item.user.diarysn;
 				};
 				newArr.push(newJson);
 			});
@@ -466,7 +473,20 @@ function setUserInfo(name,val,cb){
 		success:function(result){
 			mask.close();
 			mui.toast(result.data);
-			if(result.success)reloadUserInfo();
+			if(result.success){
+				var userInfo = JSON.parse(localStorage.getItem('selfUserInfo'));
+				var keyVal = name.match(/\[(.+?)\]/)[1];
+				userInfo[keyVal] = val;
+				localStorage.setItem('selfUserInfo',JSON.stringify(userInfo));
+				reloadUserInfo();
+				if(keyVal == 'nickname'){
+					//更新“我的”
+					mui.plusReady(function(){
+						var targetView = plus.webview.getWebviewById('member');
+						mui.fire(targetView,'update');
+					});
+				}
+			};
 			cb&&cb(result);
 		},
 		error:function(){

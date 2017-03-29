@@ -186,7 +186,7 @@
 							<!--<span>评论:200人</span>-->
 						</p>
 						<div class="detailBtns">
-							<button :data-href="'../index/msg_im.html?user=' + user_name" class="open mui-btn mui-btn-outlined mui-btn-blue">私信</button>
+							<button @tap.stop="openIm" class="mui-btn mui-btn-outlined mui-btn-blue">私信</button>
 							<button v-if="is_subscribed" class="mui-btn mui-btn-outlined mui-btn-blue" disabled>已关注</button>
 							<button v-else @tap.stop="addSub(user_id)" class="mui-btn mui-btn-outlined mui-btn-blue">关注</button>
 						</div>
