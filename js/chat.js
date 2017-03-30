@@ -14,6 +14,11 @@ define(function(require,exports,module){
 	var MIN_SOUND_TIME = 800;
 	var MAX_SOUND_TIME = 10000;
 	var timeout,stop = null;
+	//获取自己的信息
+	var selfUserInfo = {
+		avatar : localStorage.getItem('user_avatar') || '../../images/avatar.png',
+		name : localStorage.getItem('user_nickname'),
+	};
 	//初始化手势
 	mui.init({
 		gestureConfig: {
@@ -66,7 +71,7 @@ define(function(require,exports,module){
 	function textMessage(msg){
 		console.log(msg);
 		var dataJson = {
-			avatar : par.portraitUri || '../../avatar.jpg',
+			avatar : par.portraitUri || '../../images/avatar.png',
 			name : par.name,
 			content : msg.content.content,
 			time : $.getTimes((msg.sentTime / 1000)).timerStr,
@@ -89,7 +94,7 @@ define(function(require,exports,module){
 		//base64转换文件
 		file2base64.dataURL2Audio(msg.content.content,'img/',fileClassify,function(file){
 			var dataJson = {
-				avatar : par.portraitUri || '../../avatar.jpg',
+				avatar : par.portraitUri || '../../images/avatar.png',
 				name : par.name,
 				content : '',
 				time : $.getTimes((msg.sentTime / 1000)).timerStr,
@@ -108,11 +113,10 @@ define(function(require,exports,module){
 	};
 	//接收语音消息
 	function audioMessage(msg){
-		console.log(msg,'接收语音');
 		//base64转换文件
 		file2base64.dataURL2Audio(msg.content.content,'audio/',null,function(file){
 			var dataJson = {
-				avatar : par.portraitUri || '../../avatar.jpg',
+				avatar : par.portraitUri || '../../images/avatar.png',
 				name : par.name,
 				content : '',
 				time : $.getTimes((msg.sentTime / 1000)).timerStr,
@@ -137,13 +141,13 @@ define(function(require,exports,module){
 		msgText.focus();
 		e.preventDefault();
 		//发送消息
-		var msgContent = new RongIMLib.TextMessage({content:msgText.value});
+		var msgContent = new RongIMLib.TextMessage({content:msgText.value,extra:selfUserInfo});
 		
 		sendMsg(imClient,msgContent,function(msg){
-			console.log(msg,'发送成功');
+			console.log(msg);
 			var dataJson = {
-				avatar : localStorage.getItem('user_avatar') || '../../avatar.jpg',
-				name : localStorage.getItem('user_nickname'),
+				avatar : selfUserInfo.avatar,
+				name : selfUserInfo.name,
 				content : msgText.value,
 				time : $.getTimes((msg.sentTime / 1000)).timerStr,
 				isSelf : true,
@@ -186,11 +190,11 @@ define(function(require,exports,module){
 						base64Str = base64Str.replace('data:image/png;base64,','');
 						base64Str = base64Str.replace('data:image/jpg;base64,','');
 						//发送图片消息
-						var msgContent = new RongIMLib.ImageMessage({content:base64Str,imageUri:''});
+						var msgContent = new RongIMLib.ImageMessage({content:base64Str,imageUri:'',extra:selfUserInfo});
 						sendMsg(imClient,msgContent,function(msg){
 							var dataJson = {
-								avatar : localStorage.getItem('user_avatar') || '../../avatar.jpg',
-								name : localStorage.getItem('user_nickname'),
+								avatar : selfUserInfo.avatar,
+								name : selfUserInfo.name,
 								content : '',
 								time : $.getTimes((msg.sentTime / 1000)).timerStr,
 								isSelf : true,
@@ -220,11 +224,11 @@ define(function(require,exports,module){
 			//转为base64编码
 			file2base64.Audio2dataURL(recordFilePath,function(file){
 				var base64Str = file.result.replace('data:audio/amr;base64,','');
-				var msgContent = new RongIMLib.VoiceMessage({content:base64Str});
+				var msgContent = new RongIMLib.VoiceMessage({content:base64Str,extra:selfUserInfo});
 				sendMsg(imClient,msgContent,function(msg){
 					var dataJson = {
-						avatar : localStorage.getItem('user_avatar') || '../../avatar.jpg',
-						name : localStorage.getItem('user_nickname'),
+						avatar : selfUserInfo.avatar,
+						name : selfUserInfo.name,
 						content : '',
 						time : $.getTimes((msg.sentTime / 1000)).timerStr,
 						isSelf : true,
@@ -412,62 +416,6 @@ define(function(require,exports,module){
 			if(tisp)tisp.innerText = '点击播放';
 		}
 	};
-	
-	//file to base64
-	var file2base64 = {
-		Audio2dataURL : function(path,suc,err) {
-		    plus.io.resolveLocalFileSystemURL(path, function(entry){
-		        entry.file(function(file){
-		            var reader = new plus.io.FileReader();
-		            reader.onloadend = function (e) {
-		                suc&&suc(e.target);
-		            };
-		            reader.readAsDataURL(file);
-		        },function(e){
-		            mui.toast("读写出现异常: " + e.message );
-		        })
-		    });
-		},
-		dataURL2Audio:function(base64Str, path ,fileClassify ,callback){
-			mui.plusReady(function(){
-				fileClassify =  fileClassify || '.amr';
-				var audioName = 'chat/' + path + (new Date()).valueOf() + fileClassify;
-				base64Str = base64Str.replace('data:audio/amr;base64,','');
-			    plus.io.requestFileSystem(plus.io.PUBLIC_DOWNLOADS,function(fs){
-			        fs.root.getFile(audioName,{create:true},function(entry){
-			            // 获得平台绝对路径
-			            var fullPath = entry.fullPath;
-			            if(mui.os.android){  
-			                // 读取音频
-			                var Base64 = plus.android.importClass("android.util.Base64");
-			                var FileOutputStream = plus.android.importClass("java.io.FileOutputStream");
-			                try{
-			                    var out = new FileOutputStream(fullPath);
-			                    var bytes = Base64.decode(base64Str, Base64.DEFAULT);
-			                    out.write(bytes); 
-			                    out.close();
-			                    // 回调
-			                    callback && callback(entry);
-			                }catch(e){
-			                    console.log(e.message);
-			                };
-			            }else if(mui.os.ios){
-			                var NSData = plus.ios.importClass('NSData');
-			                var nsData = new NSData();
-			                nsData = nsData.initWithBase64EncodedStringoptions(base64Str,0);
-			                if (nsData) {
-			                    nsData.plusCallMethod({writeToFile: fullPath,atomically:true});
-			                    plus.ios.deleteObject(nsData);
-			                };
-			                // 回调
-			                callback && callback(entry);
-			            };
-			        });
-			    });
-			});
-		}
-	};
-	
 	//图片压缩
 	var zip = {
 		imgZip : function(option,suc,err){

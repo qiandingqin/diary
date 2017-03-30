@@ -45,7 +45,6 @@ define(function(require, exports, module){
 			v.datas = newArr;
 			//开启更新查询
 			require('update.js').methods.up();
-			
 		});
 		//获取待处理好友列表 修改头部消息通知数量
 		pending(function(res){
@@ -56,8 +55,140 @@ define(function(require, exports, module){
 		getUserInfo(localStorage.getItem('id'),function(res){
 			res.data.head_img = res.data.head_img?HOST + res.data.head_img:'';
 			window.localStorage.setItem('user_avatar',res.data.head_img);
-			window.localStorage.setItem('user_nickname',res.data.nickname || res.data.username);
+			window.localStorage.setItem('user_nickname',res.data.nickname || res.data.diarysn);
 			window.localStorage.setItem('selfUserInfo',JSON.stringify(res.data));
+		});
+		
+		//接收好友添加处理
+		require.async('lib/rongIm.js',function(e){
+			var selfInfo = {
+				userId : localStorage.getItem('id'),
+				name : localStorage.getItem('user_nickname'),
+				portraitUri : localStorage.getItem('user_avatar')
+			};
+			var cbJson = {
+				addFriend : addFriend,
+				okFriend : okFriend,
+				noFriend : noFriend,
+				//文本消息
+				textMessage : textMessage,
+				//图片消息
+				imgMessage  : imgMessage,
+				//语音消息
+				audioMessage: audioMessage
+			};
+			var imClient = e.methods.connection(selfInfo,cbJson);
+			
+			//接收添加好友请求
+			function addFriend(msg){
+				
+				var msgContent = msg.content.message.content;
+				//创建本地消息
+				createLocalMsg({content:msgContent.content,title:msgContent.nickname});
+				
+				//获取待处理好友列表 修改头部消息通知数量
+				pending(function(res){
+					mui('#msgNum')[0].innerText = res.length;
+				});
+			};
+			
+			//接收好友同意添加消息
+			function okFriend(msg){
+				var msgContent = msg.content.message.content;
+				//创建本地消息
+				createLocalMsg({content:msgContent.content,title:msgContent.nickname});
+				//刷新好友列表
+				mui.trigger(window,'updateFriendsList');
+			};
+			
+			//接收好友拒绝添加消息
+			function noFriend(msg){
+				var msgContent = msg.content.message.content;
+				//创建本地消息
+				createLocalMsg({content:msgContent.content,title:msgContent.nickname});
+			};
+			
+			//接收文本消息
+			function textMessage(msg){
+				var dataJson = {
+					avatar : msg.content.extra.avatar,
+					name : msg.content.extra.name,
+					content : msg.content.content,
+					time : $.getTimes((msg.sentTime / 1000)).timerStr,
+					isSelf : false,
+					img : '',
+					audio : '',
+					type : 'text',
+					target : msg.targetId
+				};
+				createLocalMsg({content:msg.content.content,title:msg.content.extra.name});
+				//保存聊天记录
+				saveChatLog(dataJson);
+			};
+			//接收图片消息
+			function imgMessage(msg){
+				//获取文件后缀
+				var fileClassify = msg.content.imageUri.split('.');
+				fileClassify = '.' + fileClassify[fileClassify.length-1];
+				//base64转换文件
+				file2base64.dataURL2Audio(msg.content.content,'img/',fileClassify,function(file){
+					var dataJson = {
+						avatar : msg.content.extra.avatar,
+						name : msg.content.extra.name,
+						content : '',
+						time : $.getTimes((msg.sentTime / 1000)).timerStr,
+						isSelf : false,
+						img : file.fullPath,
+						audio : '',
+						type : 'img',
+						target : msg.targetId
+					};
+					createLocalMsg({content:'图片',title:msg.content.extra.name});
+					//保存聊天记录
+					saveChatLog(dataJson);
+				});
+			};
+			//接收语音消息
+			function audioMessage(msg){
+				//base64转换文件
+				file2base64.dataURL2Audio(msg.content.content,'audio/',null,function(file){
+					var dataJson = {
+						avatar : msg.content.extra.avatar,
+						name : msg.content.extra.name,
+						content : '',
+						time : $.getTimes((msg.sentTime / 1000)).timerStr,
+						isSelf : false,
+						img : '',
+						audio : file.__PURL__,
+						type : 'audio',
+						target : msg.targetId
+					};
+					createLocalMsg({content:'语音',title:msg.content.extra.name});
+					//保存聊天记录
+					saveChatLog(dataJson);
+				});
+			};
+			
+			mui.plusReady(function(){
+				//监听点击通知
+				plus.push.addEventListener( "click", function ( msg ) {
+					// 分析msg.payload处理业务逻辑 
+					//console.log(msg);
+				}, false );
+				//检测通讯界面是否存在 不存在判断是否已链接 是否重新连接
+				var targetView = null;
+				setInterval(function(){
+					targetView = plus.webview.getWebviewById('msg_im');
+					var all = plus.webview.all();
+					if(!targetView && window.imSttus){
+						//重新开启链接
+						imClient = e.methods.connection(selfInfo,cbJson);
+						console.log('重连');
+					};
+				},10000);
+				
+			});
+			
 		});
 	};
 	//查找笔友
@@ -89,6 +220,22 @@ define(function(require, exports, module){
 			addFriendId(userid,function(res){
 				if(res.success){
 					mui.toast('添加:好友成功,请等待对方验证');
+					
+					//发送自定义消息通知目标查看好友添加消息
+					require.async('lib/rongIm.js',function(e){
+						e = e.methods.restApi;
+						var op = {
+							method : 'addFriend',
+							fromUserId : localStorage.getItem('id'),
+							toUserId : userid,
+							content : {
+								content : '你好，加个好友吧',
+								nickname : localStorage.getItem('user_nickname')
+							}
+						};
+						e.sendMsg(op);
+					});
+					
 				}else{
 					mui.toast(res.data);
 				}
@@ -138,7 +285,6 @@ define(function(require, exports, module){
 		mask.show();
 		//获取待处理好友申请列表
 		pending(function(res){
-			console.log(res);
 			mui.each(res,function(i,item){
 				res[i].add_at = $.getTimes(item.add_at).timerStr;
 				res[i].nickname = item.user.nickname || item.user.username;
@@ -147,17 +293,17 @@ define(function(require, exports, module){
 			});
 		},mask);
 		
-		//同意添加好友
-		function yesBtn(uid,index){
-			yesForNo('yes',uid,index);
+		//同意添加好友okFriend
+		function yesBtn(uid,index,targetUserId){
+			yesForNo('yes',uid,index,targetUserId); 
 		};
-		//拒绝添加好友
-		function noBtn(uid,index){
-			yesForNo('no',uid,index);
+		//拒绝添加好友noFriend
+		function noBtn(uid,index,targetUserId){
+			yesForNo('no',uid,index,targetUserId);
 		};
 		
 		//添加拒绝好友申请
-		function yesForNo(type,uid,index){
+		function yesForNo(type,uid,index,targetUserId){
 			var mask = new Mask();
 			mask.show();
 			var url = type == 'yes'?API.ACCEPT:API.REFUSE;
@@ -166,10 +312,24 @@ define(function(require, exports, module){
 				data : {id : uid},
 				success:function(result){
 					mask.close();
+					mui.toast(result.data);
 					if(result.success){
-						mui.toast(result.data);
 						vMsg.datas.removeItem(index);
 						reloadFriendsList();
+						//发送同意添加好友消息
+						require.async('lib/rongIm.js',function(e){
+							e = e.methods.restApi;
+							var op = {
+								method : type=='yes'?'okFriend':'noFriend',
+								fromUserId : localStorage.getItem('id'),
+								toUserId : targetUserId,
+								content : {
+									content : type=='yes'?'我们已经是好友了，快来愉快的聊天吧':'拒绝了好友申请',
+									nickname : localStorage.getItem('user_nickname')
+								}
+							};
+							e.sendMsg(op);
+						});
 					};
 				},
 				error:function(){
@@ -251,10 +411,10 @@ define(function(require, exports, module){
 		openImBtn.addEventListener('tap',function(){
 			var dataJson = {
 				userId : v.user.id,
-				name : v.user.nickname || v.user.username,
+				name : v.user.nickname || v.user.diarysn,
 				portraitUri : v.user.head_img
 			};
-			openView({url : 'msg_im.html' , data : dataJson});
+			openView({url : 'msg_im.html' , id : 'msg_im', data : dataJson});
 		});
 	};
 	

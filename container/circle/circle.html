@@ -38,7 +38,7 @@
 	<div class="mui-content">
 		
 	    <div class="data_list">
-	    	<div class="mui-card" v-for="(d,index) in datas" v-cloak>
+	    	<div class="mui-card" v-for="(d,index) in datas" v-cloak v-if="d.user">
 				<div :data-href="'../index/friend_info.html?id=' + d.user_id + '&user=' + d.user_name" class="open mui-card-header mui-card-media">
 					<img :src="d.user.head_img || '../../images/avatar.png'">
 					<div class="mui-media-body">

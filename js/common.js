@@ -212,6 +212,20 @@ function addCloseView(){
 	});
 };
 
+//播放提示音
+function playTisp(){
+	mui.plusReady(function(){
+		var p = plus.audio.createPlayer('../../audio/msgtisp.mp3').play();
+	});
+};
+
+//创建本地消息
+function createLocalMsg(option){
+	mui.plusReady(function(){
+		plus.push.createMessage(option.content,null,{title : option.title,cover : true});
+	});
+};
+
 //处理监听消息处理为数组
 function saveMsg(message){
 	if(message.type !== 'subscribe')return;
@@ -304,27 +318,36 @@ function getFriendsList(cb){
 			//重组数据
 			var newArr = [];
 			mui.each(res.data,function(i,item){
-				//判断添加者是否为当前用户 是则使用to_user_xx否则使用from_user_xx
-				var newJson = {
-					avatar : '',
-					user_name : '',
-					user_nickname : '',
-					user_diarysn : '',
-					user_id : ''
-				};
-				if(item.from_user_name === thisUser){
-					//为自己
-					newJson.user_name = item.to_user_name;
-					newJson.nickname = item.to_user_nick;
-					newJson.user_id = item.to_user_id;
-				}else{
+				if(item.user){
+					//判断添加者是否为当前用户 是则使用to_user_xx否则使用from_user_xx
+					var newJson = {
+						avatar : '',
+						user_name : '',
+						user_nickname : '',
+						user_diarysn : '',
+						user_id : ''
+					};
+//					if(item.from_user_name === thisUser){
+//						//为自己
+//						newJson.user_name = item.to_user_name;
+//						newJson.nickname = item.to_user_nick;
+//						newJson.user_id = item.to_user_id;
+//					}else{
+//						newJson.user_name = item.from_user_name;
+//						newJson.nickname = item.user.nickname || item.user.diarysn;
+//						newJson.user_id = item.from_user_id;
+//						newJson.avatar = item.user.head_img?HOST + item.user.head_img:'';
+//						newJson.user_diarysn = item.user.diarysn;
+//					};
+					
 					newJson.user_name = item.from_user_name;
-					newJson.nickname = item.user.nickname || item.user.username;
+					newJson.nickname = item.user.nickname || item.user.diarysn;
 					newJson.user_id = item.from_user_id;
 					newJson.avatar = item.user.head_img?HOST + item.user.head_img:'';
 					newJson.user_diarysn = item.user.diarysn;
+
+					newArr.push(newJson);
 				};
-				newArr.push(newJson);
 			});
 			cb&&cb(newArr);
 		},error : function(){
@@ -409,13 +432,14 @@ function pending(cb,mask){
 		success : function(result){
 			mask&&mask.close();
 			//过滤已同意,已拒绝的
+			var newArr = [];
 			result = result.data;
 			mui.each(result,function(i,item){
-				if(item.status == 10 || item.status == -10){
-					result.removeItem(i);
+				if(item.status == 0){
+					newArr.push(item);
 				};
 			});
-			result = $.filterArrJson(result,'from_user_id');
+			result = $.filterArrJson(newArr,'from_user_id');
 			cb&&cb(result);
 		},
 		error:function(){
@@ -501,4 +525,59 @@ function reloadUserInfo(){
 		var userinfoView = plus.webview.getWebviewById('memberinfo');
 		mui.fire(userinfoView,'reloadUserInfo');
 	});
+};
+
+//file to base64
+var file2base64 = {
+	Audio2dataURL : function(path,suc,err) {
+	    plus.io.resolveLocalFileSystemURL(path, function(entry){
+	        entry.file(function(file){
+	            var reader = new plus.io.FileReader();
+	            reader.onloadend = function (e) {
+	                suc&&suc(e.target);
+	            };
+	            reader.readAsDataURL(file);
+	        },function(e){
+	            mui.toast("读写出现异常: " + e.message );
+	        })
+	    });
+	},
+	dataURL2Audio:function(base64Str, path ,fileClassify ,callback){
+		mui.plusReady(function(){
+			fileClassify =  fileClassify || '.amr';
+			var audioName = 'chat/' + path + (new Date()).valueOf() + fileClassify;
+			base64Str = base64Str.replace('data:audio/amr;base64,','');
+		    plus.io.requestFileSystem(plus.io.PUBLIC_DOWNLOADS,function(fs){
+		        fs.root.getFile(audioName,{create:true},function(entry){
+		            // 获得平台绝对路径
+		            var fullPath = entry.fullPath;
+		            if(mui.os.android){  
+		                // 读取音频
+		                var Base64 = plus.android.importClass("android.util.Base64");
+		                var FileOutputStream = plus.android.importClass("java.io.FileOutputStream");
+		                try{
+		                    var out = new FileOutputStream(fullPath);
+		                    var bytes = Base64.decode(base64Str, Base64.DEFAULT);
+		                    out.write(bytes); 
+		                    out.close();
+		                    // 回调
+		                    callback && callback(entry);
+		                }catch(e){
+		                    console.log(e.message);
+		                };
+		            }else if(mui.os.ios){
+		                var NSData = plus.ios.importClass('NSData');
+		                var nsData = new NSData();
+		                nsData = nsData.initWithBase64EncodedStringoptions(base64Str,0);
+		                if (nsData) {
+		                    nsData.plusCallMethod({writeToFile: fullPath,atomically:true});
+		                    plus.ios.deleteObject(nsData);
+		                };
+		                // 回调
+		                callback && callback(entry);
+		            };
+		        });
+		    });
+		});
+	}
 };

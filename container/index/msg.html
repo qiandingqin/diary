@@ -35,8 +35,8 @@
 						<div class="mui-media-body">
 							<span class="mui-ellipsis">{{d.from_user_nick}}</span>
 							<!--<p class="mui-ellipsis">123</p>-->
-							<button @tap="yesBtn(d.id,index)" class="mui-btn mui-btn-blue">接受</button>
-							<button @tap="noBtn(d.id,index)" class="mui-btn mui-btn-danger">拒绝</button>
+							<button @tap="yesBtn(d.id,index,d.user.id)" class="mui-btn mui-btn-blue">接受</button>
+							<button @tap="noBtn(d.id,index,d.user.id)" class="mui-btn mui-btn-danger">拒绝</button>
 						</div>
 						<div class="mui-media-body">
 							<p class="mui-ellipsis">{{d.add_at}}</p>

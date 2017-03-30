@@ -126,7 +126,7 @@ define(function(require, exports, module){
 				name : v.user_name,
 				portraitUri : v.avatar
 			};
-			openView({url : '../index/msg_im.html' , data : dataJson});
+			openView({url : '../index/msg_im.html' , id : 'msg_im', data : dataJson});
 		};
 		
 	};
@@ -160,6 +160,7 @@ define(function(require, exports, module){
 					if(!result.success)return;
 					
 					mui.each(result.data,function(i,item){
+						if(!item.user)return;
 						var avatar = item.user.head_img;
 						result.data[i].user.head_img = avatar?HOST + avatar:'';
 					});

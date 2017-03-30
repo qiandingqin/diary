@@ -352,17 +352,17 @@ define(function(require, exports, module){
 							//注册成功
 							//保存用户基本信息
 							window.localStorage.setItem('phone',result.data.mobile);
-							window.localStorage.setItem('id',result.data.user_id);
+							window.localStorage.setItem('id',result.data.id);
 							mui.plusReady(function(){
-				    		openView({url : '../index/index.html'},function(){
-				    			if(plus.webview.currentWebview().id == 'login'){
-				    				fireCloseView();
-				    			}else{
-				    				fireCloseView('login');
-				    				fireCloseView();
-				    			};
+				    			openView({url : '../index/index.html'},function(){
+				    				if(plus.webview.currentWebview().id == 'login'){
+					    				fireCloseView();
+					    			}else{
+					    				fireCloseView('login');
+					    				fireCloseView();
+					    			};
+				    			});
 				    		});
-				    	});
 						}else{
 							mui.toast(result.data);
 						}

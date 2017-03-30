@@ -11,6 +11,7 @@ define(function(require,exports,module){
 		//状态监听器
 		RongIMClient.setConnectionStatusListener({
 			onChanged: function (status) {
+				window.imSttus = status;
 		        switch (status) {
 		            //链接成功
 		            case RongIMLib.ConnectionStatus.CONNECTED:
@@ -44,14 +45,17 @@ define(function(require,exports,module){
 			    switch(message.messageType){
 			        case RongIMClient.MessageType.TextMessage:
 			            //接收到文本消息 do something...
+			            playTisp();
 			            cbJson.textMessage&&cbJson.textMessage(message);
 			            break;
 			        case RongIMClient.MessageType.VoiceMessage:
 			            //语音消息
+			            playTisp();
 			            cbJson.audioMessage&&cbJson.audioMessage(message);
 			            break;
 			        case RongIMClient.MessageType.ImageMessage:
 			            //接收到图片消息 do something...
+			            playTisp();
 			            cbJson.imgMessage&&cbJson.imgMessage(message);
 			            break;
 			        case RongIMClient.MessageType.DiscussionNotificationMessage:
@@ -82,7 +86,27 @@ define(function(require,exports,module){
 			            // do something...
 			            break;
 			        case RongIMClient.MessageType.UnknownMessage:
-			            // do something...
+			            // do something... 自定义消息
+			            /*判断类型：
+			           	* addFriend = 接收到添加好友请求
+			           	* okFriend = 接收到同意添加好友
+			           	* noFriend = 接收到拒绝添加好友
+			            */
+			            
+			            switch (message.objectName){
+			            	case 'addFriend':
+			            		cbJson.addFriend&&cbJson.addFriend(message);
+			            		break;
+		            		case 'okFriend':
+		            			cbJson.okFriend&&cbJson.okFriend(message);
+			            		break;
+		            		case 'noFriend':
+		            			cbJson.noFriend&&cbJson.noFriend(message);
+			            		break;
+			            	default:
+			            		break;
+			            }
+			            
 			            break;
 			        default:
 			            // 自定义消息
@@ -149,8 +173,8 @@ define(function(require,exports,module){
 		},
 		//获取token 并链接
 		getToken : function(userinfo,suc){
-			var mask = new Mask();
-			mask.show('连接中....');
+//			var mask = new Mask();
+//			mask.show('连接中....');
 			//获取token  获取后会自动连接
 			mui.ajax({
 				type : 'post',
@@ -158,22 +182,43 @@ define(function(require,exports,module){
 				data : userinfo,
 				headers : this.createsigna(),
 				success:function(res){
-					mask.close();
+//					mask.close();
 					suc&&suc(res);
 				},error:function(){
-					mask.close();
+//					mask.close();
 					mui.toast('连接聊天服务器失败，请稍后再试');
 				}
 			});
 			
-		}
+		},
+		
+		//发送自定义消息
+		sendMsg : function(op,suc){
+			var subJson = {
+				fromUserId : op.fromUserId,
+				toUserId : op.toUserId,
+				objectName : op.method,
+				content : JSON.stringify(op.content)
+			};
+			mui.ajax({
+				url : API.IM_RONGYUN_SEND,
+				type : 'post',
+				data : subJson,
+				headers : this.createsigna(),
+				success:function(res){
+					if(res.code == 200){
+						suc&&suc();
+					}
+				}
+			});
+		},
 		
 	};
 	
 	exports.methods = {
 		
-		connection : conn
-		
+		connection : conn,
+		restApi : restApi
 	};
 	
 });
