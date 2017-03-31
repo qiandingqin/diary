@@ -116,40 +116,13 @@ define(function(require,exports,module){
 		});
 		
 		//获取token
-		restApi.getToken(userinfo,function(res){
-			//连接融云IM服务器
-			RongIMClient.connect(res.token, {
-		        onSuccess: function(userId) {
-		          console.log("Login successfully." + userId);
-		        },
-		        onTokenIncorrect: function() {
-		          console.log('token无效');
-		        },
-		        onError:function(errorCode){
-		            var info = '';
-		            switch (errorCode) {
-		                case RongIMLib.ErrorCode.TIMEOUT:
-		                  	info = '超时';
-		                  	break;
-		                case RongIMLib.ErrorCode.UNKNOWN_ERROR:
-		                  	info = '未知错误';
-		                  	break;
-		                case RongIMLib.ErrorCode.UNACCEPTABLE_PaROTOCOL_VERSION:
-		                  	info = '不可接受的协议版本';
-		                  	break;
-		                case RongIMLib.ErrorCode.IDENTIFIER_REJECTED:
-		                	//info = 'appkey不正确';
-		                	info = '系统错误，请联系管理员';
-		                  	break;
-		                case RongIMLib.ErrorCode.SERVER_UNAVAILABLE:
-		                  	info = '服务器不可用';
-		                  	break;
-		            };
-		            console.log(errorCode);
-		            mui.toast(info);
-	            }
-	      });
-		});
+		var localToken = localStorage.getItem('localToken');
+		if(localToken){
+			var tokenObj = {token : localToken};
+			restApi.connSocket(tokenObj);
+		}else{
+			restApi.getToken(userinfo,restApi.connSocket);
+		};
 		
 		//抛出客户端对象
 		return RongIMClient;
@@ -183,6 +156,7 @@ define(function(require,exports,module){
 				headers : this.createsigna(),
 				success:function(res){
 //					mask.close();
+					localStorage.setItem('localToken',res.token);
 					suc&&suc(res);
 				},error:function(){
 //					mask.close();
@@ -190,6 +164,43 @@ define(function(require,exports,module){
 				}
 			});
 			
+		},
+		
+		//链接socket
+		connSocket : function(res){
+			console.log(res.token);
+			//连接融云IM服务器
+			RongIMClient.connect(res.token, {
+		        onSuccess: function(userId) {
+		          console.log("Login successfully." + userId);
+		        },
+		        onTokenIncorrect: function() {
+		          console.log('token无效');
+		        },
+		        onError:function(errorCode){
+		            var info = '';
+		            switch (errorCode) {
+		                case RongIMLib.ErrorCode.TIMEOUT:
+		                  	info = '超时';
+		                  	break;
+		                case RongIMLib.ErrorCode.UNKNOWN_ERROR:
+		                  	info = '未知错误';
+		                  	break;
+		                case RongIMLib.ErrorCode.UNACCEPTABLE_PaROTOCOL_VERSION:
+		                  	info = '不可接受的协议版本';
+		                  	break;
+		                case RongIMLib.ErrorCode.IDENTIFIER_REJECTED:
+		                	//info = 'appkey不正确';
+		                	info = '系统错误，请联系管理员';
+		                  	break;
+		                case RongIMLib.ErrorCode.SERVER_UNAVAILABLE:
+		                  	info = '服务器不可用';
+		                  	break;
+		            };
+		            console.log(errorCode);
+		            mui.toast(info);
+	            }
+	      	});
 		},
 		
 		//发送自定义消息
@@ -209,6 +220,19 @@ define(function(require,exports,module){
 					if(res.code == 200){
 						suc&&suc();
 					}
+				}
+			});
+		},
+		
+		//检测指定ID用户是否在线
+		checkOnline : function(userId,suc){
+			mui.ajax({
+				url : API.IM_CHECKONLINE,
+				type : 'post',
+				data : {userId : userId},
+				headers : this.createsigna(),
+				success:function(res){
+					suc&&suc(res);
 				}
 			});
 		},

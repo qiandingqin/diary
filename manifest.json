@@ -146,7 +146,7 @@
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
 					"ldpi": ""
 				}
-			},"debug":true
+			},"debug":false
 		}
 	},
 	"dependencies": {

@@ -10,6 +10,8 @@ var API = {
 	IM_RONGYUN_TOKEN : RONG_IM_HOST + 'user/getToken.json',
 	//发送消息
 	IM_RONGYUN_SEND : RONG_IM_HOST + 'message/private/publish.json',
+	//检测用户是否在线
+	IM_CHECKONLINE : RONG_IM_HOST + 'user/checkOnline.json',
 	//注册
 	REG : HOST + '?r=site/signup',
 	//登录
