@@ -573,7 +573,6 @@ define(function(require, exports, module){
 		mui.each(oDiv,function(i,item){
 			Textarea[i].style.height = item.style.height = h + 'px';
 		});
-		
 		//监听切换模板
 		window.addEventListener('tabTemp',function(e){
 			var sel = e.detail.sel;
@@ -659,6 +658,22 @@ define(function(require, exports, module){
 						mask.close();
 						if(!result.success)return;
 						mui.toast('发布成功');
+						
+						//通知日记圈，我的日记刷新数据
+						mui.plusReady(function(){
+							
+							var circleView = plus.webview.getWebviewById('circle');
+							var mydiaryView = plus.webview.getWebviewById('mydiary');
+							
+							if(circleView){
+								mui.fire(circleView,'update');
+							};
+							if(mydiaryView){
+								mui.fire(mydiaryView,'update');
+							};
+							
+						});
+						
 						openView({url : '../circle/diary_detail.html',data : {id : result.data.id}},function(){
 							fireCloseView();
 						});

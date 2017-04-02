@@ -206,7 +206,9 @@
 		</p>
 		
 		<div class="diary_content pad15">
-			<p>{{content}}</p>
+			
+				<pre style="margin-top:0;white-space: pre-wrap;"><p>{{content}}</p></pre>
+			
 			<img data-preview-src="" data-preview-group="1" v-for="img in imgs" :src="imgHost + img" />
 		</div>
 		

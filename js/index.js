@@ -360,6 +360,15 @@ define(function(require, exports, module){
 		};
 		var v = require('newvue').methods.vue(vOption);
 		
+		//监听更新
+		window.addEventListener('update',function(){
+			getUserInfo(userId,function(result){
+				var avatar = result.data.head_img;
+				result.data.head_img = avatar?HOST + avatar:'';
+				v.user = result.data;
+			});
+		});
+		
 		//获取用户信息
 		getUserInfo(userId,function(result){
 			var avatar = result.data.head_img;
@@ -391,6 +400,13 @@ define(function(require, exports, module){
 				mui.toast(result.data);
 				if(result.success){
 					_this.user.is_subscribed = true;
+					//通知圈子列表更新
+					mui.plusReady(function(){
+						var circleView = plus.webview.getWebviewById('circle');
+						if(circleView){
+							mui.fire(circleView,'update');
+						};
+					});
 				};
 			});
 		};
@@ -401,6 +417,13 @@ define(function(require, exports, module){
 				mui.toast(result.data);
 				if(result.success){
 					_this.user.is_subscribed = false;
+					//通知圈子列表更新
+					mui.plusReady(function(){
+						var circleView = plus.webview.getWebviewById('circle');
+						if(circleView){
+							mui.fire(circleView,'update');
+						};
+					});
 				};
 			});
 		};

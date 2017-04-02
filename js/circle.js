@@ -91,8 +91,27 @@ define(function(require, exports, module){
 		
 		//关注按钮
 		function addSub(uid){
+			var _this = this;
 			addSubscribedId(uid,function(result){
 				mui.toast(result.data);
+				if(result.success){
+					_this.is_subscribed = true;
+					//通知圈子列表，查看信息界面更新
+					mui.plusReady(function(){
+						
+						var circleView = plus.webview.getWebviewById('circle');
+						var friendView = plus.webview.getWebviewById('friend_info');
+						
+						if(circleView){
+							mui.fire(circleView,'update');
+						};
+						
+						if(friendView){
+							mui.fire(friendView,'update');
+						};
+						
+					});
+				};
 			});
 		};
 		
@@ -148,6 +167,9 @@ define(function(require, exports, module){
 		};
 		var v = require('newvue').methods.vue(vOption);
 		
+		//监听更新
+		window.addEventListener('update',getDateList);
+		
 		//获取数据列表
 		function getDateList(){
 			var mask = new Mask();
@@ -174,8 +196,16 @@ define(function(require, exports, module){
 		
 		//添加关注
 		function addSub(uid){
+			var _this = this;
 			addSubscribedId(uid,function(result){
 				mui.toast(result.data);
+				if(result.success){
+					mui.each(_this.datas,function(i,item){
+						if(item.user_id == uid){
+							_this.datas[i].user.is_subscribed = true;
+						};
+					});
+				};
 			});
 		};
 		

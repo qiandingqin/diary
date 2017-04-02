@@ -169,7 +169,6 @@ define(function(require,exports,module){
 			msgText.value = '';
 		});
 	});
-	
 	//发送图片消息
 	selImg.addEventListener('tap',function(){
 		mui.plusReady(function(){
@@ -181,15 +180,14 @@ define(function(require,exports,module){
 				var option = {
 					src : filepath,
 					dst : '_downloads/chat/img/' + (new Date().getTime()) + '.' + fileClassify,
-					width : '50%',
+					width : '30%',
 					height : 'auto',
-					quality : 70
+					quality : 20
 				};
 				//压缩
 				zip.imgZip(option,function(zipFile){
 					//转换base64
 					file2base64.Audio2dataURL(zipFile.target,function(base64File){
-						//TODO
 						var base64Str = base64File.result.replace('data:image/jpeg;base64,','');
 						base64Str = base64Str.replace('data:image/png;base64,','');
 						base64Str = base64Str.replace('data:image/jpg;base64,','');

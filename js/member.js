@@ -106,23 +106,29 @@ define(function(require, exports, module){
 		var mask = new Mask();
 		mask.show();
 		//获取日记列表
-		$.ajax({
-			url:API.DIARYCIRCLE,
-			data : {"search[user_id]" : userId,'sort':'-created_at'},
-			success:function(result){
-				mask.close();
-				if(!result.success)return;
-				mui.each(result.data,function(i,item){
-					result.data[i].m = new Date(item.created_at * 1000).getMonth() + 1;
-					result.data[i].d = new Date(item.created_at * 1000).getDate();
-				});
-				v.datas = result.data;
-			},
-			error : function(){
-				mask.close();
-			}
-		});
+		getDiaryList();
 		
+		//监听更新
+		window.addEventListener('update',getDiaryList);
+		
+		function getDiaryList(){
+			$.ajax({
+				url:API.DIARYCIRCLE,
+				data : {"search[user_id]" : userId,'sort':'-created_at'},
+				success:function(result){
+					mask.close();
+					if(!result.success)return;
+					mui.each(result.data,function(i,item){
+						result.data[i].m = new Date(item.created_at * 1000).getMonth() + 1;
+						result.data[i].d = new Date(item.created_at * 1000).getDate();
+					});
+					v.datas = result.data;
+				},
+				error : function(){
+					mask.close();
+				}
+			});
+		};
 	};
 	
 });
