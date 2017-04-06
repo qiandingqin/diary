@@ -65,7 +65,9 @@ var API = {
 	//获取已关注笔友列表
 	GETSUB : HOST + '?r=user/get-subscribed-user',
 	//实名认证
-	NAMEAUTH : HOST + '?r=user/name-auth'
+	NAMEAUTH : HOST + '?r=user/name-auth',
+	//支付宝
+	ALIPAY: HOST + '?r=site/alipay-sign',
 };
 //常量设置
 var AJAX_TIMEOUT = 8000;				//ajax请求时间

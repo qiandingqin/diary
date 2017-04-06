@@ -265,7 +265,9 @@
 			"js/entrance.js",
 			"js/constant.js",
 			"js/other.js",
-			"js/newvue.js"
+			"js/newvue.js",
+			"js/plusdown.js",
+			"js/update.js"
 		],
 		"refer": [
 			"container/other/login.html",
@@ -368,7 +370,8 @@
 			"js/member.js",
 			"js/vue.js",
 			"js/entrance.js",
-			"js/constant.js"
+			"js/constant.js",
+			"js/newvue.js"
 		],
 		"refer": [
 			"container/member/member.html",
@@ -392,7 +395,9 @@
 			"js/functions.js",
 			"js/common.js",
 			"js/vue.js",
-			"js/entrance.js"
+			"js/entrance.js",
+			"js/wang_payment.min.js",
+			"js/wang_payment.js"
 		],
 		"refer": []
 	},

@@ -60,14 +60,21 @@ define(function(require, exports, module){
 			var mask = new Mask();
 			mask.show();
 			//引入html5plus_payment组件
-			require.async('wang_payment.min.js',function(){
+			require.async('wang_payment.js',function(){
 				//测试支付地址
-				var alipayHost = 'http://demo.dcloud.net.cn/payment/alipay/?total=0.01';
+				var alipayHost = API.ALIPAY;
 				var wxpayHost = 'http://demo.dcloud.net.cn/payment/wxpayv3.HBuilder/?total=0.01';
+				var subJson = {
+					"data[subject]" : '达人日记',
+					"data[total]" : v.money,
+					"data[body]" : '达人日记红币充值',
+					"data[out_trade_no]" : new Date().getTime() + '' +(parseInt(Math.random() * 10000)),
+				};
 				//配置支付插件
 				var config = {
 					"address":v.paymentMehtod == 'alipay'?alipayHost:wxpayHost,
 					"paymentMethod":v.paymentMehtod,
+					"data":subJson,
 					"success":successCallback,
 					"error":errorCallback
 				}
@@ -83,8 +90,9 @@ define(function(require, exports, module){
 				};
 				
 				//支付失败
-				function errorCallback(){
+				function errorCallback(err){
 					mask.close();
+					console.log(err);
 					alert('支付失败，在控制台返回了信息')
 				};
 			});
