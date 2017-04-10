@@ -25,6 +25,18 @@ define(function(require, exports, module){
 	
 	//我的钱包
 	function wallet(){
+		var moneyDom = document.getElementById("money");
+		var money = JSON.parse(localStorage.getItem('selfUserInfo')) || {};
+		money = money.money || 0;
+		moneyDom.innerText = money;
+		
+		//监听更新
+		window.addEventListener('update',function(){
+			getCurUserInfo(function(res){
+				window.localStorage.setItem('selfUserInfo',JSON.stringify(res.data));
+				moneyDom.innerText = res.data.money;
+			});
+		});
 		
 	};
 	
@@ -60,14 +72,21 @@ define(function(require, exports, module){
 			var mask = new Mask();
 			mask.show();
 			//引入html5plus_payment组件
-			require.async('wang_payment.min.js',function(){
+			require.async('wang_payment.js',function(){
 				//测试支付地址
-				var alipayHost = 'http://demo.dcloud.net.cn/payment/alipay/?total=0.01';
+				var alipayHost = API.ALIPAY;
 				var wxpayHost = 'http://demo.dcloud.net.cn/payment/wxpayv3.HBuilder/?total=0.01';
+				var subJson = {
+					"data[subject]" : '达人日记',
+					"data[total_fee]" : v.money,
+					"data[body]" : '达人日记红币充值',
+					"data[pay_type]" : v.paymentMehtod == 'alipay'?'alipay':'wechat'
+				};
 				//配置支付插件
 				var config = {
 					"address":v.paymentMehtod == 'alipay'?alipayHost:wxpayHost,
 					"paymentMethod":v.paymentMehtod,
+					"data":subJson,
 					"success":successCallback,
 					"error":errorCallback
 				}
@@ -79,13 +98,25 @@ define(function(require, exports, module){
 				//支付成功
 				function successCallback(){
 					mask.close();
-					alert('支付成功');
+					mui.toast('支付成功');
+					//通知钱包界面更新数据
+					mui.plusReady(function(){
+						
+						var targetView = plus.webview.getWebviewById('wallet');
+						
+						if(targetView){
+							
+							mui.fire(targetView,'update');
+							
+						};
+						
+					});
 				};
 				
 				//支付失败
-				function errorCallback(){
+				function errorCallback(err){
 					mask.close();
-					alert('支付失败，在控制台返回了信息')
+					mui.toast('支付失败');
 				};
 			});
 		};

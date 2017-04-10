@@ -463,6 +463,18 @@ function getUserInfo(id,cb){
 	});
 };
 
+//获取当前用户信息
+function getCurUserInfo(cb){
+	//var mask = new Mask();
+	//mask.show();
+	$.ajax({
+		url:API.GETCURUSERINFO,
+		success:function(result){
+			cb&&cb(result);
+		}
+	});
+};
+
 //设置用户信息
 function setUserInfo(name,val,cb){
 	/*POST提交数组数据：data[]，数组元素可以是：'email','signature','

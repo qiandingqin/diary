@@ -52,7 +52,7 @@ define(function(require, exports, module){
 		});
 		
 		//获取当前用户信息保存下来，方便以后使用
-		getUserInfo(localStorage.getItem('id'),function(res){
+		getCurUserInfo(function(res){
 			res.data.head_img = res.data.head_img?HOST + res.data.head_img:'';
 			window.localStorage.setItem('user_avatar',res.data.head_img);
 			window.localStorage.setItem('user_nickname',res.data.nickname || res.data.diarysn);

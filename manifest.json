@@ -3,7 +3,7 @@
 	"id": "H507DC6AC",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "达人日记",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "1.0.23",/*应用版本名称*/
+		"name": "1.0.26",/*应用版本名称*/
 		"code": "83"
 	},
 	"description": "",/*应用描述信息*/
@@ -549,7 +549,8 @@
 					"js/common.js",
 					"js/vue.js",
 					"js/entrance.js",
-					"js/wang_payment.min.js"
+					"js/wang_payment.min.js",
+					"js/wang_payment.js"
 				],
 				"refer": [],
 				"priority": 0
