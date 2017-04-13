@@ -11,16 +11,27 @@
 	<!--头部-->
 	<header class="mui-bar gradient mui-bar-nav header">
 		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-	    <h1 class="mui-title colorFFF">已关注笔友</h1>
+	    <h1 class="mui-title colorFFF">笔友关注</h1>
 	</header>
 	
 	<div class="mui-content">
 		<!--好友列表-->
 		<div class="listGroup">
 			<div class="lists">
-				<p style="padding-top:10px;">已关注笔友列表</p>
+				<p style="padding-top:10px;">我关注的</p>
 				<ul class="mui-table-view noline fnBtns" v-cloak>
-					<li class="mui-table-view-cell" v-for="d in datas">
+					<li class="mui-table-view-cell" v-for="d in datas.sub">
+						<a :data-href="'friend_info.html?id='+d.user.id+'&user=' + d.user.username">
+							<img :src=" d.user.head_img || '../../images/avatar.png'" />
+							<span>{{d.user.nickname || d.user.diarysn}}</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="lists">
+				<p style="padding-top:10px;">我的粉丝</p>
+				<ul class="mui-table-view noline fnBtns" v-cloak>
+					<li class="mui-table-view-cell" v-for="d in datas.fans">
 						<a :data-href="'friend_info.html?id='+d.user.id+'&user=' + d.user.username">
 							<img :src=" d.user.head_img || '../../images/avatar.png'" />
 							<span>{{d.user.nickname || d.user.diarysn}}</span>

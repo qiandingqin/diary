@@ -393,6 +393,12 @@ function deleteFriendId(uid,cb){
 
 //添加关注
 function addSubscribedId(uid,cb){
+	
+	if(uid == localStorage.getItem('id')){
+		mui.toast('别对自己太自恋');
+		return;
+	};
+	
 	var mask = new Mask();
 	mask.show();
 	$.ajax({

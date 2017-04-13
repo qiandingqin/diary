@@ -66,6 +66,8 @@ var API = {
 	SETINFO : HOST + '?r=user/update',
 	//获取已关注笔友列表
 	GETSUB : HOST + '?r=user/get-subscribed-user',
+	//获取关注我的
+	GETFANS : HOST + '?r=user/get-fans',
 	//实名认证
 	NAMEAUTH : HOST + '?r=user/name-auth',
 	//支付宝

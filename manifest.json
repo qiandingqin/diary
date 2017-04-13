@@ -864,7 +864,13 @@
 			},
 			"container/other/about_content.html": {
 				"resources": [
-					"fonts/mui-icons-extra.ttf"
+					"fonts/mui-icons-extra.ttf",
+					"js/all.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"css/icons-extra.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -1401,7 +1407,9 @@
 					"js/constant.js",
 					"js/newvue.js",
 					"js/other.js",
-					"js/mui.picker.min.js"
+					"js/mui.picker.min.js",
+					"js/plusdown.js",
+					"js/update.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -1420,7 +1428,15 @@
 					"images/nav_bg.png",
 					"images/my_diary.png",
 					"images/member.png",
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"js/functions.js",
+					"js/sea.js",
+					"js/common.js",
+					"js/member.js",
+					"js/vue.js",
+					"js/entrance.js",
+					"js/constant.js",
+					"js/newvue.js"
 				],
 				"refer": [
 					"container/other/add_diary.html"

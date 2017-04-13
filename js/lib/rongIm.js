@@ -117,12 +117,12 @@ define(function(require,exports,module){
 		
 		//获取token
 		var localToken = localStorage.getItem('localToken');
-		if(localToken){
-			var tokenObj = {token : localToken};
-			restApi.connSocket(tokenObj);
-		}else{
+		//if(localToken){
+		//	var tokenObj = {token : localToken};
+		//	restApi.connSocket(tokenObj);
+		//}else{
 			restApi.getToken(userinfo,restApi.connSocket);
-		};
+		//};
 		
 		//抛出客户端对象
 		return RongIMClient;

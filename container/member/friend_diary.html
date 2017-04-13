@@ -42,7 +42,7 @@
 			<li :data-href="'../circle/diary_detail.html?id=' + d.id" v-for="d in datas" class="open mui-table-view-cell">
 				<p class="mui-pull-left date"><span>{{d.d}}</span>/{{d.m}}月</p>
 				<div class="content mui-pull-left">
-					<p>{{d.content}}</p>
+					<p>{{d.content.length > 200? d.content.substring(0,200) + '......' : d.content}}</p>
 					<!--<p>浏览:1000人</p>-->
 				</div>
 			</li>

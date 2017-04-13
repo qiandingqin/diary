@@ -42,12 +42,16 @@
 			<li :data-href="'../circle/diary_detail.html?id=' + d.id" v-for="d in datas" class="open mui-table-view-cell">
 				<p class="mui-pull-left date"><span>{{d.d}}</span>/{{d.m}}月</p>
 				<div class="content mui-pull-left">
-					<p>{{d.content}}</p>
-					<!--<p>浏览:1000人</p>-->
+					<p>{{d.content.length > 200? d.content.substring(0,200) + '......' : d.content}}</p>
+					<p>
+						<a @tap.stop="edit(d)" href="javascript:;" class="mui-btn-link">编辑</a>
+						<a @tap.stop="remove(d.id)" href="javascript:;" class="mui-btn-link" style="color:red;margin-left:20px;">删除</a>
+					</p>
 				</div>
 			</li>
 		</ul>
 	</div>
+	
 	
 <script src="../../js/sea.js" type="text/javascript" charset="utf-8"></script>
 <script src="../../js/entrance.js" type="text/javascript" charset="utf-8"></script>

@@ -442,25 +442,32 @@ define(function(require, exports, module){
 	//已关注笔友列表
 	function friends(){
 		var vOption = {
-			data : {datas : {}},
-			cycle:{created : getList}
+			data : {datas : {sub:[],fans:[]}},
+			cycle:{created : function(){
+				getList.call(this);
+				getList.call(this,'fans');
+			}}
 		};
 		var v = require('newvue').methods.vue(vOption);
 		
 		//获取已关注笔友列表
-		function getList(){
+		function getList(fans){
 			var _this = this;
 			var mask = new Mask();
 			mask.show();
 			$.ajax({
-				url:API.GETSUB,
+				url:fans?API.GETFANS:API.GETSUB,
 				success:function(result){
 					mask.close();
 					mui.each(result.data,function(i,item){
 						var avatar = item.user.head_img;
 						item.user.head_img = avatar?HOST + avatar:'';
 					});
-					_this.datas = result.data;
+					if(fans){
+						_this.datas.fans = result.data;
+					}else{
+						_this.datas.sub = result.data;
+					};
 				},error:function(){
 					mask.close();
 				}

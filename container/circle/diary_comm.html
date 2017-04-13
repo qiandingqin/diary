@@ -14,7 +14,10 @@
 	    <h1 class="mui-title colorFFF">评论列表</h1>
 	    <button class="publish bgred borderRed mui-btn mui-pull-right">发表</button>
 	</header>
-	
+	<style>
+	   	.comm_push{width:100%;height:200px;transition:bottom .2s;background: #FFF;position: fixed;left:0;bottom: -200px;padding:0 15px;}
+   		.comm_push.show{bottom: 0;}
+	</style>
 	<div class="mui-content ">
 		<div class="data_list">
 	    	<div class="mui-card" v-for="d in datas" v-cloak>
@@ -28,7 +31,24 @@
 				</div>
 				<div class="mui-card-content pad15">{{d.content}}</div>
 			</div>
-	   </div>
+	    </div>
+	   
+	    <!--评论发表-->
+	    <div class="comm_push publish">
+			<p class="fen">
+				<span>分数:</span>
+				<i class="mui-icon mui-icon-star active" data-index="0"></i>
+				<i class="mui-icon mui-icon-star active" data-index="1"></i>
+				<i class="mui-icon mui-icon-star active" data-index="2"></i>
+				<i class="mui-icon mui-icon-star active" data-index="3"></i>
+				<i class="mui-icon mui-icon-star active" data-index="4"></i>
+			</p>
+			
+			<textarea id="content" placeholder="内容"></textarea>
+			
+			<button class="mui-btn publish_comm wang-btn mui-btn-block mui-btn-green">发表</button>
+		
+	    </div>
 	</div>
 	
 <script src="../../js/sea.js" type="text/javascript" charset="utf-8"></script>

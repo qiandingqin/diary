@@ -46,7 +46,7 @@ define(function(require, exports, module){
 				mask.close();
 				r = r.data;
 				v.title = r.title;
-				v.content = r.content,
+				v.content = r.content.replace('&&__&&',''),
 				v.user_name = r.user.nickname || r.user.diarysn;
 				v.user_id = r.user_id;
 				v.phone = r.user_name;
@@ -212,13 +212,9 @@ define(function(require, exports, module){
 	};
 	
 	//发表评论
-	function publish_comm(){
-		var data = $.getUrlData();
-		var title = decodeURI(data.title);
-		var id = data.id;
+	function publish_comm(id,v){
 		var score;
-		mui('#title')[0].innerText = title;
-		
+		var userInfo = JSON.parse(localStorage.getItem('selfUserInfo'));
 		//分数点击事件
 		mui('.fen').on('tap','i',function(){
 			var iAll = mui('.fen i');
@@ -259,12 +255,20 @@ define(function(require, exports, module){
 					mask.close();
 					mui.toast(result.data);
 					if(result.success){
-						mui.back();
 						//刷新评论列表
-						mui.plusReady(function(){
-							var parentView = plus.webview.currentWebview().opener();
-							mui.fire(parentView,'reloadList');
-						});
+						var vData = {
+							user_id : userInfo.id,
+							created_at:parseInt(new Date().getTime() / 1000),
+							diary_id : id,
+							head_img : userInfo.head_img,
+							nickname : userInfo.nickname,
+							score : score,
+							username : userInfo.username,
+							content : content
+						};
+						v.datas.unshift(vData);
+						mui('#content')[0].value = '';
+						mui('.comm_push')[0].classList.toggle('show');
 					};
 				},
 				error:function(){mask.close();}
@@ -278,14 +282,15 @@ define(function(require, exports, module){
 		var data = $.getUrlData();
 		var title = decodeURI(data.title);
 		var id = data.id;
-		//发表按钮点击跳转
+		var comm_push = mui('.comm_push')[0];
+		//发表按钮
 		mui('.publish')[0].addEventListener('tap',function(){
-			var url = './publish_comm.html';
-			openView({url : url,data : {title : title,id : id}});
+			comm_push.classList.toggle('show');
 		});
 		
 		//引入vue
 		var vOption = {
+			el : '.data_list',
 			data : { datas :[] }
 		};
 		var v = require('newvue').methods.vue(vOption);
@@ -316,6 +321,8 @@ define(function(require, exports, module){
 			});
 		};
 		
+		//发表评论
+		publish_comm(id,v);
 	};
 	
 });

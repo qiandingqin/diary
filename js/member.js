@@ -6,7 +6,8 @@ define(function(require, exports, module){
 		wallet:wallet,
 		recharge:recharge,
 		friend_diary:friend_diary,
-		mydiary:mydiary
+		mydiary:mydiary,
+		diary_draft:diary_draft
 	};
 	
 	function member(){
@@ -132,7 +133,13 @@ define(function(require, exports, module){
 		//设置头部
 		if(!isMember)mui('#user')[0].innerText = userName;
 		//引入vue
-		var vOption = { data : {datas : []} };
+		var vOption = { 
+			data : {datas : []},
+			methods : {
+				edit : edit,
+				remove : remove
+			}
+		};
 		var v = require('newvue').methods.vue(vOption);
 		var mask = new Mask();
 		mask.show();
@@ -152,6 +159,8 @@ define(function(require, exports, module){
 					mui.each(result.data,function(i,item){
 						result.data[i].m = new Date(item.created_at * 1000).getMonth() + 1;
 						result.data[i].d = new Date(item.created_at * 1000).getDate();
+						result.data[i].content_old = item.content;
+						result.data[i].content = item.content.replace('&&__&&','');
 					});
 					v.datas = result.data;
 				},
@@ -160,6 +169,59 @@ define(function(require, exports, module){
 				}
 			});
 		};
+		
+		//编辑日记
+		function edit(d){
+			var content = d.content_old.split('&&__&&');
+			var imgArr;
+			if(d.images){
+				if(d.images.indexOf(',') != -1){
+					imgArr = d.images.split(',');
+				}else{
+					imgArr = [d.images];
+				};
+			}else{
+				imgArr = [];
+			};
+			var paramsJson = {
+				title : d.title,
+				date :  $.getTimes(d.created_at).timerStr.split(' ')[0],
+				weatherArr : WEATHER,
+				weather : d.weather,
+				moodArr : MOOD,
+				mood : d.feeling,
+				fontArr:FONT,
+				font:d.font,
+				content1:content[0],
+				content2:content[1],
+				template:d.template,
+				permit : d.permit,
+				push : d.push,
+				images : imgArr
+			};
+			openView({
+				url : '../other/add_diary.html',
+				data : { type : 'edit' , data : JSON.stringify(paramsJson) }
+			});
+		};
+		//删除日记
+		function remove(id){
+			alert('删除' + id);
+		};
+		
+	};
+	//保存日记
+	function diary_draft(){
+		var datas = JSON.parse(localStorage.getItem('diarySave')) || {};
+		var vOption = { data : {datas : datas} };
+		var v = require('newvue').methods.vue(vOption);
+		
+		//监听更新
+		window.addEventListener('update',function(){
+			datas = JSON.parse(localStorage.getItem('diarySave')) || {};
+			v.datas = datas;
+		});
+		
 	};
 	
 });

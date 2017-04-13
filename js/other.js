@@ -541,9 +541,21 @@ define(function(require, exports, module){
 	function add_diary(){
 		//添加侧滑菜单移动方法
 		startMove();
-		//初始化 Vue 用做处理数据
-		var vOption = {
-			data : {
+		var params = $.getUrlData();
+		//获得初始数据
+		var initData;
+		if(params.type == 'old'){
+			var localJson = JSON.parse(localStorage.getItem('diarySave')) || {};
+			initData = localJson[params.id];
+			initData.type = 'add';
+			initData.images = null;
+		}else if(params.type == 'edit'){
+			//TODO 获得服务器远程数据
+			initData = JSON.parse(decodeURI(params.data));
+			initData.host = HOST;
+			initData.type = 'edit';
+		}else{
+			initData = {
 				title : '',
 				date : $.getDate().split(' ')[0],
 				weatherArr : WEATHER,
@@ -556,8 +568,15 @@ define(function(require, exports, module){
 				content2:'',
 				template:'default',
 				permit : 'public',
-				push : ''
-			},
+				push : '',
+				type : 'add',
+				images:null
+			};
+		};
+		
+		//初始化 Vue 用做处理数据
+		var vOption = {
+			data : initData,
 			methods : {selDate : selDate,add : add,change : change}
 		};
 		var v = require('newvue').methods.vue(vOption);
@@ -591,6 +610,41 @@ define(function(require, exports, module){
 			v.push = push;
 		});
 		
+		//监听存草稿
+		window.addEventListener('saveContent',function(e){
+			var oldData = JSON.parse(localStorage.getItem('diarySave')) || {};
+			var create_id = params.id || new Date().getTime() + '' + parseInt(Math.random() * 10000);
+			var saveJson = {
+				title : v.title,
+				date : v.date,
+				weatherArr : v.weatherArr,
+				weather : v.weather,
+				moodArr : v.moodArr,
+				mood : v.mood,
+				fontArr:v.fontArr,
+				font:v.font,
+				content1:v.content1,
+				content2:v.content2,
+				template:v.template,
+				permit : v.permit,
+				push : v.push,
+				create_id : create_id
+			};
+			
+			oldData[create_id] = saveJson;
+			
+			localStorage.setItem('diarySave',JSON.stringify(oldData));
+			mui.toast('保存成功');
+			//通知草稿刷新
+			mui.plusReady(function(){
+				var targetView = plus.webview.getWebviewById('diary_draft');
+				if(targetView){
+					mui.fire(targetView,'update');
+					mui.back();
+				};
+			});
+		});
+		
 		//监听选择文件事件
 		function change(ev,index){
 			var _this = ev.target;
@@ -606,7 +660,7 @@ define(function(require, exports, module){
 			//准备数据
 			var subJson = {
 				"data[title]" : v.title,
-				"data[content]" : v.content1 + v.content2,
+				"data[content]" : v.content1 + '&&__&&' + v.content2,
 				"data[weather]" : v.weather,
 				"data[font]" : v.font,
 				"data[feeling]" : v.mood,
@@ -658,7 +712,6 @@ define(function(require, exports, module){
 						mask.close();
 						if(!result.success)return;
 						mui.toast('发布成功');
-						
 						//通知日记圈，我的日记刷新数据
 						mui.plusReady(function(){
 							
@@ -701,7 +754,13 @@ define(function(require, exports, module){
 	
 	//添加日记菜单
 	function add_diary_menu(){
-		
+		mui('.saveContent')[0].addEventListener('tap',function(){
+			//通知发布日记界面 保存草稿
+			mui.plusReady(function(){
+				var targetView = plus.webview.getWebviewById('add_diary');
+				mui.fire(targetView,'saveContent');
+			});
+		});
 	};
 	
 	//选择模板

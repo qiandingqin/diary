@@ -264,7 +264,7 @@ nav.nav a.active span{color:#28ACDD;}
 .publish p.fen span{font-size: 16px;color: #1F1F1F;}
 .publish p.fen i.active{color:#FFB400;}
 .publish p.fen i.active:before{content:'\e438';}
-.publish textarea{height: 120px;}
+.publish textarea{height: 60px;font-size:14px;}
 .publish button{margin:0 auto;}
 
 .draft p.title{font-size: 16px;color: #000000;margin-bottom: 10px;}

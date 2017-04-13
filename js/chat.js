@@ -89,12 +89,13 @@ define(function(require,exports,module){
 	};
 	//接收图片消息
 	function imgMessage(msg){
-		console.log(msg);
+		console.log(1)
 		//获取文件后缀
 		var fileClassify = msg.content.imageUri.split('.');
 		fileClassify = '.' + fileClassify[fileClassify.length-1];
 		//base64转换文件
 		file2base64.dataURL2Audio(msg.content.content,'img/',fileClassify,function(file){
+			console.log(2)
 			var dataJson = {
 				avatar : par.portraitUri || '../../images/avatar.png',
 				name : par.name,
@@ -111,7 +112,13 @@ define(function(require,exports,module){
 			saveChatLog(dataJson);
 			//判断是否为正在聊天用户对话
 			console.log(msg.targetId == par.userId,msg.targetId , par.userId);
-			if(msg.targetId == par.userId)v.datas.push(dataJson);
+			console.log(3)
+			if(msg.targetId == par.userId){
+				console.log(5)
+				v.datas.push(dataJson);
+				
+			}
+			console.log(4)
 		});
 	};
 	//接收语音消息
