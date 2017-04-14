@@ -31,11 +31,25 @@ define(function(require, exports, module){
 				fans:'',
 				is_auth:'',
 				is_subscribed:'',
-				avatar : ''
+				avatar : '',
+				template : ''
 			},
 			methods : { give : give , addSub : addSub , share : share ,openIm : openIm},
+			cycle:{
+				created : function(){
+					//DOM加载完毕这执行图片预览方法
+					this.$nextTick(function(){
+						mui.previewImage();
+						//处理部分元素高度
+						var AutoHeightDom = this.$el.querySelectorAll('.autoHeight');
+						var H = (window.innerWidth - 30) * 0.43 + 'px';
+						mui.each(AutoHeightDom,function(i,item){
+							item.style.height = H;
+						});
+					});
+				}
+			}
 		};
-		
 		var v = require('newvue').methods.vue(vOption);
 		mask.show();
 		//获取日记详情
@@ -46,7 +60,8 @@ define(function(require, exports, module){
 				mask.close();
 				r = r.data;
 				v.title = r.title;
-				v.content = r.content.replace('&&__&&',''),
+				v.content = r.content;
+				v.template = r.template;
 				v.user_name = r.user.nickname || r.user.diarysn;
 				v.user_id = r.user_id;
 				v.phone = r.user_name;
@@ -75,11 +90,6 @@ define(function(require, exports, module){
 			error : function(){
 				mask.close();
 			}
-		});
-		
-		//DOM加载完毕这执行图片预览方法
-		v.$nextTick(function(){
-			mui.previewImage();
 		});
 		
 		//打赏按钮点击
@@ -124,7 +134,7 @@ define(function(require, exports, module){
 				var mask = new Mask();
 				var option = {
 					title : _this.title,
-					content : _this.content,
+					content : _this.content.replace('&&__&&',''),
 					name : 'weixin'
 				};
 				mask.show();
@@ -185,6 +195,7 @@ define(function(require, exports, module){
 						if(!item.user)return;
 						var avatar = item.user.head_img;
 						result.data[i].user.head_img = avatar?HOST + avatar:'';
+						result.data[i].content = item.content.replace('&&__&&','');
 					});
 					v.datas = result.data;
 				},

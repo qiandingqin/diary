@@ -7,7 +7,8 @@ define(function(require, exports, module){
 		msg : msg,
 		friend_info : friend_info,
 		msg_im : msg_im,
-		friends:friends
+		friends:friends,
+		v : v
 	};
 	//启动引导页面
 	function guide(){
@@ -24,6 +25,7 @@ define(function(require, exports, module){
 	//首页
 	function index(){
 		var mask = new Mask();
+		var _imSttus = false;
 		//启用双击退出
 		doubleBack();
 		//渲染数据
@@ -60,134 +62,140 @@ define(function(require, exports, module){
 		});
 		
 		//接收好友添加处理
-//		require.async('lib/rongIm.js',function(e){
-//			var selfInfo = {
-//				userId : localStorage.getItem('id'),
-//				name : localStorage.getItem('user_nickname'),
-//				portraitUri : localStorage.getItem('user_avatar')
-//			};
-//			var cbJson = {
-//				addFriend : addFriend,
-//				okFriend : okFriend,
-//				noFriend : noFriend,
-//				//文本消息
-//				textMessage : textMessage,
-//				//图片消息
-//				imgMessage  : imgMessage,
-//				//语音消息
-//				audioMessage: audioMessage
-//			};
-//			var imClient = e.methods.connection(selfInfo,cbJson);
-//			
-//			//接收添加好友请求
-//			function addFriend(msg){
-//				
-//				var msgContent = msg.content.message.content;
-//				//创建本地消息
-//				createLocalMsg({content:msgContent.content,title:msgContent.nickname});
-//				
-//				//获取待处理好友列表 修改头部消息通知数量
-//				pending(function(res){
-//					mui('#msgNum')[0].innerText = res.length;
-//				});
-//			};
-//			
-//			//接收好友同意添加消息
-//			function okFriend(msg){
-//				var msgContent = msg.content.message.content;
-//				//创建本地消息
-//				createLocalMsg({content:msgContent.content,title:msgContent.nickname});
-//				//刷新好友列表
-//				mui.trigger(window,'updateFriendsList');
-//			};
-//			
-//			//接收好友拒绝添加消息
-//			function noFriend(msg){
-//				var msgContent = msg.content.message.content;
-//				//创建本地消息
-//				createLocalMsg({content:msgContent.content,title:msgContent.nickname});
-//			};
-//			
-//			//接收文本消息
-//			function textMessage(msg){
-//				var dataJson = {
-//					avatar : msg.content.extra.avatar,
-//					name : msg.content.extra.name,
-//					content : msg.content.content,
-//					time : $.getTimes((msg.sentTime / 1000)).timerStr,
-//					isSelf : false,
-//					img : '',
-//					audio : '',
-//					type : 'text',
-//					target : msg.targetId
-//				};
-//				createLocalMsg({content:msg.content.content,title:msg.content.extra.name});
-//				//保存聊天记录
-//				saveChatLog(dataJson);
-//			};
-//			//接收图片消息
-//			function imgMessage(msg){
-//				//获取文件后缀
-//				var fileClassify = msg.content.imageUri.split('.');
-//				fileClassify = '.' + fileClassify[fileClassify.length-1];
-//				//base64转换文件
-//				file2base64.dataURL2Audio(msg.content.content,'img/',fileClassify,function(file){
-//					var dataJson = {
-//						avatar : msg.content.extra.avatar,
-//						name : msg.content.extra.name,
-//						content : '',
-//						time : $.getTimes((msg.sentTime / 1000)).timerStr,
-//						isSelf : false,
-//						img : file.fullPath,
-//						audio : '',
-//						type : 'img',
-//						target : msg.targetId
-//					};
-//					createLocalMsg({content:'图片',title:msg.content.extra.name});
-//					//保存聊天记录
-//					saveChatLog(dataJson);
-//				});
-//			};
-//			//接收语音消息
-//			function audioMessage(msg){
-//				//base64转换文件
-//				file2base64.dataURL2Audio(msg.content.content,'audio/',null,function(file){
-//					var dataJson = {
-//						avatar : msg.content.extra.avatar,
-//						name : msg.content.extra.name,
-//						content : '',
-//						time : $.getTimes((msg.sentTime / 1000)).timerStr,
-//						isSelf : false,
-//						img : '',
-//						audio : file.__PURL__,
-//						type : 'audio',
-//						target : msg.targetId
-//					};
-//					createLocalMsg({content:'语音',title:msg.content.extra.name});
-//					//保存聊天记录
-//					saveChatLog(dataJson);
-//				});
-//			};
-//			
-//			mui.plusReady(function(){
-//				//监听点击通知
-//				plus.push.addEventListener( "click", function ( msg ) {
-//					// 分析msg.payload处理业务逻辑 
-//					//console.log(msg);
-//				}, false );
-//				//检测通讯界面是否存在 不存在判断是否已链接 是否重新连接
-//				var targetView = null;
-//				var m = e.methods.restApi;
-//				setInterval(function(){
-//					m.checkOnline(selfInfo.userId,function(res){
-//						if(res.status != 1){
-//							m.connSocket({token : localStorage.getItem('localToken')});
-//						};
-//					});
-//				},2000);
-//			});
-//			
-//		});
+		require.async('lib/rongIm.js',function(e){
+			var selfInfo = {
+				userId : localStorage.getItem('id'),
+				name : localStorage.getItem('user_nickname'),
+				portraitUri : localStorage.getItem('user_avatar')
+			};
+			var cbJson = {
+				addFriend : addFriend,
+				okFriend : okFriend,
+				noFriend : noFriend,
+				//文本消息
+				textMessage : textMessage,
+				//图片消息
+				imgMessage  : imgMessage,
+				//语音消息
+				audioMessage: audioMessage
+			};
+			var imClient = e.methods.connection(selfInfo,cbJson);
+			
+			//接收添加好友请求
+			function addFriend(msg){
+				
+				var msgContent = msg.content.message.content;
+				//创建本地消息
+				createLocalMsg({content:msgContent.content,title:msgContent.nickname});
+				
+				//获取待处理好友列表 修改头部消息通知数量
+				pending(function(res){
+					mui('#msgNum')[0].innerText = res.length;
+				});
+			};
+			
+			//接收好友同意添加消息
+			function okFriend(msg){
+				var msgContent = msg.content.message.content;
+				//创建本地消息
+				createLocalMsg({content:msgContent.content,title:msgContent.nickname});
+				//刷新好友列表
+				mui.trigger(window,'updateFriendsList');
+			};
+			
+			//接收好友拒绝添加消息
+			function noFriend(msg){
+				var msgContent = msg.content.message.content;
+				//创建本地消息
+				createLocalMsg({content:msgContent.content,title:msgContent.nickname});
+			};
+			
+			//接收文本消息
+			function textMessage(msg){
+				var dataJson = {
+					avatar : msg.content.extra.avatar,
+					name : msg.content.extra.name,
+					content : msg.content.content,
+					time : $.getTimes((msg.sentTime / 1000)).timerStr,
+					isSelf : false,
+					img : '',
+					audio : '',
+					type : 'text',
+					target : msg.targetId
+				};
+				createLocalMsg({content:msg.content.content,title:msg.content.extra.name});
+				//保存聊天记录
+				saveChatLog(dataJson);
+			};
+			//接收图片消息
+			function imgMessage(msg){
+				//获取文件后缀
+				var fileClassify = msg.content.imageUri.split('.');
+				fileClassify = '.' + fileClassify[fileClassify.length-1];
+				//base64转换文件
+				file2base64.dataURL2Audio(msg.content.content,'img/',fileClassify,function(file){
+					var dataJson = {
+						avatar : msg.content.extra.avatar,
+						name : msg.content.extra.name,
+						content : '',
+						time : $.getTimes((msg.sentTime / 1000)).timerStr,
+						isSelf : false,
+						img : file.fullPath,
+						audio : '',
+						type : 'img',
+						target : msg.targetId
+					};
+					//保存聊天记录
+					saveChatLog(dataJson);
+					createLocalMsg({content:'图片',title:msg.content.extra.name});
+				});
+			};
+			//接收语音消息
+			function audioMessage(msg){
+				//base64转换文件
+				file2base64.dataURL2Audio(msg.content.content,'audio/',null,function(file){
+					var dataJson = {
+						avatar : msg.content.extra.avatar,
+						name : msg.content.extra.name,
+						content : '',
+						time : $.getTimes((msg.sentTime / 1000)).timerStr,
+						isSelf : false,
+						img : '',
+						audio : file.__PURL__,
+						type : 'audio',
+						target : msg.targetId
+					};
+					createLocalMsg({content:'语音',title:msg.content.extra.name});
+					//保存聊天记录
+					saveChatLog(dataJson);
+				});
+			};
+			
+			//强制用户下线
+			window.addEventListener('logout_im',function(){
+				imClient.getInstance().disconnect();
+				_imSttus = true;
+			});
+			
+			mui.plusReady(function(){
+				//监听点击通知
+				plus.push.addEventListener( "click", function ( msg ) {
+					// 分析msg.payload处理业务逻辑 
+					//console.log(msg);
+				}, false );
+				//检测通讯界面是否存在 不存在判断是否已链接 是否重新连接
+				
+				var m = e.methods.restApi;
+				setInterval(function(){
+					var targetView = plus.webview.getWebviewById('msg_im');
+					if(!targetView && _imSttus){
+						m.getToken(selfInfo,m.connSocket);
+						_imSttus = false;
+					};
+				},3000);
+			});
+			
+		});
 	};
 	//查找笔友
 	function search_friend(){
@@ -478,8 +486,36 @@ define(function(require, exports, module){
 	
 	//IM聊天室 单聊
 	function msg_im(){
-		
 		require.async('chat.js');
+	};
+	
+	//大V专区
+	function v(){
 		
+		var vOption = {
+			data : {datas : []},
+			cycle:{created : getV}
+		};
+		var v = require('newvue').methods.vue(vOption);
+		
+		//获取大V专区列表
+		function getV(){
+			var _this = this;
+			$.ajax({
+				url:API.MEMBERINFO,
+				data:{ "search[is_auth]" : 10 },
+				success:function(res){
+					if(!res.success){
+						mui.toast(res.data);
+						return;
+					};
+					mui.each(res.data,function(i,item){
+						var avatar = item.head_img;
+						res.data[i].head_img = avatar?HOST + avatar:'';
+					});
+					_this.datas = res.data;
+				}
+			});
+		};
 	};
 })

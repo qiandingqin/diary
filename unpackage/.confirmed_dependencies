@@ -1,531 +1,584 @@
 {
-	"container/index/index.html": {
-		"resources": [
-			"images/mydiary.png",
-			"images/add.png",
-			"images/circle.png",
-			"js/plusdown.js",
-			"images/avatar.png",
-			"images/my.png",
-			"images/nav_bg.png",
-			"js/constant.js",
-			"js/newvue.js",
-			"js/functions.js",
-			"js/common.js",
-			"images/session.png",
-			"js/vue.js",
-			"js/mui.min.js",
-			"js/update.js",
-			"images/msg.png",
-			"images/friend_active.png",
-			"images/newFirend.png",
-			"images/gz.png",
-			"images/maxV.png",
-			"js/index.js",
-			"js/sea.js",
-			"css/style.css",
-			"css/mui.min.css",
-			"js/entrance.js",
-			"fonts/mui.ttf",
-			"js/lib/sha1.js",
-			"js/lib/RongIMLib-2.2.5.min.js",
-			"js/lib/rongIm.js"
-		],
-		"refer": [
-			"container/member/member.html",
-			"container/other/add_diary.html",
-			"container/member/mydiary.html",
-			"container/index/msg.html",
-			"container/index/friends.html",
-			"container/index/friend_info.html"
-		]
-	},
-	"container/index/guide.html": {
-		"resources": [
-			"images/loading.jpg",
-			"js/sea.js",
-			"fonts/mui.ttf",
-			"js/plusdown.js",
-			"css/style.css",
-			"js/constant.js",
-			"js/newvue.js",
-			"js/functions.js",
-			"js/common.js",
-			"js/vue.js",
-			"js/mui.min.js",
-			"css/mui.min.css",
-			"js/update.js",
-			"js/entrance.js",
-			"js/index.js"
-		],
-		"refer": [
-			"container/index/index.html",
-			"container/other/login.html"
-		]
-	},
-	"container/member/member.html": {
-		"resources": [
-			"images/friend.png",
-			"js/functions.js",
-			"images/my_active.png",
-			"js/common.js",
-			"js/member.js",
-			"js/vue.js",
-			"js/mui.min.js",
-			"images/v.png",
-			"js/constant.js",
-			"js/newvue.js",
-			"js/sea.js",
-			"images/mydiary.png",
-			"images/add.png",
-			"images/circle.png",
-			"fonts/mui.ttf",
-			"css/style.css",
-			"images/nav_bg.png",
-			"css/mui.min.css",
-			"js/entrance.js",
-			"images/avatar.png"
-		],
-		"refer": [
-			"container/member/wallet.html",
-			"container/other/memberinfo.html",
-			"container/other/about.html",
-			"container/circle/circle.html"
-		]
-	},
-	"container/member/wallet.html": {
-		"resources": [
-			"js/functions.js",
-			"js/common.js",
-			"js/member.js",
-			"js/vue.js",
-			"js/mui.min.js",
-			"js/constant.js",
-			"js/newvue.js",
-			"images/money.png",
-			"js/sea.js",
-			"fonts/mui.ttf",
-			"css/style.css",
-			"css/mui.min.css",
-			"js/entrance.js"
-		],
-		"refer": [
-			"container/member/recharge.html"
-		]
-	},
-	"container/member/recharge.html": {
-		"resources": [
-			"js/functions.js",
-			"images/wxpay.png",
-			"js/common.js",
-			"js/member.js",
-			"js/vue.js",
-			"js/mui.min.js",
-			"js/constant.js",
-			"images/alipay.png",
-			"js/wang_payment.js",
-			"js/newvue.js",
-			"js/sea.js",
-			"fonts/mui.ttf",
-			"css/style.css",
-			"css/mui.min.css",
-			"js/entrance.js"
-		],
-		"refer": []
-	},
-	"container/other/memberinfo.html": {
-		"resources": [
-			"js/functions.js",
-			"js/common.js",
-			"js/vue.js",
-			"js/mui.min.js",
-			"js/plusdown.js",
-			"js/update.js",
-			"js/constant.js",
-			"css/icons-extra.css",
-			"js/newvue.js",
-			"js/other.js"
-		],
-		"refer": [
-			"container/other/login.html"
-		]
-	},
-	"container/other/login.html": {
-		"resources": [
-			"js/functions.js",
-			"js/common.js",
-			"js/vue.js",
-			"js/mui.min.js",
-			"js/plusdown.js",
-			"js/update.js",
-			"js/constant.js",
-			"js/newvue.js",
-			"js/other.js",
-			"js/sea.js"
-		],
-		"refer": [
-			"container/index/index.html"
-		]
-	},
-	"container/other/add_diary.html": {
-		"resources": [
-			"images/friend.png",
-			"css/mui.picker.min.css",
-			"js/other.js",
-			"js/sea.js",
-			"images/mydiary.png",
-			"images/add.png",
-			"images/circle.png",
-			"js/plusdown.js",
-			"fonts/mui.ttf",
-			"images/my.png",
-			"css/style.css",
-			"images/nav_bg.png",
-			"js/constant.js",
-			"js/newvue.js",
-			"js/functions.js",
-			"js/common.js",
-			"js/vue.js",
-			"js/mui.min.js",
-			"css/mui.min.css",
-			"js/update.js",
-			"js/entrance.js",
-			"js/upImg.js"
-		],
-		"refer": [
-			"container/other/add_diary_menu.html",
-			"container/circle/diary_detail.html"
-		]
-	},
-	"container/member/mydiary.html": {
-		"resources": [
-			"js/member.js",
-			"images/email.png",
-			"images/mydiary_active.png",
-			"js/sea.js",
-			"images/add.png",
-			"images/circle.png",
-			"fonts/mui.ttf",
-			"images/my.png",
-			"css/style.css",
-			"js/constant.js",
-			"images/nav_bg.png",
-			"js/newvue.js",
-			"images/friend.png",
-			"js/functions.js",
-			"js/common.js",
-			"js/vue.js",
-			"js/mui.min.js",
-			"css/mui.min.css",
-			"js/entrance.js"
-		],
-		"refer": [
-			"container/other/add_diary.html",
-			"container/circle/circle.html",
-			"container/member/diary_draft.html",
-			"container/circle/diary_detail.html"
-		]
-	},
-	"container/circle/diary_detail.html": {
-		"resources": [
-			"js/mui.zoom.js",
-			"images/pl.png",
-			"images/v.png",
-			"js/mui.previewimage.js",
-			"images/fx.png",
-			"images/s.png",
-			"js/circle.js",
-			"js/sea.js",
-			"fonts/mui.ttf",
-			"images/avatar.png",
-			"css/style.css",
-			"js/constant.js",
-			"js/newvue.js",
-			"js/functions.js",
-			"js/common.js",
-			"js/vue.js",
-			"js/mui.min.js",
-			"css/mui.min.css",
-			"js/entrance.js"
-		],
-		"refer": [
-			"container/circle/diary_comm.html"
-		]
-	},
-	"container/other/ardity_jurisdiction.html": {
-		"resources": [
-			"js/functions.js",
-			"js/common.js",
-			"js/vue.js",
-			"js/mui.min.js",
-			"js/plusdown.js",
-			"js/update.js",
-			"js/entrance.js",
-			"js/constant.js",
-			"js/newvue.js",
-			"js/other.js"
-		]
-	},
-	"container/other/add_diary_menu.html": {
-		"refer": [
-			"container/other/ardity_jurisdiction.html",
-			"container/other/sel_temp.html"
-		],
-		"resources": [
-			"js/functions.js",
-			"js/sea.js",
-			"js/common.js",
-			"js/vue.js",
-			"js/mui.min.js",
-			"js/plusdown.js",
-			"css/mui.min.css",
-			"js/update.js",
-			"css/style.css",
-			"js/entrance.js",
-			"js/constant.js",
-			"js/newvue.js",
-			"js/other.js"
-		]
-	},
-	"container/circle/circle.html": {
-		"resources": [
-			"js/mui.zoom.js",
-			"images/mydiary.png",
-			"images/circle_active.png",
-			"images/avatar.png",
-			"js/mui.previewimage.js",
-			"js/circle.js",
-			"js/sea.js",
-			"images/add.png",
-			"fonts/mui.ttf",
-			"images/my.png",
-			"css/style.css",
-			"images/nav_bg.png",
-			"js/constant.js",
-			"js/newvue.js",
-			"images/friend.png",
-			"js/functions.js",
-			"js/common.js",
-			"js/vue.js",
-			"js/mui.min.js",
-			"css/mui.min.css",
-			"js/entrance.js"
-		],
-		"refer": [
-			"container/circle/diary_detail.html"
-		]
-	},
-	"container/index/msg.html": {
-		"resources": [
-			"js/plusdown.js",
-			"js/update.js",
-			"js/index.js",
-			"images/male.png",
-			"js/sea.js",
-			"fonts/mui.ttf",
-			"images/avatar.png",
-			"css/style.css",
-			"js/constant.js",
-			"js/newvue.js",
-			"js/functions.js",
-			"js/common.js",
-			"js/vue.js",
-			"js/mui.min.js",
-			"css/mui.min.css",
-			"js/entrance.js"
-		],
-		"refer": [
-			"container/circle/diary_detail.html"
-		]
-	},
-	"container/index/friends.html": {
-		"resources": [
-			"js/sea.js",
-			"js/plusdown.js",
-			"fonts/mui.ttf",
-			"css/style.css",
-			"js/constant.js",
-			"js/newvue.js",
-			"js/functions.js",
-			"js/common.js",
-			"js/vue.js",
-			"js/mui.min.js",
-			"css/mui.min.css",
-			"js/update.js",
-			"js/entrance.js",
-			"js/index.js",
-			"images/avatar.png"
-		]
-	},
-	"container/other/about.html": {
-		"resources": [
-			"js/plusdown.js",
-			"js/update.js",
-			"css/icons-extra.css",
-			"js/other.js",
-			"js/sea.js",
-			"js/entrance.js",
-			"js/newvue.js",
-			"js/functions.js",
-			"js/common.js",
-			"js/vue.js",
-			"fonts/mui.ttf",
-			"js/constant.js"
-		],
-		"refer": [
-			"container/other/about_content.html",
-			"container/other/feedback.html"
-		]
-	},
-	"container/other/about_content.html": {
-		"resources": [
-			"fonts/mui-icons-extra.ttf",
-			"js/all.js",
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"css/mui.min.css",
-			"css/style.css",
-			"css/icons-extra.css"
-		]
-	},
-	"container/other/feedback.html": {
-		"resources": [
-			"fonts/mui-icons-extra.ttf",
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"css/mui.min.css",
-			"css/style.css",
-			"js/all.js",
-			"css/icons-extra.css"
-		]
-	},
-	"container/circle/diary_comm.html": {
-		"refer": [
-			"container/circle/publish_comm.html"
-		],
-		"resources": [
-			"js/sea.js",
-			"fonts/mui.ttf",
-			"css/style.css",
-			"js/constant.js",
-			"js/circle.js",
-			"js/newvue.js",
-			"js/functions.js",
-			"js/common.js",
-			"js/mui.zoom.js",
-			"js/vue.js",
-			"js/mui.min.js",
-			"css/mui.min.css",
-			"js/mui.previewimage.js",
-			"js/entrance.js"
-		]
-	},
-	"container/circle/publish_comm.html": {
-		"resources": [
-			"js/sea.js",
-			"fonts/mui.ttf",
-			"css/style.css",
-			"js/constant.js",
-			"js/circle.js",
-			"js/newvue.js",
-			"js/functions.js",
-			"js/common.js",
-			"js/mui.zoom.js",
-			"js/vue.js",
-			"js/mui.min.js",
-			"css/mui.min.css",
-			"js/mui.previewimage.js",
-			"js/entrance.js"
-		]
-	},
-	"container/member/diary_draft.html": {
-		"resources": [
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"css/mui.min.css",
-			"css/style.css",
-			"js/all.js",
-			"js/functions.js",
-			"js/sea.js",
-			"js/common.js",
-			"js/member.js",
-			"js/vue.js",
-			"js/entrance.js",
-			"js/constant.js",
-			"js/newvue.js"
-		],
-		"refer": [
-			"container/other/add_diary.html"
-		]
-	},
-	"container/index/friend_info.html": {
-		"resources": [
-			"js/functions.js",
-			"js/sea.js",
-			"js/common.js",
-			"js/vue.js",
-			"js/mui.min.js",
-			"images/v.png",
-			"fonts/mui.ttf",
-			"css/mui.min.css",
-			"css/style.css",
-			"js/entrance.js",
-			"js/constant.js",
-			"js/plusdown.js",
-			"images/avatar.png",
-			"js/update.js",
-			"js/index.js",
-			"js/newvue.js"
-		],
-		"refer": [
-			"container/member/friend_diary.html",
-			"container/index/msg_im.html"
-		]
-	},
-	"container/member/friend_diary.html": {
-		"resources": [
-			"images/friend.png",
-			"js/member.js",
-			"images/add.png",
-			"images/diary.png",
-			"images/nav_bg.png",
-			"images/my_diary.png",
-			"images/member.png",
-			"js/sea.js",
-			"fonts/mui.ttf",
-			"css/style.css",
-			"js/constant.js",
-			"js/newvue.js",
-			"js/functions.js",
-			"js/common.js",
-			"js/vue.js",
-			"js/mui.min.js",
-			"css/mui.min.css",
-			"js/entrance.js"
-		]
-	},
-	"container/index/msg_im.html": {
-		"resources": [
-			"js/lib/sha1.js",
-			"js/chat.js",
-			"js/lib/RongIMLib-2.2.5.min.js",
-			"css/im.css",
-			"js/lib/rongIm.js",
-			"js/sea.js",
-			"js/plusdown.js",
-			"fonts/mui.ttf",
-			"images/avatar.png",
-			"css/style.css",
-			"js/constant.js",
-			"js/newvue.js",
-			"js/functions.js",
-			"js/common.js",
-			"js/vue.js",
-			"js/mui.min.js",
-			"css/mui.min.css",
-			"js/update.js",
-			"js/entrance.js",
-			"js/index.js"
-		]
-	}
+  "container/index/index.html": {
+    "resources": [
+      "images/mydiary.png",
+      "images/add.png",
+      "images/circle.png",
+      "js/plusdown.js",
+      "images/avatar.png",
+      "images/my.png",
+      "images/nav_bg.png",
+      "js/constant.js",
+      "js/newvue.js",
+      "js/functions.js",
+      "js/common.js",
+      "images/session.png",
+      "js/vue.js",
+      "js/mui.min.js",
+      "js/update.js",
+      "images/msg.png",
+      "images/friend_active.png",
+      "images/newFirend.png",
+      "images/gz.png",
+      "images/maxV.png",
+      "js/index.js",
+      "js/sea.js",
+      "css/style.css",
+      "css/mui.min.css",
+      "js/entrance.js",
+      "fonts/mui.ttf",
+      "js/lib/sha1.js",
+      "js/lib/RongIMLib-2.2.5.min.js",
+      "js/lib/rongIm.js"
+    ],
+    "refer": [
+      "container/member/member.html",
+      "container/other/add_diary.html",
+      "container/member/mydiary.html",
+      "container/index/msg.html",
+      "container/index/friends.html",
+      "container/index/friend_info.html",
+      "container/circle/circle.html",
+      "container/index/v.html"
+    ]
+  },
+  "container/index/guide.html": {
+    "resources": [
+      "images/loading.jpg",
+      "js/sea.js",
+      "fonts/mui.ttf",
+      "js/plusdown.js",
+      "css/style.css",
+      "js/constant.js",
+      "js/newvue.js",
+      "js/functions.js",
+      "js/common.js",
+      "js/vue.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/update.js",
+      "js/entrance.js",
+      "js/index.js"
+    ],
+    "refer": [
+      "container/index/index.html",
+      "container/other/login.html"
+    ]
+  },
+  "container/member/member.html": {
+    "resources": [
+      "images/friend.png",
+      "js/functions.js",
+      "images/my_active.png",
+      "js/common.js",
+      "js/member.js",
+      "js/vue.js",
+      "js/mui.min.js",
+      "images/v.png",
+      "js/constant.js",
+      "js/newvue.js",
+      "js/sea.js",
+      "images/mydiary.png",
+      "images/add.png",
+      "images/circle.png",
+      "fonts/mui.ttf",
+      "css/style.css",
+      "images/nav_bg.png",
+      "css/mui.min.css",
+      "js/entrance.js",
+      "images/avatar.png"
+    ],
+    "refer": [
+      "container/member/wallet.html",
+      "container/other/memberinfo.html",
+      "container/other/about.html",
+      "container/circle/circle.html"
+    ]
+  },
+  "container/member/wallet.html": {
+    "resources": [
+      "js/functions.js",
+      "js/common.js",
+      "js/member.js",
+      "js/vue.js",
+      "js/mui.min.js",
+      "js/constant.js",
+      "js/newvue.js",
+      "images/money.png",
+      "js/sea.js",
+      "fonts/mui.ttf",
+      "css/style.css",
+      "css/mui.min.css",
+      "js/entrance.js"
+    ],
+    "refer": [
+      "container/member/recharge.html"
+    ]
+  },
+  "container/member/recharge.html": {
+    "resources": [
+      "js/functions.js",
+      "images/wxpay.png",
+      "js/common.js",
+      "js/member.js",
+      "js/vue.js",
+      "js/mui.min.js",
+      "js/constant.js",
+      "images/alipay.png",
+      "js/wang_payment.js",
+      "js/newvue.js",
+      "js/sea.js",
+      "fonts/mui.ttf",
+      "css/style.css",
+      "css/mui.min.css",
+      "js/entrance.js"
+    ],
+    "refer": []
+  },
+  "container/other/memberinfo.html": {
+    "resources": [
+      "js/functions.js",
+      "js/common.js",
+      "js/vue.js",
+      "js/mui.min.js",
+      "js/plusdown.js",
+      "js/update.js",
+      "js/constant.js",
+      "css/icons-extra.css",
+      "js/newvue.js",
+      "js/other.js"
+    ],
+    "refer": [
+      "container/other/login.html"
+    ]
+  },
+  "container/other/login.html": {
+    "resources": [
+      "js/functions.js",
+      "js/common.js",
+      "js/vue.js",
+      "js/mui.min.js",
+      "js/plusdown.js",
+      "js/update.js",
+      "js/constant.js",
+      "js/newvue.js",
+      "js/other.js",
+      "js/sea.js"
+    ],
+    "refer": [
+      "container/index/index.html"
+    ]
+  },
+  "container/other/add_diary.html": {
+    "resources": [
+      "images/friend.png",
+      "css/mui.picker.min.css",
+      "js/other.js",
+      "js/sea.js",
+      "images/mydiary.png",
+      "images/add.png",
+      "images/circle.png",
+      "js/plusdown.js",
+      "fonts/mui.ttf",
+      "images/my.png",
+      "css/style.css",
+      "images/nav_bg.png",
+      "js/constant.js",
+      "js/newvue.js",
+      "js/functions.js",
+      "js/common.js",
+      "js/vue.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/update.js",
+      "js/entrance.js",
+      "js/upImg.js"
+    ],
+    "refer": [
+      "container/other/add_diary_menu.html",
+      "container/circle/diary_detail.html",
+      "container/member/member.html"
+    ]
+  },
+  "container/member/mydiary.html": {
+    "resources": [
+      "js/member.js",
+      "images/email.png",
+      "images/mydiary_active.png",
+      "js/sea.js",
+      "images/add.png",
+      "images/circle.png",
+      "fonts/mui.ttf",
+      "images/my.png",
+      "css/style.css",
+      "js/constant.js",
+      "images/nav_bg.png",
+      "js/newvue.js",
+      "images/friend.png",
+      "js/functions.js",
+      "js/common.js",
+      "js/vue.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/entrance.js"
+    ],
+    "refer": [
+      "container/other/add_diary.html",
+      "container/circle/circle.html",
+      "container/member/diary_draft.html",
+      "container/circle/diary_detail.html"
+    ]
+  },
+  "container/circle/diary_detail.html": {
+    "resources": [
+      "js/mui.zoom.js",
+      "images/pl.png",
+      "images/v.png",
+      "js/mui.previewimage.js",
+      "images/fx.png",
+      "images/s.png",
+      "js/circle.js",
+      "js/sea.js",
+      "fonts/mui.ttf",
+      "images/avatar.png",
+      "css/style.css",
+      "js/constant.js",
+      "js/newvue.js",
+      "js/functions.js",
+      "js/common.js",
+      "js/vue.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/entrance.js",
+      "images/avatar2.png",
+      "images/1.png",
+      "css/zoom.css",
+      "js/share.js"
+    ],
+    "refer": [
+      "container/circle/diary_comm.html"
+    ]
+  },
+  "container/other/ardity_jurisdiction.html": {
+    "resources": [
+      "js/functions.js",
+      "js/common.js",
+      "js/vue.js",
+      "js/mui.min.js",
+      "js/plusdown.js",
+      "js/update.js",
+      "js/entrance.js",
+      "js/constant.js",
+      "js/newvue.js",
+      "js/other.js"
+    ]
+  },
+  "container/other/add_diary_menu.html": {
+    "refer": [
+      "container/other/ardity_jurisdiction.html",
+      "container/other/sel_temp.html"
+    ],
+    "resources": [
+      "js/functions.js",
+      "js/sea.js",
+      "js/common.js",
+      "js/vue.js",
+      "js/mui.min.js",
+      "js/plusdown.js",
+      "css/mui.min.css",
+      "js/update.js",
+      "css/style.css",
+      "js/entrance.js",
+      "js/constant.js",
+      "js/newvue.js",
+      "js/other.js"
+    ]
+  },
+  "container/circle/circle.html": {
+    "resources": [
+      "js/mui.zoom.js",
+      "images/mydiary.png",
+      "images/circle_active.png",
+      "images/avatar.png",
+      "js/mui.previewimage.js",
+      "js/circle.js",
+      "js/sea.js",
+      "images/add.png",
+      "fonts/mui.ttf",
+      "images/my.png",
+      "css/style.css",
+      "images/nav_bg.png",
+      "js/constant.js",
+      "js/newvue.js",
+      "images/friend.png",
+      "js/functions.js",
+      "js/common.js",
+      "js/vue.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/entrance.js"
+    ],
+    "refer": [
+      "container/circle/diary_detail.html",
+      "container/other/add_diary.html",
+      "container/member/mydiary.html"
+    ]
+  },
+  "container/index/msg.html": {
+    "resources": [
+      "js/plusdown.js",
+      "js/update.js",
+      "js/index.js",
+      "images/male.png",
+      "js/sea.js",
+      "fonts/mui.ttf",
+      "images/avatar.png",
+      "css/style.css",
+      "js/constant.js",
+      "js/newvue.js",
+      "js/functions.js",
+      "js/common.js",
+      "js/vue.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/entrance.js"
+    ],
+    "refer": [
+      "container/circle/diary_detail.html"
+    ]
+  },
+  "container/index/friends.html": {
+    "resources": [
+      "js/sea.js",
+      "js/plusdown.js",
+      "fonts/mui.ttf",
+      "css/style.css",
+      "js/constant.js",
+      "js/newvue.js",
+      "js/functions.js",
+      "js/common.js",
+      "js/vue.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/update.js",
+      "js/entrance.js",
+      "js/index.js",
+      "images/avatar.png"
+    ]
+  },
+  "container/other/about.html": {
+    "resources": [
+      "js/plusdown.js",
+      "js/update.js",
+      "css/icons-extra.css",
+      "js/other.js",
+      "js/sea.js",
+      "js/entrance.js",
+      "js/newvue.js",
+      "js/functions.js",
+      "js/common.js",
+      "js/vue.js",
+      "fonts/mui.ttf",
+      "js/constant.js"
+    ],
+    "refer": [
+      "container/other/about_content.html",
+      "container/other/feedback.html"
+    ]
+  },
+  "container/other/about_content.html": {
+    "resources": [
+      "fonts/mui-icons-extra.ttf",
+      "js/all.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "css/icons-extra.css"
+    ]
+  },
+  "container/other/feedback.html": {
+    "resources": [
+      "fonts/mui-icons-extra.ttf",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/all.js",
+      "css/icons-extra.css"
+    ]
+  },
+  "container/circle/diary_comm.html": {
+    "refer": [
+      "container/circle/publish_comm.html"
+    ],
+    "resources": [
+      "js/sea.js",
+      "fonts/mui.ttf",
+      "css/style.css",
+      "js/constant.js",
+      "js/circle.js",
+      "js/newvue.js",
+      "js/functions.js",
+      "js/common.js",
+      "js/mui.zoom.js",
+      "js/vue.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/mui.previewimage.js",
+      "js/entrance.js"
+    ]
+  },
+  "container/circle/publish_comm.html": {
+    "resources": [
+      "js/sea.js",
+      "fonts/mui.ttf",
+      "css/style.css",
+      "js/constant.js",
+      "js/circle.js",
+      "js/newvue.js",
+      "js/functions.js",
+      "js/common.js",
+      "js/mui.zoom.js",
+      "js/vue.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/mui.previewimage.js",
+      "js/entrance.js"
+    ]
+  },
+  "container/member/diary_draft.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/all.js",
+      "js/functions.js",
+      "js/sea.js",
+      "js/common.js",
+      "js/member.js",
+      "js/vue.js",
+      "js/entrance.js",
+      "js/constant.js",
+      "js/newvue.js"
+    ],
+    "refer": [
+      "container/other/add_diary.html"
+    ]
+  },
+  "container/index/friend_info.html": {
+    "resources": [
+      "js/functions.js",
+      "js/sea.js",
+      "js/common.js",
+      "js/vue.js",
+      "js/mui.min.js",
+      "images/v.png",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/entrance.js",
+      "js/constant.js",
+      "js/plusdown.js",
+      "images/avatar.png",
+      "js/update.js",
+      "js/index.js",
+      "js/newvue.js"
+    ],
+    "refer": [
+      "container/member/friend_diary.html",
+      "container/index/msg_im.html"
+    ]
+  },
+  "container/member/friend_diary.html": {
+    "resources": [
+      "images/friend.png",
+      "js/member.js",
+      "images/add.png",
+      "images/diary.png",
+      "images/nav_bg.png",
+      "images/my_diary.png",
+      "images/member.png",
+      "js/sea.js",
+      "fonts/mui.ttf",
+      "css/style.css",
+      "js/constant.js",
+      "js/newvue.js",
+      "js/functions.js",
+      "js/common.js",
+      "js/vue.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/entrance.js"
+    ]
+  },
+  "container/index/msg_im.html": {
+    "resources": [
+      "js/lib/sha1.js",
+      "js/chat.js",
+      "js/lib/RongIMLib-2.2.5.min.js",
+      "css/im.css",
+      "js/lib/rongIm.js",
+      "js/sea.js",
+      "js/plusdown.js",
+      "fonts/mui.ttf",
+      "images/avatar.png",
+      "css/style.css",
+      "js/constant.js",
+      "js/newvue.js",
+      "js/functions.js",
+      "js/common.js",
+      "js/vue.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/update.js",
+      "js/entrance.js",
+      "js/index.js"
+    ]
+  },
+  "container/other/sel_temp.html": {
+    "resources": [
+      "js/functions.js",
+      "js/common.js",
+      "js/vue.js",
+      "js/mui.min.js",
+      "js/plusdown.js",
+      "js/update.js",
+      "js/constant.js",
+      "js/newvue.js",
+      "js/other.js"
+    ]
+  },
+  "container/index/v.html": {
+    "resources": [
+      "images/add.png",
+      "fonts/mui.ttf",
+      "images/avatar.png",
+      "css/style.css",
+      "images/diary.png",
+      "images/nav_bg.png",
+      "images/my_diary.png",
+      "images/member.png",
+      "images/friend.png",
+      "images/avatar1.png",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "images/msg.png",
+      "js/all.js",
+      "js/sea.js",
+      "js/plusdown.js",
+      "js/constant.js",
+      "js/newvue.js",
+      "js/functions.js",
+      "js/common.js",
+      "js/vue.js",
+      "js/update.js",
+      "js/entrance.js",
+      "js/index.js"
+    ],
+    "refer": [
+      "container/index/friend_info.html"
+    ]
+  }
 }

@@ -40,6 +40,10 @@ var API = {
 	REFUSE : HOST + '?r=pfriend/request-refuse',
 	//发布日记
 	RESEASE : HOST + '?r=diary/create',
+	//删除日记
+	REMOVEDIARY : HOST + '?r=diary/delete',
+	//修改日记
+	EDITDIARY : HOST + '?r=diary/update',
 	//日记圈
 	DIARYCIRCLE : HOST + '?r=diary/index',
 	//单篇日记详情
@@ -99,5 +103,5 @@ var FONT = ['大字体','中字体','小字体'];
 //星期转换
 var WEEK = ['日','一','二','三','四','五','六'];
 //融云信息
-var RONGIMKEY = 'c9kqb3rdcebcj';
-var RONGIMSECRET = 'QWmOuTE76wX4';
+var RONGIMKEY = '6tnym1br6gm67';
+var RONGIMSECRET = 'QsBfqP8dtm47';

@@ -548,9 +548,9 @@ define(function(require, exports, module){
 			var localJson = JSON.parse(localStorage.getItem('diarySave')) || {};
 			initData = localJson[params.id];
 			initData.type = 'add';
-			initData.images = null;
+			initData.images = [null,null,null];
 		}else if(params.type == 'edit'){
-			//TODO 获得服务器远程数据
+			//TODO 
 			initData = JSON.parse(decodeURI(params.data));
 			initData.host = HOST;
 			initData.type = 'edit';
@@ -570,7 +570,7 @@ define(function(require, exports, module){
 				permit : 'public',
 				push : '',
 				type : 'add',
-				images:null
+				images:[null,null,null]
 			};
 		};
 		
@@ -669,7 +669,6 @@ define(function(require, exports, module){
 				"data[push]" : v.push
 			};
 			var filesArr = [];
-			
 			for(var i=0,l=files[v.template].length;i<l;i++){
 				if(files[v.template][i]){
 					filesArr.push(files[v.template][i]);
@@ -699,13 +698,16 @@ define(function(require, exports, module){
 					});
 				});
 			}else{
+				if(params.type == 'edit'){
+					subJson['data[images]'] = v.images.join(',');
+				};
 				reseale(subJson);
 			};
 			
 			//提交数据
 			function reseale(subJson){
 				$.ajax({
-					url : API.RESEASE,
+					url : params.type == 'edit'?API.EDITDIARY + '&id=' + v.id:API.RESEASE,
 					type: 'post',
 					data : subJson,
 					success:function(result){
@@ -727,7 +729,7 @@ define(function(require, exports, module){
 							
 						});
 						
-						openView({url : '../circle/diary_detail.html',data : {id : result.data.id}},function(){
+						openView({url : '../circle/diary_detail.html',data : {id : params.type == 'edit'?v.id:result.data.id}},function(){
 							fireCloseView();
 						});
 					},

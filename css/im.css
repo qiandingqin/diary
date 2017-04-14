@@ -118,7 +118,7 @@ footer {
 	padding: 8px;
 	vertical-align: top;
 	font-size: 15px;
-	position: relative;
+	-position: relative;
 	margin: 0px 8px;
 	max-width: 75%;
 	min-width: 35px;

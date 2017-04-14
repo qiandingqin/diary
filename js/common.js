@@ -35,6 +35,7 @@ function openView(obj,cb){
 //创建新窗口
 function createView(obj,cb){
 	if(!obj.url)return;
+	
 	var targetViewId = obj.id || $.getFileName(true,obj.url);
 	var targetView = null;
 	var targetViewStyle = obj.style || {};
@@ -565,6 +566,10 @@ var file2base64 = {
 			fileClassify =  fileClassify || '.amr';
 			var audioName = 'chat/' + path + (new Date()).valueOf() + fileClassify;
 			base64Str = base64Str.replace('data:audio/amr;base64,','');
+			base64Str = base64Str.replace('data:image/jpeg;base64,','');
+			base64Str = base64Str.replace('data:image/png;base64,','');
+			base64Str = base64Str.replace('data:image/jpg;base64,','');
+			base64Str = base64Str.replace('data:application/JPEG;base64,','');
 		    plus.io.requestFileSystem(plus.io.PUBLIC_DOWNLOADS,function(fs){
 		        fs.root.getFile(audioName,{create:true},function(entry){
 		            // 获得平台绝对路径
@@ -581,7 +586,7 @@ var file2base64 = {
 		                    // 回调
 		                    callback && callback(entry);
 		                }catch(e){
-		                    console.log(e.message);
+		                    console.log(e);
 		                };
 		            }else if(mui.os.ios){
 		                var NSData = plus.ios.importClass('NSData');

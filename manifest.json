@@ -3,7 +3,7 @@
 	"id": "H507DC6AC",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "达人日记",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "1.0.26",/*应用版本名称*/
+		"name": "1.0.27",/*应用版本名称*/
 		"code": "83"
 	},
 	"description": "",/*应用描述信息*/
@@ -634,7 +634,9 @@
 					"js/mui.zoom.js",
 					"js/mui.previewimage.js",
 					"js/share.js",
-					"container/index/friend_info.html"
+					"container/index/friend_info.html",
+					"images/avatar2.png",
+					"css/zoom.css"
 				],
 				"refer": [
 					"container/circle/diary_comm.html",
@@ -1106,10 +1108,21 @@
 					"js/mui.min.js",
 					"css/mui.min.css",
 					"images/msg.png",
-					"js/all.js"
+					"js/all.js",
+					"js/sea.js",
+					"js/plusdown.js",
+					"js/constant.js",
+					"js/newvue.js",
+					"js/functions.js",
+					"js/common.js",
+					"js/vue.js",
+					"js/update.js",
+					"js/entrance.js",
+					"js/index.js"
 				],
 				"refer": [
-					"container/index/gz_friend_info.html"
+					"container/index/gz_friend_info.html",
+					"container/index/friend_info.html"
 				],
 				"priority": 0
 			},

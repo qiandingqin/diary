@@ -1,4 +1,11 @@
 define(function(require,exports,module){
+	//通知首页断开连接
+	mui.plusReady(function(){
+		var targetView = plus.webview.getWebviewById('index');
+		if(targetView){
+			mui.fire(targetView,'logout_im');
+		};
+	});
 	//获取用户信息
 	var par = $.getUrlData();
 	var msgMic = mui('#msg_mic')[0];
@@ -70,7 +77,6 @@ define(function(require,exports,module){
 	
 	//接收文本消息
 	function textMessage(msg){
-		console.log(msg);
 		var dataJson = {
 			avatar : par.portraitUri || '../../images/avatar.png',
 			name : par.name,
@@ -89,13 +95,11 @@ define(function(require,exports,module){
 	};
 	//接收图片消息
 	function imgMessage(msg){
-		console.log(1)
 		//获取文件后缀
 		var fileClassify = msg.content.imageUri.split('.');
 		fileClassify = '.' + fileClassify[fileClassify.length-1];
 		//base64转换文件
 		file2base64.dataURL2Audio(msg.content.content,'img/',fileClassify,function(file){
-			console.log(2)
 			var dataJson = {
 				avatar : par.portraitUri || '../../images/avatar.png',
 				name : par.name,
@@ -111,22 +115,15 @@ define(function(require,exports,module){
 			//保存聊天记录
 			saveChatLog(dataJson);
 			//判断是否为正在聊天用户对话
-			console.log(msg.targetId == par.userId,msg.targetId , par.userId);
-			console.log(3)
 			if(msg.targetId == par.userId){
-				console.log(5)
 				v.datas.push(dataJson);
-				
-			}
-			console.log(4)
+			};
 		});
 	};
 	//接收语音消息
 	function audioMessage(msg){
-		console.log(msg);
 		//base64转换文件
 		file2base64.dataURL2Audio(msg.content.content,'audio/',null,function(file){
-			console.log(file,msg);
 			var dataJson = {
 				avatar : par.portraitUri || '../../images/avatar.png',
 				name : par.name,
@@ -156,7 +153,6 @@ define(function(require,exports,module){
 		var msgContent = new RongIMLib.TextMessage({content:msgText.value,extra:selfUserInfo});
 		
 		sendMsg(imClient,msgContent,function(msg){
-			console.log(msg);
 			var dataJson = {
 				avatar : selfUserInfo.avatar,
 				name : selfUserInfo.name,
@@ -195,9 +191,7 @@ define(function(require,exports,module){
 				zip.imgZip(option,function(zipFile){
 					//转换base64
 					file2base64.Audio2dataURL(zipFile.target,function(base64File){
-						var base64Str = base64File.result.replace('data:image/jpeg;base64,','');
-						base64Str = base64Str.replace('data:image/png;base64,','');
-						base64Str = base64Str.replace('data:image/jpg;base64,','');
+						var base64Str = base64File.result;
 						//发送图片消息
 						var msgContent = new RongIMLib.ImageMessage({content:base64Str,imageUri:filepath,extra:selfUserInfo});
 						sendMsg(imClient,msgContent,function(msg){
@@ -235,7 +229,6 @@ define(function(require,exports,module){
 				var base64Str = file.result.replace('data:audio/amr;base64,','');
 				var msgContent = new RongIMLib.VoiceMessage({content:base64Str,extra:selfUserInfo});
 				sendMsg(imClient,msgContent,function(msg){
-					console.log(file,msg);
 					var dataJson = {
 						avatar : selfUserInfo.avatar,
 						name : selfUserInfo.name,

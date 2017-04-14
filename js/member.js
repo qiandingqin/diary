@@ -192,12 +192,13 @@ define(function(require, exports, module){
 				mood : d.feeling,
 				fontArr:FONT,
 				font:d.font,
-				content1:content[0],
-				content2:content[1],
+				content1:content[0] || '',
+				content2:content[1] || '',
 				template:d.template,
 				permit : d.permit,
 				push : d.push,
-				images : imgArr
+				images : imgArr,
+				id : d.id
 			};
 			openView({
 				url : '../other/add_diary.html',
@@ -205,8 +206,27 @@ define(function(require, exports, module){
 			});
 		};
 		//删除日记
-		function remove(id){
-			alert('删除' + id);
+		function remove(id,index){
+			var _this = this;
+			mui.confirm('确定删除这篇日记吗？','提示',['否','是'],function(e){
+				if(!e.index)return;
+				var mask = new Mask();
+				mask.show();
+				$.ajax({
+					url : API.REMOVEDIARY + '&id=' + id,
+					type : 'post',
+					success:function(res){
+						mask.close();
+						mui.toast(res.data);
+						if(res.success){
+							_this.datas.removeItem(index);
+						};
+					},error:function(){
+						mask.close();
+					}
+				});
+				
+			});
 		};
 		
 	};

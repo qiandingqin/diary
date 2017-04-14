@@ -168,7 +168,6 @@ define(function(require,exports,module){
 		
 		//链接socket
 		connSocket : function(res){
-			console.log(res.token);
 			//连接融云IM服务器
 			RongIMClient.connect(res.token, {
 		        onSuccess: function(userId) {
@@ -197,7 +196,6 @@ define(function(require,exports,module){
 		                  	info = '服务器不可用';
 		                  	break;
 		            };
-		            console.log(errorCode);
 		            mui.toast(info);
 	            }
 	      	});
