@@ -500,11 +500,14 @@ define(function(require, exports, module){
 		
 		//获取大V专区列表
 		function getV(){
+			var mask = new Mask();
+			mask.show();
 			var _this = this;
 			$.ajax({
 				url:API.MEMBERINFO,
 				data:{ "search[is_auth]" : 10 },
 				success:function(res){
+					mask.close();
 					if(!res.success){
 						mui.toast(res.data);
 						return;
@@ -514,6 +517,8 @@ define(function(require, exports, module){
 						res.data[i].head_img = avatar?HOST + avatar:'';
 					});
 					_this.datas = res.data;
+				},error:function(){
+					mask.close();
 				}
 			});
 		};

@@ -63,10 +63,33 @@ var $ = {
 						return;
 					};
 				}else{
-					if(!result && !result.success){
-						if(result.data.indexOf('操作拒绝') == -1){
-							mui.alert(result.data);
-						};
+//					if(!result && !result.success){
+//						if(result.data.indexOf('操作拒绝') == -1){
+//							mui.toast(result.data);
+//						};
+//					};
+					if(!result.success){
+						//alert(result.data)
+						if(result.data && (result.data.indexOf('操作拒绝') != -1 || result.data.indexOf('请登录') != -1)){
+							
+							mui.toast('登录失效，请重新登陆');
+							
+							//退出
+							mui.plusReady(function(){
+								var target = plus.webview.getWebviewById('login');
+								if(target)return;
+								var targetView = plus.webview.create('../other/login.html','login');
+								var curView = plus.webview.currentWebview();
+								targetView.show('pop-in',250,function(){
+									setTimeout(function(){
+										curView.close('none',0);
+									},250);
+								});
+								
+							});
+							
+							
+						}
 					};
 				};
 				obj.success&&obj.success(result);

@@ -39,7 +39,8 @@
       "container/index/friends.html",
       "container/index/friend_info.html",
       "container/circle/circle.html",
-      "container/index/v.html"
+      "container/index/v.html",
+      "container/other/login.html"
     ]
   },
   "container/index/guide.html": {

@@ -3,7 +3,7 @@
 	"id": "H507DC6AC",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "达人日记",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "1.0.27",/*应用版本名称*/
+		"name": "1.0.28",/*应用版本名称*/
 		"code": "83"
 	},
 	"description": "",/*应用描述信息*/
@@ -236,7 +236,8 @@
 					"container/other/add_diary.html",
 					"container/circle/circle.html",
 					"container/index/gz_friend_info.html",
-					"container/index/search_friend.html"
+					"container/index/search_friend.html",
+					"container/other/login.html"
 				],
 				"priority": 0
 			},
